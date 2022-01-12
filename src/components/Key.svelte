@@ -2,14 +2,12 @@
 	import { createEventDispatcher } from "svelte";
 
 	export let letter = "";
+	export let state: LetterState = "tbd";
 
 	const dispatch = createEventDispatcher();
 </script>
 
-<div
-	on:click={(e) => dispatch("keystroke", letter)}
-	class:big-btn={letter.length !== 1}
->
+<div class={state} on:click={(e) => dispatch("keystroke", letter)} big-btn={letter.length !== 1}>
 	{letter}<slot />
 </div>
 
@@ -26,7 +24,7 @@
 		place-items: center;
 		flex: 1;
 	}
-	.big-btn {
+	[big-btn="true"] {
 		font-size: 12px;
 		flex-grow: 1.5;
 	}

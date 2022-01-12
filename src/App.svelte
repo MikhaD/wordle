@@ -7,9 +7,5 @@
 </script>
 
 {#await wordData then words}
-	<Game
-		{words}
-		word={words.words[consistantRandInt(0, words.words.length)]}
-		{chances}
-	/>
+	<Game {words} word={words.words[consistantRandInt(0, words.words.length)]} {chances} />
 {/await}

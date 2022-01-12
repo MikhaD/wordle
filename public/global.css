@@ -69,19 +69,12 @@
 	--modal-content-bg: var(--color-tone-7);
 }
 
-
-
-main {
-	gap: 5px;
+div div.absent {
+	background: var(--color-absent);
 }
-.row {
-	display: flex;
-	gap: 5px;
+div div.present {
+	background: var(--color-present);
 }
-
-.tile {
-	font-size: 2rem;
-	width: 62px;
-	aspect-ratio: 1;
-	border: 2px solid var(--color-tone-4);
+div div.correct {
+	background: var(--color-correct);
 }

@@ -3,47 +3,41 @@
 	import Header from "./Header.svelte";
 	import Board from "./Board.svelte";
 	import Keyboard from "./Keyboard.svelte";
-	import { keys } from "../utils";
+	import { words as wordList, word as wordToGuess, value, guesses, gameState } from "../stores";
 
 	export let words: Words;
 	export let word: string;
 	export let chances: number;
-	const wordLength = words.length;
-	let guess = 0;
-
-	let value: string;
-	// Make sure word doesn't get longer than max number of characters
-	$: if (value) value = value.slice(0, wordLength);
-	$: console.info(value);
-
-	const validKeys = keys.join("");
+	$wordList = words;
+	$wordToGuess = word;
+	let keyboard: Keyboard;
 
 	function handleKeystroke(e: KeyboardEvent) {
-		if (e.key && validKeys.includes(e.key.toLowerCase())) {
-			value = value + e.key.toLowerCase();
-		} else if (e.key === "Backspace") {
-			if (value) value = value.slice(0, value.length - 1);
-		} else if (e.key === "Enter") {
-			submitWord();
+		if ($gameState === "active") {
+			if (e.key && /^[a-z]$/.test(e.key.toLowerCase())) {
+				value.append(e.key);
+			} else if (e.key === "Backspace") {
+				value.backspace();
+			} else if (e.key === "Enter") {
+				submitWord();
+			}
 		}
 	}
 
 	function submitWord() {
-		console.log(words.words.includes(value), words.valid.includes(value));
-		if (value.length !== words.length) {
-			// "Not enough letters"
+		if ($value.length !== $wordList.length) {
 			console.log("Not enough letters");
-		} else if (
-			!words.words.includes(value) &&
-			!words.valid.includes(value)
-		) {
-			// "Not in word list"
-			console.log("Not in word list");
-		} else {
-			// word is valid
+		} else if (wordList.contains($value)) {
 			console.log("Valid word!");
-			guess = guess + 1;
-			value = "";
+			guesses.increment();
+			keyboard.markLetters($value);
+			if ($value === $wordToGuess) {
+				console.log(`You win! ${$guesses}/${chances}`);
+				$gameState = "won";
+			}
+			value.reset();
+		} else {
+			console.log("Not in word list");
 		}
 	}
 </script>
@@ -52,8 +46,13 @@
 
 <main transition:fade>
 	<Header />
-	<Board {chances} {guess} {value} {wordLength} />
-	<Keyboard on:submitWord={submitWord} bind:value />
+	<Board {chances} />
+	<Keyboard
+		disabled={$gameState === "active"}
+		bind:this={keyboard}
+		on:submitWord={submitWord}
+		bind:value={$value}
+	/>
 </main>
 
 <style>

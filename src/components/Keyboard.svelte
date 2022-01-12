@@ -1,39 +1,50 @@
 <script lang="ts">
-	import { createEventDispatcher, each } from "svelte/internal";
+	import { createEventDispatcher } from "svelte/internal";
 	import { keys } from "../utils";
 	import Key from "./Key.svelte";
+	import { word } from "../stores";
 
 	export let value = "";
+	export let disabled = false;
+	export function markLetters(letters: string) {
+		for (let i = 0; i < letters.length; ++i) {
+			keysArr[letters[i]].$set({ state: word.getState(letters[i], i) });
+		}
+	}
+
+	const keysArr: { [letter: string]: Key } = {};
+
 	const dispatch = createEventDispatcher();
 
 	function appendValue(e: CustomEvent) {
-		value = value + e.detail;
+		if (!disabled) {
+			value += e.detail;
+		}
 	}
-	function submitValue(e: CustomEvent) {
-		dispatch("submitWord");
-	}
-	function backspaceValue(e: CustomEvent) {
-		if (value.length) value = value.slice(0, value.length - 1);
+	function backspaceValue() {
+		if (!disabled) {
+			value = value.slice(0, value.length - 1);
+		}
 	}
 </script>
 
 <div class="keyboard">
 	<div class="row">
 		{#each keys[0] as letter}
-			<Key {letter} on:keystroke={appendValue} />
+			<Key bind:this={keysArr[letter]} {letter} on:keystroke={appendValue} />
 		{/each}
 	</div>
 	<div class="row">
 		<div class="spacer" />
 		{#each keys[1] as letter}
-			<Key {letter} on:keystroke={appendValue} />
+			<Key bind:this={keysArr[letter]} {letter} on:keystroke={appendValue} />
 		{/each}
 		<div class="spacer" />
 	</div>
 	<div class="row">
-		<Key letter="ENTER" on:keystroke={submitValue} />
+		<Key letter="ENTER" on:keystroke={() => !disabled && dispatch("submitWord")} />
 		{#each keys[2] as letter}
-			<Key {letter} on:keystroke={appendValue} />
+			<Key bind:this={keysArr[letter]} {letter} on:keystroke={appendValue} />
 		{/each}
 		<Key on:keystroke={backspaceValue}>
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
