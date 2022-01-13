@@ -28,4 +28,13 @@
 		font-size: 12px;
 		flex-grow: 1.5;
 	}
+	.absent {
+		background: var(--color-absent);
+	}
+	.present {
+		background: var(--color-present);
+	}
+	.correct {
+		background: var(--color-correct);
+	}
 </style>

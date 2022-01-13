@@ -1,20 +1,17 @@
 <script lang="ts">
 	import Row from "./Row.svelte";
-	import { guesses, value, words } from "../stores";
+	import { game, value as val } from "../stores";
+	import { getContext } from "svelte";
 
-	export let chances: number;
+	export let value: string[];
+	const words = getContext("words") as Words;
 
-	let rows: RowData[] = [];
-	for (let i = 0; i < chances; ++i) {
-		rows.push({ length: $words.length, value: $value, guess: i });
-	}
-
-	$: if ($guesses < chances) rows[$guesses].value = $value;
+	$: if ($game.guesses < value.length) value[$game.guesses] = $val;
 </script>
 
 <div>
-	{#each rows as row (row.guess)}
-		<Row {...row} />
+	{#each value as _, i}
+		<Row length={words.length} guess={i} bind:value={value[i]} />
 	{/each}
 </div>
 

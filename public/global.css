@@ -11,6 +11,9 @@
 	color: var(--color-tone-1);
 	font-size: 16px;
 	user-select: none;
+	transition: background-color 0.3s ease;
+
+	--game-width: 500px;
 
 	--green: #6aaa64;
 	--darkendGreen: #538d4e;
@@ -19,7 +22,6 @@
 	--lightGray: #d8d8d8;
 	--gray: #86888a;
 	--darkGray: #939598;
-	--white: #fff;
 	--black: #212121;
 	/* Colorblind colors */
 	--orange: #f5793a;
@@ -42,12 +44,12 @@
 	--key-text-color: var(--color-tone-1);
 	--key-evaluated-text-color: var(--color-tone-1);
 	--key-bg: var(--color-tone-2);
-	--modal-content-bg: var(--color-tone-7);
+	--modal-border: var(--color-tone-6)
 }
 .colorblind {
 	--color-correct: var(--orange);
 	--color-present: var(--blue);
-	--tile-text-color: var(--white);
+	--tile-text-color: white;
   }
 .light {
 	--color-tone-1: #1a1a1b;
@@ -63,18 +65,16 @@
 	--color-correct: var(--green);
 	--color-absent: var(--color-tone-2);
 	--tile-text-color: var(--color-tone-7);
-	--key-text-color: var(--color-tone-1);
 	--key-evaluated-text-color: var(--color-tone-7);
 	--key-bg: var(--color-tone-4);
-	--modal-content-bg: var(--color-tone-7);
+	--modal-border: var(--color-tone: 4);
+}
+h3 {
+	text-align: center;
 }
 
-div div.absent {
-	background: var(--color-absent);
-}
-div div.present {
-	background: var(--color-present);
-}
-div div.correct {
-	background: var(--color-correct);
+.absent,
+.present,
+.correct {
+	color: var(--key-evaluated-text-color);
 }
