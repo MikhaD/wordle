@@ -1,4 +1,4 @@
-name: Update Pages Branch
+name: Publish
 
 on:
   push:

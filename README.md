@@ -1,5 +1,8 @@
-# WORDLE Clone
-A remake of the popular game Wordle with additional modes and features, written in Svelte using Typescript, hosted on GitHub pages [here]().
+# Wordle+
+[![Publish](https://github.com/MikhaD/wordle/workflows/Publish/badge.svg?branch=main)](https://mikhad.github.io/wordle/)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/MikhaD/wordle)
+
+A recreation of the popular game [Wordle](www.dailywordle.com/) with additional modes and features, written in Svelte using Typescript, hosted on GitHub pages [here](https://mikhad.github.io/wordle/).
 ## Additional Features
 Words are chosen from the list of words at random instead of in sequence, and the solution is not stored in localStorage, making it harder to cheat. The seed for the random number is created from the date, ensuring that everyone gets the same random number, so people can still compare answers.
 ### Hourly mode
@@ -26,12 +29,10 @@ This is still in development. My goal is to make it as close to the original wor
 - add google analytics or a [similar library](https://www.sitepoint.com/10-web-analytics-packages-for-tracking-your-visitors/) to track # of visitors
 
 ## Less serious
-
 - remove unused css variables
 - get rid of magic numbers (for length of word and number of guesses)
 
 ## Done
-
 - add changes & additions to README
 - pressing escape should close open modals
 - implement hard mode
