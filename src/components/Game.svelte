@@ -54,8 +54,8 @@
 				game.board.state[game.guesses][i] = state;
 				$letterStates[char] = state;
 			}
-			if (game.board.words[game.guesses] === $word) win();
 			++game.guesses;
+			if (game.board.words[game.guesses - 1] === $word) win();
 			if (game.guesses === game.board.words.length) lose();
 		} else {
 			console.log("Not in word list");
@@ -63,10 +63,10 @@
 	}
 
 	function win() {
-		console.log(`You win! ${game.guesses + 1}/${game.board.words.length}`);
+		console.log(`You win! ${game.guesses}/${game.board.words.length}`);
 		game.active = false;
 		setTimeout(() => (showStats = true), delay);
-		++stats.guesses[game.guesses + 1];
+		++stats.guesses[game.guesses];
 		++stats.played;
 		if ("streak" in stats) {
 			stats.streak =

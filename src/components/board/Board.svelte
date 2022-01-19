@@ -1,7 +1,5 @@
 <script lang="ts">
 	import Row from "./Row.svelte";
-	import { value as val } from "../../stores";
-	import { getContext } from "svelte";
 
 	export let value: string[];
 	export let state: LetterState[][];

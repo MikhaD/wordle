@@ -1,0 +1,25 @@
+name: Update Pages Branch
+
+on:
+  push:
+    branches: [main]
+  
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: install node v16
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - name: install dependancies
+        run: npm i
+      - name: compile
+        run: npm run build
+      - name: deploy to pages branch
+        uses: peaceiris/actions-gh-pages@v3
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_branch: pages
+            publish_dir: ./public
