@@ -1,8 +1,13 @@
 <script lang="ts">
 	import { createEventDispatcher } from "svelte";
+	import { scale } from "svelte/transition";
+	import type { GameMode } from "../enums";
+	import { modeData } from "../utils";
 
-	import { game } from "../stores";
 	import GameIcon from "./GameIcon.svelte";
+	export let mode: GameMode;
+	export let played: number;
+	export let tutorial: boolean;
 
 	const dispatch = createEventDispatcher();
 </script>
@@ -13,9 +18,9 @@
 			d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"
 		/>
 	</GameIcon>
-	<h1>Wordle</h1>
+	<h1 on:click={() => (mode = (mode + 1) % modeData.modes.length)}>wordle</h1>
 	<div>
-		{#if $game.state === "won"}
+		{#if played > 0}
 			<GameIcon onClick={() => dispatch("stats")}>
 				<path
 					d="M16,11V3H8v6H2v12h20V11H16z M10,5h4v14h-4V5z M4,11h4v8H4V11z M20,19h-4v-6h4V19z"
@@ -28,10 +33,18 @@
 			/>
 		</GameIcon>
 	</div>
+	{#if tutorial}
+		<div transition:scale class="prompt" on:click={() => dispatch("closeTutPopUp")}>
+			Click WORDLE to change game mode
+			<span class="ok">OK</span>
+		</div>
+	{/if}
 </header>
 
 <style>
 	header {
+		--height: 51px;
+		position: relative;
 		font-weight: 700;
 		text-transform: uppercase;
 		letter-spacing: 0.2rem;
@@ -40,10 +53,43 @@
 		align-items: center;
 		border-bottom: 1px solid var(--color-tone-4);
 		width: 100%;
-		height: 51px;
+		height: var(--height);
 		padding: 0 4px;
+	}
+	.prompt {
+		--arrow-size: 10px;
+		--padding: 16px;
+		letter-spacing: initial;
+		position: absolute;
+		inset: calc(var(--arrow-size) + var(--height)) 0 0 0;
+		width: fit-content;
+		height: fit-content;
+		padding: var(--padding);
+		margin: 0 auto;
+		border-radius: 4px;
+		color: var(--color-tone-7);
+		background-color: var(--color-tone-1);
+		z-index: 1;
+	}
+	.prompt::before {
+		content: "";
+		position: absolute;
+		left: 50%;
+		transform: translate(-50%);
+		top: calc(-2 * var(--arrow-size));
+		border: var(--arrow-size) solid transparent;
+		border-bottom: var(--arrow-size) solid var(--color-tone-1);
+	}
+	.ok {
+		padding: 10px;
+		margin-left: var(--padding);
+		border-radius: 4px;
+		color: white;
+		background-color: var(--color-correct);
+		cursor: pointer;
 	}
 	h1 {
 		font-size: 36px;
+		cursor: pointer;
 	}
 </style>

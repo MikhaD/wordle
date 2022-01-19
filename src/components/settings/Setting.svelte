@@ -1,6 +1,13 @@
 <script lang="ts">
 	import Switch from "./Switch.svelte";
-	export let checked = false;
+	import DropDown from "./DropDown.svelte";
+	export let value: any;
+	export let type: SettingType;
+	export let options: (string | number)[] = [];
+	const types = {
+		switch: Switch,
+		dropdown: DropDown,
+	};
 </script>
 
 <div class="setting">
@@ -8,7 +15,7 @@
 		<div class="title"><slot name="title" /></div>
 		<div class="desc"><slot name="desc" /></div>
 	</div>
-	<Switch bind:checked />
+	<svelte:component this={types[type]} bind:value {options} />
 </div>
 
 <style>

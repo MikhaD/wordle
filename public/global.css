@@ -11,7 +11,8 @@
 	color: var(--color-tone-1);
 	font-size: 16px;
 	user-select: none;
-	transition: background-color 0.3s ease;
+	transition: background-color 0.2s ease;
+	overflow: hidden;
 
 	--game-width: 500px;
 
@@ -71,10 +72,17 @@
 }
 h3 {
 	text-align: center;
+	text-transform: uppercase;
 }
 
-.absent,
-.present,
-.correct {
+.⬛,
+.🟨,
+.🟩 {
 	color: var(--key-evaluated-text-color);
+}
+
+
+a:link,
+a:visited {
+	color: inherit;
 }

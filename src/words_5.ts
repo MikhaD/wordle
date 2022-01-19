@@ -1,4 +1,4 @@
-{
+const words = {
 	"length": 5,
 	"words": [
 		"cigar",
@@ -12976,4 +12976,5 @@
 		"zymes",
 		"zymic"
 	]
-}
+};
+export default words;

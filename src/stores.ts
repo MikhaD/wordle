@@ -1,15 +1,8 @@
 import { writable } from "svelte/store";
-import { DEFAULT_SETTINGS, NEW_GAME } from "./utils";
+import { createDefaultSettings, createLetterStates } from "./utils";
 
-export const value = (() => {
-	const { subscribe, set } = writable("");
-	return {
-		subscribe,
-		reset: () => set(""),
-		set: (word: string) => /^[a-z]*$/.test(word) && set(word.slice(0, 5)),
-	};
-})();
+export const word = writable<string>();
 
-export const game = writable(NEW_GAME);
+export const letterStates = writable(createLetterStates());
 
-export const settings = writable(DEFAULT_SETTINGS);
+export const settings = writable(createDefaultSettings());

@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { createEventDispatcher } from "svelte";
 
-	export let letter = "";
-	export let state: LetterState = "tbd";
+	export let letter: string;
+	export let state: LetterState = "🔳";
 
 	const dispatch = createEventDispatcher();
 </script>
 
-<div class={state} on:click={(e) => dispatch("keystroke", letter)} big-btn={letter.length !== 1}>
+<div class={state} class:big={letter.length !== 1} on:click={() => dispatch("keystroke", letter)}>
 	{letter}<slot />
 </div>
 
@@ -23,18 +23,27 @@
 		display: grid;
 		place-items: center;
 		flex: 1;
+		transition: background-color 0.3s ease-in-out;
 	}
-	[big-btn="true"] {
+	:global(.guesses) div {
+		transition-delay: 1s;
+	}
+	:global(.guesses .preventChange) div {
+		transition-duration: 0.15s;
+		transition-delay: 0s;
+		background-color: var(--key-bg) !important;
+	}
+	.big {
 		font-size: 12px;
 		flex-grow: 1.5;
 	}
-	.absent {
+	.⬛ {
 		background: var(--color-absent);
 	}
-	.present {
+	.🟨 {
 		background: var(--color-present);
 	}
-	.correct {
+	.🟩 {
 		background: var(--color-correct);
 	}
 </style>

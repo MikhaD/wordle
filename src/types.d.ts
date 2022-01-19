@@ -1,12 +1,15 @@
 /** A list of words of the same length */
-type Words = {
+type Words = WordData & {
+	contains: (word: string) => boolean;
+};
+
+type WordData = {
 	/** The length of the words in this {@link Words} object */
 	length: number;
 	/** A list of possible words to guess */
 	words: string[];
 	/** A list of words that are valid when input by the user but will never get chosen as the word to guess */
 	valid: string[];
-	contains?: (word: string) => boolean;
 };
 
 type RowData = {
@@ -14,24 +17,33 @@ type RowData = {
 	guess: number;
 };
 
-type LetterState = "tbd" | "absent" | "present" | "correct";
+type LetterState = "🔳" | "⬛" | "🟨" | "🟩";
 
 type GameState = {
-	state: "won" | "lost" | "active",
+	active: boolean,
 	guesses: number,
-	board: string[],
-	lastGame: string,
+	time: number,
+	board: Board,
+};
+
+type Board = {
+	words: string[],
+	state: LetterState[][],
 };
 
 type Settings = {
 	hard: boolean,
 	dark: boolean,
 	colorblind: boolean,
+	tutorial: 0 | 1 | 2,
 };
 
+type SettingType = "switch" | "dropdown";
+
 type Word = {
-	vale: string,
-	getState: (char: string, index: numer) => LetterState,
+	daily: string,
+	infinite: string,
+	getState: (char: string, index: number, mode: GameMode) => LetterState,
 };
 
 type DictionaryEntry = {
@@ -57,4 +69,36 @@ type Definition = {
 type Phonetic = {
 	text: string;
 	audio: string;
+};
+
+type Stats = {
+	played: number;
+	streak?: number;
+	maxStreak?: number;
+	lastGame: number;
+	guesses: Guesses;
+};
+
+type Guesses = {
+	"1": number;
+	"2": number;
+	"3": number;
+	"4": number;
+	"5": number;
+	"6": number;
+	"fail": number;
+};
+
+type ModeData = {
+	default: GameMode,
+	modes: Mode[],
+};
+
+type Mode = {
+	name: string,
+	unit: number,
+	start: number,
+	seed: number,
+	icon?: string,
+	streak?: boolean,
 };

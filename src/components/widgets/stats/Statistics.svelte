@@ -1,0 +1,47 @@
+<script lang="ts">
+	import type { GameMode } from "../../../enums";
+	import { modeData } from "../../../utils";
+
+	import Stat from "./Stat.svelte";
+	export let data: Stats;
+	export let mode: GameMode;
+
+	let stats: [string, string | number][];
+	$: {
+		console.log(data);
+		stats = [
+			["Played", data.played],
+			["Win %", Math.round(((data.played - data.guesses.fail) / data.played) * 100) || 0],
+			[
+				"Average Guesses",
+				(
+					Object.entries(data.guesses).reduce((a, b) => {
+						if (!isNaN(parseInt(b[0]))) {
+							return a + parseInt(b[0]) * b[1];
+						}
+						return a;
+					}, 0) / data.played || 0
+				).toFixed(1),
+			],
+		];
+		if ("streak" in data) {
+			stats.push(["Current Streak", data.streak]);
+			stats.push(["Max Streak", data.maxStreak]);
+		}
+	}
+</script>
+
+<h3>Statistics ({modeData.modes[mode].name})</h3>
+<div>
+	{#each stats as stat}
+		<Stat name={stat[0]} stat={stat[1]} />
+	{/each}
+</div>
+
+<style>
+	div {
+		display: flex;
+		justify-content: center;
+		gap: 4px;
+	}
+</style>

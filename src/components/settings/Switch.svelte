@@ -1,8 +1,8 @@
 <script lang="ts">
-	export let checked: boolean;
+	export let value: boolean;
 </script>
 
-<div on:click={() => (checked = !checked)} class="switch" class:checked />
+<div on:click={() => (value = !value)} class="switch" class:checked={value} />
 
 <style>
 	div {
