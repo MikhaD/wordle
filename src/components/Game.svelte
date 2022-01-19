@@ -2,7 +2,7 @@
 	import Header from "./Header.svelte";
 	import { Board } from "./board";
 	import Keyboard from "./keyboard";
-	import Modal from "./modal.svelte";
+	import Modal from "./Modal.svelte";
 	import { getContext, onMount } from "svelte";
 	import Settings from "./settings";
 	import { Share, Seperator, Definition, Tutorial, Statistics } from "./widgets";
