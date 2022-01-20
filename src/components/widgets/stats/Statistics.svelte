@@ -8,7 +8,6 @@
 
 	let stats: [string, string | number][];
 	$: {
-		console.log(data);
 		stats = [
 			["Played", data.played],
 			["Win %", Math.round(((data.played - data.guesses.fail) / data.played) * 100) || 0],
