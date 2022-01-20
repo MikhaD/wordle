@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onDestroy } from "svelte";
 
-	import { word } from "../../stores";
+	import { mode } from "../../stores";
 
 	import { DELAY_INCREMENT } from "../../utils";
 
@@ -12,7 +12,7 @@
 	let s: string;
 
 	// ensure all animations play
-	const unsub = word.subscribe(() => {
+	const unsub = mode.subscribe(() => {
 		s = "🔳";
 		setTimeout(() => (s = ""), 10);
 	});

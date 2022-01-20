@@ -2,11 +2,9 @@
 	import { onMount } from "svelte";
 	import type { GameMode } from "../../enums";
 
-	import { settings } from "../../stores";
-	import { modeData } from "../../utils";
+	import { mode, settings } from "../../stores";
+	import { getWordNumber, modeData } from "../../utils";
 	import Setting from "./Setting.svelte";
-
-	export let mode: GameMode;
 
 	let root: HTMLElement;
 	onMount(() => {
@@ -39,7 +37,7 @@
 			<span slot="title">Color Blind Mode</span>
 			<span slot="desc">High contrast colors</span>
 		</Setting>
-		<Setting type="dropdown" bind:value={mode} options={modeData.modes.map((e) => e.name)}>
+		<Setting type="dropdown" bind:value={$mode} options={modeData.modes.map((e) => e.name)}>
 			<span slot="title">Game Mode</span>
 			<span slot="desc">The game mode determines how often the word refreshes</span>
 		</Setting>
@@ -47,10 +45,7 @@
 	<div class="footer">
 		<a href="https://www.powerlanguage.co.uk/wordle/" target="_blank">Original Wordle</a>
 		<div class="word">
-			{modeData.modes[mode].name} word #{(modeData.modes[mode].seed -
-				modeData.modes[mode].start) /
-				modeData.modes[mode].unit +
-				1}
+			{modeData.modes[$mode].name} word #{getWordNumber($mode)}
 		</div>
 	</div>
 </div>
@@ -66,8 +61,5 @@
 		color: var(--color-tone-2);
 		display: flex;
 		justify-content: space-between;
-	}
-	.word::first-letter {
-		text-transform: uppercase;
 	}
 </style>

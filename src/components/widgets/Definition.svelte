@@ -5,11 +5,13 @@
 
 	async function getWordData(word: string): Promise<DictionaryEntry> {
 		if (!cache.has(word)) {
-			const data = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+			const data = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`, {
+				mode: "cors",
+			});
 			if (data.ok) {
 				cache.set(word, (await data.json())[0]);
 			} else {
-				throw new Error(`No definition found for ${word}.`);
+				throw new Error(`Failed to fetch definition`);
 			}
 		}
 		return cache.get(word);
@@ -17,7 +19,7 @@
 </script>
 
 {#await getWordData(word)}
-	<h4>Fetching definition</h4>
+	<h4 class:visible>Fetching definition</h4>
 {:then data}
 	<div class:visible class="def">
 		<h2>{word}</h2>
@@ -32,11 +34,12 @@
 		</ol>
 	</div>
 {:catch}
-	<div>Word not found</div>
+	<div>failed to fetch definition for {word}</div>
 {/await}
 
 <style>
-	.def {
+	.def,
+	h4 {
 		display: none;
 	}
 	.def.visible {
@@ -45,7 +48,7 @@
 	h2 {
 		display: inline-block;
 		margin-right: 1rem;
-		margin-bottom: 1rem;
+		margin-bottom: 0.8rem;
 	}
 	ol {
 		padding-left: 1.5rem;

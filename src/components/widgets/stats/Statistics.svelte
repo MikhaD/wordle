@@ -1,10 +1,10 @@
 <script lang="ts">
 	import type { GameMode } from "../../../enums";
+	import { mode } from "../../../stores";
 	import { modeData } from "../../../utils";
 
 	import Stat from "./Stat.svelte";
 	export let data: Stats;
-	export let mode: GameMode;
 
 	let stats: [string, string | number][];
 	$: {
@@ -30,7 +30,7 @@
 	}
 </script>
 
-<h3>Statistics ({modeData.modes[mode].name})</h3>
+<h3>Statistics ({modeData.modes[$mode].name})</h3>
 <div>
 	{#each stats as stat}
 		<Stat name={stat[0]} stat={stat[1]} />
@@ -41,6 +41,6 @@
 	div {
 		display: flex;
 		justify-content: center;
-		gap: 4px;
+		gap: 8px;
 	}
 </style>

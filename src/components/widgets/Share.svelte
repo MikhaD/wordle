@@ -1,16 +1,16 @@
 <script lang="ts">
+	import type { GameMode } from "../../enums";
+	import { mode } from "../../stores";
+	import { getWordNumber, modeData } from "../../utils";
+
 	export let data: GameState;
 
-	function copyStats() {
-		navigator.clipboard.writeText(
-			`MikhaD's Wordle ${data.guesses}/${data.board.words.length}\n\n${data.board.state
-				.slice(0, data.guesses)
-				.reduce((a, b) => `${a}${b.join("")}\n`, "")}`
-		);
-	}
+	$: stats = `${modeData.modes[$mode].name} Wordle+ #${getWordNumber($mode)} ${data.guesses}/${
+		data.board.words.length
+	}\n\n${data.board.state.slice(0, data.guesses).reduce((a, b) => `${a}${b.join("")}\n`, "")}`;
 </script>
 
-<div on:click={copyStats}>
+<div on:click={() => navigator.clipboard.writeText(stats)}>
 	<h3>share</h3>
 	<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
 		<path

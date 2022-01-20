@@ -61,6 +61,7 @@
 	}
 	.exit {
 		position: absolute;
+		top: var(--exit-offset);
 		right: var(--exit-offset);
 	}
 	/* regular modal */
@@ -77,14 +78,18 @@
 		border-radius: 8px;
 		border: 1px solid var(--modal-border);
 		padding: var(--exit-offset);
+		padding-top: calc(2 * var(--exit-offset));
 		position: absolute;
 		inset: 20vh 0 0;
 		margin: auto;
 		box-shadow: 0 4px 23px 0 rgba(0, 0, 0, 0.2);
-		transition: all 0.2s ease;
+		transition: all 0.3s ease;
 	}
 	:global(.modal > *) {
 		margin-bottom: 20px;
+	}
+	:global(.modal > h3) {
+		margin-bottom: 10px;
 	}
 	/* fullscreen modal */
 	.page {

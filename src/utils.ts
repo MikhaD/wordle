@@ -1,13 +1,24 @@
 import seedrandom from "seedrandom";
 import { GameMode } from "./enums";
 
+export function checkHardMode(board: GameBoard, row: number): HardModeData {
+	for (let i = 0; i < board.words[row - 1].length; ++i) {
+		if (board.state[row - 1][i] === "🟩" && board.words[row - 1][i] !== board.words[row][i]) {
+			return { pos: i, char: board.words[row - 1][i], type: "🟩" };
+		} else if (board.state[row - 1][i] === "🟨" && !board.words[row].includes(board.words[row - 1][i])) {
+			return { pos: i, char: board.words[row - 1][i], type: "🟨" };
+		}
+	}
+	return { pos: -1, char: "", type: "⬛" };
+}
+
 export function getState(word: string, index: number, char: string): LetterState {
 	if (word.charAt(index) === char) return "🟩";
 	if (word.includes(char)) return "🟨";
 	return "⬛";
 }
 
-export function contractNumber(n: number) {
+export function contractNum(n: number) {
 	switch (n % 10) {
 		case 1: return `${n}st`;
 		case 2: return `${n}nd`;
@@ -22,7 +33,7 @@ export const modeData: ModeData = {
 	default: GameMode.daily,
 	modes: [
 		{
-			name: "daily",
+			name: "Daily",
 			unit: 86400000,
 			start: 1642370400000,	// 17/01/2022
 			seed: (() => {
@@ -32,7 +43,7 @@ export const modeData: ModeData = {
 			streak: true,
 		},
 		{
-			name: "hourly",
+			name: "Hourly",
 			unit: 3600000,
 			start: 1642528800000,	// 18/01/2022 8:00pm
 			seed: (() => {
@@ -43,7 +54,7 @@ export const modeData: ModeData = {
 			streak: true,
 		},
 		{
-			name: "infinite",
+			name: "Infinite",
 			unit: 1000,
 			start: 1642428600000,	// 17/01/2022 4:10:00pm
 			seed: (() => {
@@ -54,6 +65,10 @@ export const modeData: ModeData = {
 		}
 	]
 };
+
+export function getWordNumber(mode: GameMode) {
+	return (modeData.modes[mode].seed - modeData.modes[mode].start) / modeData.modes[mode].unit + 1;
+}
 
 export function seededRandomInt(min: number, max: number, seed: number) {
 	const rng = seedrandom(`${seed}`);

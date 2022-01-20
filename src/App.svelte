@@ -9,10 +9,11 @@
 	} from "./utils";
 	import { setContext } from "svelte";
 	import Game from "./components/Game.svelte";
-	import { letterStates, settings, word } from "./stores";
+	import { letterStates, settings, mode } from "./stores";
 	import type { GameMode } from "./enums";
 
 	export let words: WordData;
+
 	setContext<Words>("words", {
 		...words,
 		contains: (word: string) => {
@@ -20,24 +21,24 @@
 		},
 	});
 
+	let stats: Stats;
+	let word: string;
+	let state: GameState;
+
 	settings.set(
 		(JSON.parse(localStorage.getItem("settings")) as Settings) || createDefaultSettings()
 	);
+	settings.subscribe((s) => localStorage.setItem("settings", JSON.stringify(s)));
 
-	let mode = (parseInt(localStorage.getItem("mode")) as GameMode) || modeData.default;
-	$: localStorage.setItem("mode", mode);
-
-	$: stats =
-		(JSON.parse(localStorage.getItem(`stats-${mode}`)) as Stats) || createDefaultStats(mode);
-	$: word.set(words.words[seededRandomInt(0, words.words.length, modeData.modes[mode].seed)]);
-	$: localStorage.setItem("settings", JSON.stringify($settings));
-
-	$: state = loadState(mode);
-	function loadState(mode: GameMode): GameState {
-		let state: GameState = JSON.parse(localStorage.getItem(`state-${mode}`));
-		if (!state || modeData.modes[mode].seed - state.time >= modeData.modes[mode].unit) {
-			state = createNewGame(mode);
-		}
+	mode.set((parseInt(localStorage.getItem("mode")) as GameMode) || modeData.default);
+	mode.subscribe((m) => {
+		localStorage.setItem("mode", `${m}`);
+		stats = (JSON.parse(localStorage.getItem(`stats-${m}`)) as Stats) || createDefaultStats(m);
+		word = words.words[seededRandomInt(0, words.words.length, modeData.modes[m].seed)];
+		let temp: GameState = JSON.parse(localStorage.getItem(`state-${m}`));
+		if (!temp || modeData.modes[m].seed - temp.time >= modeData.modes[m].unit) {
+			state = createNewGame(m);
+		} else state = temp;
 		// Set the letter states when data for a new game mode is loaded so the keyboard is correct
 		const letters = createLetterStates();
 		for (let row = 0; row < state.board.words.length; ++row) {
@@ -46,13 +47,12 @@
 			}
 		}
 		letterStates.set(letters);
-		return state;
-	}
+	});
 
 	$: saveState(state);
 	function saveState(state: GameState) {
-		localStorage.setItem(`state-${mode}`, JSON.stringify(state));
+		localStorage.setItem(`state-${$mode}`, JSON.stringify(state));
 	}
 </script>
 
-<Game bind:mode {stats} bind:game={state} />
+<Game {stats} {word} bind:game={state} />

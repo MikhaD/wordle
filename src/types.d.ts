@@ -23,10 +23,10 @@ type GameState = {
 	active: boolean,
 	guesses: number,
 	time: number,
-	board: Board,
+	board: GameBoard,
 };
 
-type Board = {
+type GameBoard = {
 	words: string[],
 	state: LetterState[][],
 };
@@ -101,4 +101,10 @@ type Mode = {
 	seed: number,
 	icon?: string,
 	streak?: boolean,
+};
+
+type HardModeData = {
+	pos: number,
+	char: string,
+	type: "🟩" | "🟨" | "⬛",
 };

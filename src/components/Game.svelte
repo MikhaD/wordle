@@ -5,57 +5,58 @@
 	import Modal from "./Modal.svelte";
 	import { getContext, onMount } from "svelte";
 	import Settings from "./settings";
-	import { Share, Seperator, Definition, Tutorial, Statistics } from "./widgets";
-	import { contractNumber, DELAY_INCREMENT, getState, modeData } from "../utils";
-	import { letterStates, settings, word } from "../stores";
+	import {
+		Share,
+		Seperator,
+		Definition,
+		Tutorial,
+		Statistics,
+		Distribution,
+		Timer,
+	} from "./widgets";
+	import { contractNum, DELAY_INCREMENT, getState, modeData, checkHardMode } from "../utils";
+	import { letterStates, settings, mode } from "../stores";
 	import type { GameMode } from "../enums";
 
 	const words = getContext<Words>("words");
 
-	export let mode: GameMode;
+	export let word: string;
 	export let stats: Stats;
 	export let game: GameState;
 
 	// implement transition delay on keys
-	const delay = DELAY_INCREMENT * 100 * game.board.words.length + 800;
+	const delay = DELAY_INCREMENT * 100 * game.board.words.length + 1000;
 
 	let showTutorial = $settings.tutorial === 2;
 	let showSettings = false;
 	let showStats = false;
+	let showRefresh = false;
 
 	function submitWord() {
 		if (game.board.words[game.guesses].length !== words.length) {
 			console.log("Not enough letters");
 		} else if (words.contains(game.board.words[game.guesses])) {
 			if ($settings.hard && game.guesses > 0) {
-				const correctPos = game.board.state[game.guesses - 1].indexOf("🟩");
-				const correctChar = game.board.words[game.guesses - 1][correctPos];
-				const containsPos = game.board.state[game.guesses - 1].indexOf("🟨");
-				const containsChar = game.board.words[game.guesses - 1][containsPos];
-				if (correctPos >= 0 && game.board.words[game.guesses][correctPos] !== correctChar) {
+				const hm = checkHardMode(game.board, game.guesses);
+				if (hm.type === "🟩") {
 					console.log(
-						`${contractNumber(
-							correctPos + 1
-						)} letter must be ${correctChar.toUpperCase()}`
+						`${contractNum(hm.pos + 1)} letter must be ${hm.char.toUpperCase()}`
 					);
 					return;
-				} else if (
-					containsPos >= 0 &&
-					!game.board.words[game.guesses].includes(containsChar)
-				) {
-					console.log(`Guess must contain ${containsChar.toUpperCase()}`);
+				} else if (hm.type === "🟨") {
+					console.log(`Guess must contain ${hm.char.toUpperCase()}`);
 					return;
 				}
 			}
 			console.log("Valid word!");
-			for (let i = 0; i < $word.length; ++i) {
+			for (let i = 0; i < word.length; ++i) {
 				const char = game.board.words[game.guesses][i];
-				const state = getState($word, i, char);
+				const state = getState(word, i, char);
 				game.board.state[game.guesses][i] = state;
 				$letterStates[char] = state;
 			}
 			++game.guesses;
-			if (game.board.words[game.guesses - 1] === $word) win();
+			if (game.board.words[game.guesses - 1] === word) return win();
 			if (game.guesses === game.board.words.length) lose();
 		} else {
 			console.log("Not in word list");
@@ -70,35 +71,35 @@
 		++stats.played;
 		if ("streak" in stats) {
 			stats.streak =
-				modeData.modes[mode].seed - stats.lastGame >= modeData.modes[mode].unit
+				modeData.modes[$mode].seed - stats.lastGame >= modeData.modes[$mode].unit
 					? 1
 					: stats.streak + 1;
 			if (stats.streak > stats.maxStreak) stats.maxStreak = stats.streak;
 		}
-		stats.lastGame = modeData.modes[mode].seed;
-		localStorage.setItem(`stats-${mode}`, JSON.stringify(stats));
+		stats.lastGame = modeData.modes[$mode].seed;
+		localStorage.setItem(`stats-${$mode}`, JSON.stringify(stats));
 	}
 
 	function lose() {
-		console.log(`You lose! The word was ${$word}`);
+		console.log(`You lose! The word was ${word}`);
 		game.active = false;
 		setTimeout(() => (showStats = true), delay);
 		++stats.guesses.fail;
 		++stats.played;
 		if ("streak" in stats) stats.streak = 0;
-		stats.lastGame = modeData.modes[mode].seed;
-		localStorage.setItem(`stats-${mode}`, JSON.stringify(stats));
+		stats.lastGame = modeData.modes[$mode].seed;
+		localStorage.setItem(`stats-${$mode}`, JSON.stringify(stats));
 	}
 
 	onMount(() => {
 		if (!game.active) setTimeout(() => (showStats = true), delay);
 	});
-	// $: console.log($word);
+	$: console.log(word);
 </script>
 
 <main class:guesses={game.guesses !== 0}>
 	<Header
-		bind:mode
+		bind:showRefresh
 		tutorial={$settings.tutorial === 1}
 		on:closeTutPopUp|once={() => ($settings.tutorial = 0)}
 		played={stats.played}
@@ -118,9 +119,9 @@
 		}}
 		disabled={!game.active || $settings.tutorial === 2}
 	/>
-	{#if modeData.modes[mode].icon}
+	{#if modeData.modes[$mode].icon}
 		<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
-			<path d={modeData.modes[mode].icon} stroke="#000" stroke-width="14" />
+			<path d={modeData.modes[$mode].icon} stroke="#000" stroke-width="14" />
 		</svg>
 	{/if}
 </main>
@@ -133,16 +134,17 @@
 </Modal>
 
 <Modal bind:visible={showStats}>
-	<Statistics data={stats} {mode} />
+	<Statistics data={stats} />
+	<Distribution distribution={stats.guesses} guesses={game.guesses} />
 	<Seperator>
-		<h1 slot="1">Timer</h1>
+		<Timer slot="1" on:timeup={() => (showRefresh = true)} />
 		<Share slot="2" data={game} />
 	</Seperator>
-	<Definition word={$word} visible={!game.active} />
+	<Definition {word} visible={!game.active} />
 </Modal>
 
 <Modal fullscreen={true} bind:visible={showSettings}>
-	<Settings bind:mode />
+	<Settings />
 </Modal>
 
 <style>
