@@ -23,6 +23,7 @@ type GameState = {
 	active: boolean,
 	guesses: number,
 	time: number,
+	validHard: boolean,
 	board: GameBoard,
 };
 
@@ -32,7 +33,7 @@ type GameBoard = {
 };
 
 type Settings = {
-	hard: boolean,
+	hard: boolean[],
 	dark: boolean,
 	colorblind: boolean,
 	tutorial: 0 | 1 | 2,

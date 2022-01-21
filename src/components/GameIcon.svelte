@@ -6,13 +6,13 @@
 	<slot />
 </svg>
 
-<style>
+<style lang="scss">
 	svg {
 		cursor: pointer;
 		width: 24px;
 		margin: 0 4px;
-	}
-	svg :global(path) {
-		fill: var(--color-tone-3);
+		:global(path) {
+			fill: var(--color-tone-3);
+		}
 	}
 </style>

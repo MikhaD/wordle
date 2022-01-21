@@ -40,8 +40,16 @@
 	</div>
 {/if}
 
-<style>
-	/* shared styles */
+<style lang="scss">
+	@mixin modal-outer() {
+		transition: all 0.2s ease;
+		font-size: 14px;
+		visibility: hidden;
+		position: absolute;
+		z-index: 1;
+		opacity: 0;
+		inset: 0;
+	}
 	.overlay.visible,
 	.visible.page,
 	.visible .modal {
@@ -49,27 +57,18 @@
 		opacity: 1;
 		visibility: visible;
 	}
-	.overlay,
-	.page {
-		font-size: 14px;
-		visibility: hidden;
-		position: absolute;
-		z-index: 1;
-		transition: all 0.2s ease;
-		opacity: 0;
-		inset: 0;
-	}
 	.exit {
 		position: absolute;
-		top: var(--exit-offset);
-		right: var(--exit-offset);
+		top: var(--modal-padding);
+		right: var(--modal-padding);
 	}
 	/* regular modal */
 	.overlay {
+		@include modal-outer();
 		background-color: var(--opacity-50);
 	}
 	.modal {
-		--exit-offset: 16px;
+		--modal-padding: 16px;
 		background-color: var(--color-background);
 		width: var(--game-width);
 		height: min-content;
@@ -77,28 +76,29 @@
 		overflow-y: auto;
 		border-radius: 8px;
 		border: 1px solid var(--modal-border);
-		padding: var(--exit-offset);
-		padding-top: calc(2 * var(--exit-offset));
+		padding: var(--modal-padding);
+		padding-top: calc(2 * var(--modal-padding));
 		position: absolute;
 		inset: 20vh 0 0;
 		margin: auto;
 		box-shadow: 0 4px 23px 0 rgba(0, 0, 0, 0.2);
 		transition: all 0.3s ease;
-	}
-	:global(.modal > *) {
-		margin-bottom: 20px;
-	}
-	:global(.modal > h3) {
-		margin-bottom: 10px;
+		> :global(*:not(h3)) {
+			margin-bottom: 20px;
+		}
 	}
 	/* fullscreen modal */
 	.page {
+		@include modal-outer();
 		background-color: var(--color-background);
 		top: 10vh;
 		height: 100%;
-		--exit-offset: 0;
 		width: var(--game-width);
 		margin: auto;
 		padding: 10px 0;
+		.exit {
+			top: 10px;
+			right: -9px;
+		}
 	}
 </style>

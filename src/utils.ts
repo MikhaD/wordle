@@ -5,7 +5,10 @@ export function checkHardMode(board: GameBoard, row: number): HardModeData {
 	for (let i = 0; i < board.words[row - 1].length; ++i) {
 		if (board.state[row - 1][i] === "🟩" && board.words[row - 1][i] !== board.words[row][i]) {
 			return { pos: i, char: board.words[row - 1][i], type: "🟩" };
-		} else if (board.state[row - 1][i] === "🟨" && !board.words[row].includes(board.words[row - 1][i])) {
+		}
+	}
+	for (let i = 0; i < board.words[row - 1].length; ++i) {
+		if (board.state[row - 1][i] === "🟨" && !board.words[row].includes(board.words[row - 1][i])) {
 			return { pos: i, char: board.words[row - 1][i], type: "🟨" };
 		}
 	}
@@ -75,13 +78,23 @@ export function seededRandomInt(min: number, max: number, seed: number) {
 	return Math.floor(min + (max - min) * rng());
 }
 
-export const DELAY_INCREMENT = 0.1;
+export const DELAY_INCREMENT = 150;
+
+export const PRAISE = [
+	"Genius",
+	"Magnificent",
+	"Impressive",
+	"Splendid",
+	"Great",
+	"Phew",
+];
 
 export function createNewGame(mode: GameMode): GameState {
 	return {
 		active: true,
 		guesses: 0,
 		time: modeData.modes[mode].seed,
+		validHard: true,
 		board: {
 			words: ["", "", "", "", "", ""],
 			state: [
@@ -98,7 +111,7 @@ export function createNewGame(mode: GameMode): GameState {
 
 export function createDefaultSettings(): Settings {
 	return {
-		hard: false,
+		hard: new Array(modeData.modes.length).map(() => false),
 		dark: true,
 		colorblind: false,
 		tutorial: 2,

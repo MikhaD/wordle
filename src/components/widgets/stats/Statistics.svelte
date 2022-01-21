@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { GameMode } from "../../../enums";
 	import { mode } from "../../../stores";
 	import { modeData } from "../../../utils";
 
@@ -23,6 +22,9 @@
 				).toFixed(1),
 			],
 		];
+		if (data.guesses.fail > 0) {
+			stats.push(["Lost", data.guesses.fail]);
+		}
 		if ("streak" in data) {
 			stats.push(["Current Streak", data.streak]);
 			stats.push(["Max Streak", data.maxStreak]);

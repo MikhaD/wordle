@@ -1,4 +1,8 @@
-<div class="sep">
+<script lang="ts">
+	export let visible = true;
+</script>
+
+<div class="sep" class:visible>
 	<div>
 		<slot name="1" />
 	</div>
@@ -8,8 +12,11 @@
 </div>
 
 <style>
-	.sep {
+	.sep.visible {
 		display: flex;
+	}
+	.sep {
+		display: none;
 	}
 	.sep :first-child {
 		border-right: 1px solid var(--color-tone-1);

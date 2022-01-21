@@ -26,10 +26,8 @@ This is still in development. My goal is to make it as close to the original wor
 
 # To Do
 ## Before Release
-- disallow players from turning hard mode on if the current game wouldn't be possible in hard mode
-- Add link to repo in settings if people find bugs
-- Add toasts
-- Add animations
+- Fix timing nonsense with timings & delay variable
+- fix modal width scaling
 
 ## Less serious
 - add right click menu on rows that allows you to get the dictionary definition for that row
@@ -38,8 +36,14 @@ This is still in development. My goal is to make it as close to the original wor
 - Add gallery type tip widget to settings with tips like: You can also change the gamemode by clicking wordle+, right clicking wordle+ chnages the gamemode in the other direction, right click a word on the board to learn its definition, you can turn hard mode on during a game if you haven't violated the hard mode rules during that game so far, after a game you can right click a word to see how many words you could have played there taking all hints into consideration, because words are chosen from the list randomly it is possible to get the same word again, you can refresh the page to play a new wordle when one is ready, etc.
 - get rid of magic numbers (for length of word and number of guesses)
 - Add manifest.json and make it into a PWA
+- Tidy up animation code and make animation mechanism consistant (if possible)
 
 ## Done
+- Add winning toasts
+- Add link to repo in settings if people find bugs
+- Add animations
+- disallow players from turning hard mode on if the current game wouldn't be possible in hard mode
+- Add toasts
 - Add timer which turns into a refresh button
 - add a refresh button next to the tutorial button when a new wordle is available for a given mode
 - Add google analytics to track number of visitors
@@ -61,7 +65,9 @@ This is still in development. My goal is to make it as close to the original wor
 
 # Bugs
 - Definition frequently fails to be fetched
-- Mode symbol not in the correct place on different sized screens
+- Not reactive enough, goes offscreen on mobile
 - Number of guesses not being recorded properly
+- ~~Board does not scale~~
+- ~~Mode symbol not in the correct place on different sized screens (Make it part of the board so that it stays behind it)~~
 - ~~Game not refreshing on reload where it should be (may require saving last on in game state)~~
 </details>

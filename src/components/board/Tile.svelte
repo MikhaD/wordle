@@ -7,41 +7,67 @@
 
 	export let value = "";
 	export let state: LetterState;
-	export let size = "62";
 	export let position = 0;
+	export function bounce() {
+		setTimeout(() => (animation = "bounce"), (6 + position) * DELAY_INCREMENT);
+	}
 	let s: string;
+	let pop = false;
+	let animation = "";
 
 	// ensure all animations play
 	const unsub = mode.subscribe(() => {
+		animation = "";
 		s = "🔳";
 		setTimeout(() => (s = ""), 10);
 	});
+	// prevent pop animation from playing at the beginning
+	setTimeout(() => (pop = true), 200);
+
 	onDestroy(unsub);
 </script>
 
 <div
+	data-animation={animation}
+	class:value
+	class:pop
 	class="tile {state} {s}"
-	style="width:{size}px; height:{size}px; transition-delay: {position * DELAY_INCREMENT}s"
+	style="transition-delay: {position * DELAY_INCREMENT}ms"
 >
 	<div class="front">{value}</div>
 	<div class="back">{value}</div>
 </div>
 
-<style>
+<style lang="scss">
+	:not(.pop),
+	:global(.complete) .value {
+		scale: 1 !important;
+		opacity: 1 !important;
+	}
+	.value {
+		animation: pop 0.1s;
+		.front {
+			border-color: var(--color-tone-3);
+		}
+	}
 	.tile {
 		font-size: 2rem;
 		font-weight: bold;
 		text-transform: uppercase;
 		position: relative;
 		transform-style: preserve-3d;
+		&[data-animation="bounce"] {
+			animation: bounce 1s;
+		}
 	}
 	.back,
 	.front {
+		display: grid;
+		place-items: center;
 		position: absolute;
 		inset: 0;
 		backface-visibility: hidden;
-		display: grid;
-		place-items: center;
+		transition: transform 0s ease-in-out;
 	}
 	.front {
 		border: 2px solid var(--color-tone-4);
@@ -58,13 +84,45 @@
 		background: var(--color-present);
 	}
 	:global(.complete) .tile:not(.🔳) .front {
-		transition: transform 0.8s ease-in-out;
 		transition-delay: inherit !important;
+		transition-duration: 0.8s;
 		transform: rotateX(180deg);
 	}
 	:global(.complete) .tile:not(.🔳) .back {
-		transition: transform 0.8s ease-in-out;
 		transition-delay: inherit !important;
+		transition-duration: 0.8s;
 		transform: rotateX(0deg);
+	}
+	@keyframes pop {
+		from {
+			scale: 0.8;
+			opacity: 0;
+		}
+
+		40% {
+			scale: 1.1;
+			opacity: 1;
+		}
+	}
+	@keyframes bounce {
+		0%,
+		20% {
+			transform: translateY(0);
+		}
+		40% {
+			transform: translateY(-30px);
+		}
+		50% {
+			transform: translateY(5px);
+		}
+		60% {
+			transform: translateY(-15px);
+		}
+		80% {
+			transform: translateY(2px);
+		}
+		100% {
+			transform: translateY(0);
+		}
 	}
 </style>

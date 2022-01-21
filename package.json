@@ -1,7 +1,7 @@
 {
   "name": "wordle",
   "description": "A remake of the popular game Wordle with additional modes and features.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": "true",
   "scripts": {
     "build": "rollup -c",
@@ -29,6 +29,7 @@
     "rollup-plugin-livereload": "^2.0.5",
     "rollup-plugin-svelte": "^7.1.0",
     "rollup-plugin-terser": "^7.0.2",
+    "sass": "^1.49.0",
     "svelte": "^3.46.2",
     "svelte-check": "^2.3.0",
     "svelte-preprocess": "^4.10.2",

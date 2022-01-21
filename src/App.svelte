@@ -11,6 +11,7 @@
 	import Game from "./components/Game.svelte";
 	import { letterStates, settings, mode } from "./stores";
 	import type { GameMode } from "./enums";
+	import { Toaster } from "./components/widgets";
 
 	export let words: WordData;
 
@@ -53,6 +54,10 @@
 	function saveState(state: GameState) {
 		localStorage.setItem(`state-${$mode}`, JSON.stringify(state));
 	}
+	let toaster: Toaster;
 </script>
 
-<Game {stats} {word} bind:game={state} />
+<Toaster bind:this={toaster} />
+{#if toaster}
+	<Game {stats} {word} {toaster} bind:game={state} />
+{/if}

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { GameMode } from "../../enums";
 	import { mode } from "../../stores";
 	import { getWordNumber, modeData } from "../../utils";
 
@@ -11,7 +10,7 @@
 </script>
 
 <div on:click={() => navigator.clipboard.writeText(stats)}>
-	<h3>share</h3>
+	share
 	<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
 		<path
 			fill="white"
@@ -21,10 +20,10 @@
 </div>
 
 <style>
-	h3 {
-		font-size: 20px;
-	}
 	div {
+		font-size: 20px;
+		text-transform: uppercase;
+		font-weight: bold;
 		background: var(--color-correct);
 		border-radius: 4px;
 		height: 52px;

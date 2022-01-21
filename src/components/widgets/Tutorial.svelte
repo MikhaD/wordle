@@ -13,27 +13,27 @@
 <div class:complete={visible} class="examples">
 	<div><strong>Examples</strong></div>
 	<div class="row">
-		<Tile value="w" state="🟩" size="40" />
-		<Tile value="e" state="🔳" size="40" />
-		<Tile value="a" state="🔳" size="40" />
-		<Tile value="r" state="🔳" size="40" />
-		<Tile value="y" state="🔳" size="40" />
+		<Tile value="w" state="🟩" />
+		<Tile value="e" state="🔳" />
+		<Tile value="a" state="🔳" />
+		<Tile value="r" state="🔳" />
+		<Tile value="y" state="🔳" />
 	</div>
 	<div>The letter <strong>W</strong> is in the word and in the correct spot.</div>
 	<div class="row">
-		<Tile value="p" state="🔳" size="40" />
-		<Tile value="i" state="🟨" size="40" />
-		<Tile value="l" state="🔳" size="40" />
-		<Tile value="l" state="🔳" size="40" />
-		<Tile value="s" state="🔳" size="40" />
+		<Tile value="p" state="🔳" />
+		<Tile value="i" state="🟨" />
+		<Tile value="l" state="🔳" />
+		<Tile value="l" state="🔳" />
+		<Tile value="s" state="🔳" />
 	</div>
 	<div>The letter <strong>I</strong> is in the word but in the wrong spot.</div>
 	<div class="row">
-		<Tile value="v" state="🔳" size="40" />
-		<Tile value="a" state="🔳" size="40" />
-		<Tile value="g" state="🔳" size="40" />
-		<Tile value="u" state="⬛" size="40" />
-		<Tile value="e" state="🔳" size="40" />
+		<Tile value="v" state="🔳" />
+		<Tile value="a" state="🔳" />
+		<Tile value="g" state="🔳" />
+		<Tile value="u" state="⬛" />
+		<Tile value="e" state="🔳" />
 	</div>
 	<div>The letter <strong>U</strong> is not in the word in any spot.</div>
 </div>
@@ -42,19 +42,27 @@
 		href="https://www.powerlanguage.co.uk/wordle/"
 		target="_blank">Wordle</a
 	>
-	by Josh Wardle with additional modes and features, written with Svelte in Typescript by
+	by Josh Wardle with additional modes and features. Written with Svelte, in Typescript by
 	<a href="https://github.com/MikhaD" target="_blank">MikhaD</a>.
 </div>
 
-<style>
+<style lang="scss">
 	div {
 		margin: 14px 0;
 	}
 	.examples {
 		border-top: 1px solid var(--color-tone-4);
 		border-bottom: 1px solid var(--color-tone-4);
+		:global(.row > *) {
+			height: 100%;
+			aspect-ratio: 1;
+		}
+		&:not(.complete) :global(.row .back) {
+			transition-delay: 0.3s;
+		}
 	}
 	.row {
+		height: 40px;
 		display: flex;
 		gap: 4px;
 	}

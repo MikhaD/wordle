@@ -18,10 +18,10 @@
 	}
 </script>
 
-{#await getWordData(word)}
-	<h4 class:visible>Fetching definition</h4>
-{:then data}
-	<div class:visible class="def">
+<div class="def" class:visible>
+	{#await getWordData(word)}
+		<h4>Fetching definition</h4>
+	{:then data}
 		<h2>{word}</h2>
 		<em>{data.meanings[0].partOfSpeech}</em>
 		<ol>
@@ -32,10 +32,10 @@
 				<li>{def.definition}</li>
 			{/each}
 		</ol>
-	</div>
-{:catch}
-	<div>failed to fetch definition for {word}</div>
-{/await}
+	{:catch}
+		<div>Your word was <strong>{word}</strong>. (failed to fetch definition)</div>
+	{/await}
+</div>
 
 <style>
 	.def,

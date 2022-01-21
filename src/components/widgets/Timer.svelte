@@ -2,7 +2,6 @@
 	import { createEventDispatcher, onDestroy } from "svelte";
 
 	import { blur } from "svelte/transition";
-	import type { GameMode } from "../../enums";
 	import { mode } from "../../stores";
 	import { modeData } from "../../utils";
 

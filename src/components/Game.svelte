@@ -3,7 +3,7 @@
 	import { Board } from "./board";
 	import Keyboard from "./keyboard";
 	import Modal from "./Modal.svelte";
-	import { getContext, onMount } from "svelte";
+	import { getContext, onMount, setContext } from "svelte";
 	import Settings from "./settings";
 	import {
 		Share,
@@ -13,42 +13,59 @@
 		Statistics,
 		Distribution,
 		Timer,
+		Toaster,
 	} from "./widgets";
-	import { contractNum, DELAY_INCREMENT, getState, modeData, checkHardMode } from "../utils";
+	import {
+		contractNum,
+		DELAY_INCREMENT,
+		PRAISE,
+		getState,
+		modeData,
+		checkHardMode,
+	} from "../utils";
 	import { letterStates, settings, mode } from "../stores";
-	import type { GameMode } from "../enums";
-
-	const words = getContext<Words>("words");
 
 	export let word: string;
 	export let stats: Stats;
 	export let game: GameState;
+	export let toaster: Toaster;
+
+	const words = getContext<Words>("words");
+	setContext("toaster", toaster);
 
 	// implement transition delay on keys
-	const delay = DELAY_INCREMENT * 100 * game.board.words.length + 1000;
+	const delay = DELAY_INCREMENT * game.board.words.length + 800;
 
 	let showTutorial = $settings.tutorial === 2;
 	let showSettings = false;
 	let showStats = false;
 	let showRefresh = false;
 
+	let board: Board;
+
 	function submitWord() {
 		if (game.board.words[game.guesses].length !== words.length) {
-			console.log("Not enough letters");
+			toaster.pop("Not enough letters");
+			board.shake(game.guesses);
 		} else if (words.contains(game.board.words[game.guesses])) {
-			if ($settings.hard && game.guesses > 0) {
+			if (game.guesses > 0) {
 				const hm = checkHardMode(game.board, game.guesses);
-				if (hm.type === "🟩") {
-					console.log(
-						`${contractNum(hm.pos + 1)} letter must be ${hm.char.toUpperCase()}`
-					);
-					return;
-				} else if (hm.type === "🟨") {
-					console.log(`Guess must contain ${hm.char.toUpperCase()}`);
-					return;
+				if ($settings.hard[$mode]) {
+					if (hm.type === "🟩") {
+						toaster.pop(
+							`${contractNum(hm.pos + 1)} letter must be ${hm.char.toUpperCase()}`
+						);
+						board.shake(game.guesses);
+						return;
+					} else if (hm.type === "🟨") {
+						toaster.pop(`Guess must contain ${hm.char.toUpperCase()}`);
+						board.shake(game.guesses);
+						return;
+					}
+				} else if (hm.type !== "⬛") {
+					game.validHard = false;
 				}
 			}
-			console.log("Valid word!");
 			for (let i = 0; i < word.length; ++i) {
 				const char = game.board.words[game.guesses][i];
 				const state = getState(word, i, char);
@@ -56,17 +73,22 @@
 				$letterStates[char] = state;
 			}
 			++game.guesses;
-			if (game.board.words[game.guesses - 1] === word) return win();
-			if (game.guesses === game.board.words.length) lose();
+			if (game.board.words[game.guesses - 1] === word) win();
+			else if (game.guesses === game.board.words.length) lose();
 		} else {
-			console.log("Not in word list");
+			toaster.pop("Not in word list");
+			board.shake(game.guesses);
 		}
 	}
 
 	function win() {
-		console.log(`You win! ${game.guesses}/${game.board.words.length}`);
+		board.bounce(game.guesses - 1);
 		game.active = false;
-		setTimeout(() => (showStats = true), delay);
+		setTimeout(
+			() => toaster.pop(PRAISE[game.guesses - 1]),
+			DELAY_INCREMENT * game.board.words.length
+		);
+		setTimeout(() => (showStats = true), delay * 1.4);
 		++stats.guesses[game.guesses];
 		++stats.played;
 		if ("streak" in stats) {
@@ -81,7 +103,7 @@
 	}
 
 	function lose() {
-		console.log(`You lose! The word was ${word}`);
+		++game.guesses;
 		game.active = false;
 		setTimeout(() => (showStats = true), delay);
 		++stats.guesses.fail;
@@ -94,7 +116,7 @@
 	onMount(() => {
 		if (!game.active) setTimeout(() => (showStats = true), delay);
 	});
-	$: console.log(word);
+	$: toaster.pop(word);
 </script>
 
 <main class:guesses={game.guesses !== 0}>
@@ -107,7 +129,13 @@
 		on:tutorial={() => (showTutorial = true)}
 		on:settings={() => (showSettings = true)}
 	/>
-	<Board bind:value={game.board.words} state={game.board.state} guesses={game.guesses} />
+	<Board
+		bind:this={board}
+		bind:value={game.board.words}
+		state={game.board.state}
+		guesses={game.guesses}
+		icon={modeData.modes[$mode].icon}
+	/>
 	<Keyboard
 		on:keystroke|once={() => ($settings.tutorial = 0)}
 		bind:value={game.board.words[game.guesses]}
@@ -119,16 +147,12 @@
 		}}
 		disabled={!game.active || $settings.tutorial === 2}
 	/>
-	{#if modeData.modes[$mode].icon}
-		<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
-			<path d={modeData.modes[$mode].icon} stroke="#000" stroke-width="14" />
-		</svg>
-	{/if}
 </main>
 
 <Modal
 	bind:visible={showTutorial}
 	on:close|once={() => $settings.tutorial === 2 && --$settings.tutorial}
+	fullscreen={$settings.tutorial === 0}
 >
 	<Tutorial visible={showTutorial} />
 </Modal>
@@ -136,7 +160,7 @@
 <Modal bind:visible={showStats}>
 	<Statistics data={stats} />
 	<Distribution distribution={stats.guesses} guesses={game.guesses} />
-	<Seperator>
+	<Seperator visible={!game.active}>
 		<Timer slot="1" on:timeup={() => (showRefresh = true)} />
 		<Share slot="2" data={game} />
 	</Seperator>
@@ -144,7 +168,7 @@
 </Modal>
 
 <Modal fullscreen={true} bind:visible={showSettings}>
-	<Settings />
+	<Settings validHard={game.validHard} />
 </Modal>
 
 <style>
@@ -153,18 +177,9 @@
 		flex-direction: column;
 		justify-content: space-between;
 		align-items: center;
-		min-height: 100vh;
+		height: 100vh;
 		max-width: var(--game-width);
 		margin: auto;
 		position: relative;
-	}
-	.icon {
-		position: absolute;
-		z-index: -1;
-		top: 76px;
-		width: 90%;
-	}
-	.icon path {
-		stroke: var(--color-tone-6);
 	}
 </style>

@@ -1,14 +1,16 @@
 <script lang="ts">
-	import { createEventDispatcher } from "svelte";
+	import { createEventDispatcher, getContext } from "svelte";
 	import { scale, fade } from "svelte/transition";
-	import type { GameMode } from "../enums";
 	import { mode } from "../stores";
 	import { modeData } from "../utils";
-
 	import GameIcon from "./GameIcon.svelte";
+	import type { Toaster } from "./widgets";
+
 	export let played: number;
 	export let tutorial: boolean;
 	export let showRefresh: boolean;
+
+	export let toaster = getContext<Toaster>("toaster");
 
 	const dispatch = createEventDispatcher();
 	mode.subscribe((m) => {
@@ -35,9 +37,14 @@
 		{/if}
 	</div>
 	<h1
-		on:click|self={() => ($mode = ($mode + 1) % modeData.modes.length)}
-		on:contextmenu|preventDefault|self={() =>
-			($mode = ($mode - 1 + modeData.modes.length) % modeData.modes.length)}
+		on:click|self={() => {
+			$mode = ($mode + 1) % modeData.modes.length;
+			toaster.pop(modeData.modes[$mode].name);
+		}}
+		on:contextmenu|preventDefault|self={() => {
+			$mode = ($mode - 1 + modeData.modes.length) % modeData.modes.length;
+			toaster.pop(modeData.modes[$mode].name);
+		}}
 	>
 		wordle+
 	</h1>
@@ -64,7 +71,7 @@
 	{/if}
 </header>
 
-<style>
+<style lang="scss">
 	header {
 		--height: 51px;
 		position: relative;
@@ -93,15 +100,15 @@
 		color: var(--color-tone-7);
 		background-color: var(--color-tone-1);
 		z-index: 1;
-	}
-	.prompt::before {
-		content: "";
-		position: absolute;
-		left: 50%;
-		transform: translate(-50%);
-		top: calc(-2 * var(--arrow-size));
-		border: var(--arrow-size) solid transparent;
-		border-bottom: var(--arrow-size) solid var(--color-tone-1);
+		::before {
+			content: "";
+			position: absolute;
+			left: 50%;
+			transform: translate(-50%);
+			top: calc(-2 * var(--arrow-size));
+			border: var(--arrow-size) solid transparent;
+			border-bottom: var(--arrow-size) solid var(--color-tone-1);
+		}
 	}
 	.ok {
 		padding: 10px;
