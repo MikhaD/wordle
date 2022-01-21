@@ -116,7 +116,7 @@
 	onMount(() => {
 		if (!game.active) setTimeout(() => (showStats = true), delay);
 	});
-	$: toaster.pop(word);
+	// $: toaster.pop(word);
 </script>
 
 <main class:guesses={game.guesses !== 0}>
