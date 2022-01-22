@@ -13,12 +13,12 @@
 
 <style>
 	div {
-		font-size: 13px;
+		font-size: calc(var(--fs-tiny) + 1px);
 		font-weight: bold;
 		text-transform: uppercase;
 		border-radius: 4px;
 		height: 58px;
-		background-color: var(--key-bg);
+		background: var(--key-bg);
 		cursor: pointer;
 		display: grid;
 		place-items: center;
@@ -31,10 +31,10 @@
 	:global(.guesses .preventChange) div {
 		transition-duration: 0.15s;
 		transition-delay: 0s;
-		background-color: var(--key-bg) !important;
+		background: var(--key-bg) !important;
 	}
 	.big {
-		font-size: 12px;
+		font-size: var(--fs-tiny);
 		flex-grow: 1.5;
 	}
 	.⬛ {

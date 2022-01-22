@@ -46,6 +46,6 @@
 		height: 106%;
 	}
 	path {
-		stroke: var(--color-tone-6);
+		stroke: var(--bg-secondary);
 	}
 </style>

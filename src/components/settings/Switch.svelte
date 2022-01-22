@@ -14,7 +14,7 @@
 		width: 32px;
 		height: 20px;
 		border-radius: 10px;
-		background-color: var(--color-tone-3);
+		background: var(--icon-color);
 		position: relative;
 		cursor: pointer;
 		transition: background-color 0.3s ease;
@@ -23,7 +23,7 @@
 			position: absolute;
 			width: 16px;
 			aspect-ratio: 1;
-			background-color: white;
+			background: white;
 			border-radius: 50%;
 			margin: 2px;
 			left: 0;
@@ -31,7 +31,7 @@
 		}
 	}
 	.checked {
-		background-color: var(--color-correct);
+		background: var(--color-correct);
 		&::before {
 			left: 12px;
 		}

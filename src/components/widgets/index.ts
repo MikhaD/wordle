@@ -4,4 +4,5 @@ export { default as Share } from "./Share.svelte";
 export { default as Tutorial } from "./Tutorial.svelte";
 export { default as Timer } from "./Timer.svelte";
 export { default as Toaster } from "./Toaster.svelte";
+export { default as Tips } from "./Tips.svelte";
 export * from "./stats";

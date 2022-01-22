@@ -24,8 +24,8 @@
 		font-weight: bold;
 	}
 	.slice {
-		color: var(--color-tone-7);
-		background-color: var(--color-tone-1);
+		color: var(--bg-primary);
+		background: var(--fg-primary);
 		padding: 16px;
 		margin: 16px auto;
 		border-radius: 4px;

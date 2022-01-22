@@ -43,7 +43,7 @@
 <style lang="scss">
 	@mixin modal-outer() {
 		transition: all 0.2s ease;
-		font-size: 14px;
+		font-size: var(--fs-small);
 		visibility: hidden;
 		position: absolute;
 		z-index: 1;
@@ -65,23 +65,22 @@
 	/* regular modal */
 	.overlay {
 		@include modal-outer();
-		background-color: var(--opacity-50);
+		background: #0008;
 	}
 	.modal {
 		--modal-padding: 16px;
-		background-color: var(--color-background);
-		width: var(--game-width);
+		background: var(--bg-primary);
+		max-width: var(--game-width);
 		height: min-content;
 		max-height: 90%;
 		overflow-y: auto;
 		border-radius: 8px;
-		border: 1px solid var(--modal-border);
+		border: 1px solid var(--bg-secondary);
 		padding: var(--modal-padding);
 		padding-top: calc(2 * var(--modal-padding));
 		position: absolute;
 		inset: 20vh 0 0;
 		margin: auto;
-		box-shadow: 0 4px 23px 0 rgba(0, 0, 0, 0.2);
 		transition: all 0.3s ease;
 		> :global(*:not(h3)) {
 			margin-bottom: 20px;
@@ -90,10 +89,10 @@
 	/* fullscreen modal */
 	.page {
 		@include modal-outer();
-		background-color: var(--color-background);
+		background: var(--bg-primary);
 		top: 10vh;
 		height: 100%;
-		width: var(--game-width);
+		max-width: var(--game-width);
 		margin: auto;
 		padding: 10px 0;
 		.exit {

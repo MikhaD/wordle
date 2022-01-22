@@ -12,7 +12,7 @@
 		width: 24px;
 		margin: 0 4px;
 		:global(path) {
-			fill: var(--color-tone-3);
+			fill: var(--icon-color);
 		}
 	}
 </style>

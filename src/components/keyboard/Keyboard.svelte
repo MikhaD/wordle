@@ -24,15 +24,13 @@
 	function handleKeystroke(e: KeyboardEvent) {
 		if (!disabled && !e.ctrlKey && !e.altKey) {
 			if (e.key && /^[a-z]$/.test(e.key.toLowerCase())) {
-				appendValue(e.key.toLowerCase());
-			} else if (e.key === "Backspace") {
-				backspaceValue();
-			} else if (e.key === "Enter") {
-				dispatch("submitWord");
-			} else if (e.key === "Escape") {
-				dispatch("esc");
+				return appendValue(e.key.toLowerCase());
 			}
+			if (e.key === "Backspace") return backspaceValue();
+
+			if (e.key === "Enter") return dispatch("submitWord");
 		}
+		if (e.key === "Escape") dispatch("esc");
 	}
 
 	// Ensure keys change on load instead of loading their state color & change the color of all the keys to neutral, then to their correct color on mode change
@@ -102,7 +100,7 @@
 		padding: 0 30px;
 	}
 	svg {
-		fill: var(--color-tone-1);
+		fill: var(--fg-primary);
 		width: 24px;
 	}
 </style>

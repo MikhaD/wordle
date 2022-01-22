@@ -1,7 +1,8 @@
 <script lang="ts">
+	import { definitions as cache } from "../../utils";
 	export let word: string;
-	export let visible: boolean;
-	const cache = new Map<string, Promise<DictionaryEntry>>();
+	/** The maximum number of alternate definitions to provide*/
+	export let alternates = 9;
 
 	async function getWordData(word: string): Promise<DictionaryEntry> {
 		if (!cache.has(word)) {
@@ -18,7 +19,7 @@
 	}
 </script>
 
-<div class="def" class:visible>
+<div class="def">
 	{#await getWordData(word)}
 		<h4>Fetching definition</h4>
 	{:then data}
@@ -28,7 +29,7 @@
 			{#if word !== data.word}
 				<li>variant of {data.word}.</li>
 			{/if}
-			{#each data.meanings[0].definitions.slice(0, 4) as def}
+			{#each data.meanings[0].definitions.slice(0, 1 + alternates - (word !== data.word ? 1 : 0)) as def}
 				<li>{def.definition}</li>
 			{/each}
 		</ol>
@@ -38,13 +39,6 @@
 </div>
 
 <style>
-	.def,
-	h4 {
-		display: none;
-	}
-	.def.visible {
-		display: block;
-	}
 	h2 {
 		display: inline-block;
 		margin-right: 1rem;
@@ -60,6 +54,6 @@
 		text-transform: uppercase;
 	}
 	li::marker {
-		color: var(--color-tone-2);
+		color: var(--fg-secondary);
 	}
 </style>

@@ -4,9 +4,11 @@
 
 	export let data: GameState;
 
-	$: stats = `${modeData.modes[$mode].name} Wordle+ #${getWordNumber($mode)} ${data.guesses}/${
-		data.board.words.length
-	}\n\n${data.board.state.slice(0, data.guesses).reduce((a, b) => `${a}${b.join("")}\n`, "")}`;
+	$: stats = `${modeData.modes[$mode].name} Wordle+ #${getWordNumber($mode)} ${
+		data.guesses <= data.board.words.length ? data.guesses : "X"
+	}/${data.board.words.length}\n\n${data.board.state
+		.slice(0, data.guesses)
+		.reduce((a, b) => `${a}${b.join("")}\n`, "")}`;
 </script>
 
 <div on:click={() => navigator.clipboard.writeText(stats)}>
@@ -21,7 +23,7 @@
 
 <style>
 	div {
-		font-size: 20px;
+		font-size: var(--fs-medium);
 		text-transform: uppercase;
 		font-weight: bold;
 		background: var(--color-correct);

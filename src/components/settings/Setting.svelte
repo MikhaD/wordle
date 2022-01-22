@@ -21,18 +21,18 @@
 
 <style>
 	.setting {
-		border-bottom: 1px solid var(--color-tone-4);
+		border-bottom: 1px solid var(--border-primary);
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		padding: 16px 0;
 	}
 	.title {
-		font-size: 18px;
+		font-size: var(--fs-medium);
 		font-weight: 500;
 	}
 	.desc {
-		font-size: 12px;
-		color: var(--color-tone-2);
+		font-size: var(--fs-tiny);
+		color: var(--fg-secondary);
 	}
 </style>

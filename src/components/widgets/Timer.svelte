@@ -61,7 +61,7 @@
 	.timer {
 		position: absolute;
 		inset: 0;
-		font-size: 36px;
+		font-size: var(--fs-large);
 		text-align: center;
 	}
 	.button {

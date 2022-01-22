@@ -15,6 +15,44 @@ export function checkHardMode(board: GameBoard, row: number): HardModeData {
 	return { pos: -1, char: "", type: "⬛" };
 }
 
+export function getRowData(n: number, board: GameBoard) {
+	const wordData = {
+		// letters not contained
+		not: [],
+		// for letters contained in the word that are not the same as any that are in the correct place
+		contained: new Set<string>(),
+		letters: Array.from({ length: 5 }, () => ({ val: null, not: new Set<string>() })),
+	};
+	for (let row = 0; row < n; ++row) {
+		for (let col = 0; col < 5; ++col)
+			if (board.state[row][col] === "🟨") {
+				wordData.contained.add(board.words[row][col]);
+				wordData.letters[col].not.add(board.words[row][col]);
+			} else if (board.state[row][col] === "🟩") {
+				wordData.contained.delete(board.words[row][col]);
+				wordData.letters[col].val = board.words[row][col];
+			} else {
+				wordData.not.push(board.words[row][col]);
+			}
+	}
+	let exp = "";
+	for (let i = 0; i < 5; ++i) {
+		exp += wordData.letters[i].val
+			? wordData.letters[i].val
+			: `[^${[...wordData.not, ...wordData.letters[i].not].join(" ")}]`;
+	}
+	console.log(exp);
+	return (word: string) => {
+		if (new RegExp(exp).test(word)) {
+			for (const char of wordData.contained) {
+				if (!word.includes(char)) return false;
+			}
+			return true;
+		}
+		return false;
+	};
+}
+
 export function getState(word: string, index: number, char: string): LetterState {
 	if (word.charAt(index) === char) return "🟩";
 	if (word.includes(char)) return "🟨";
@@ -170,3 +208,5 @@ export function createLetterStates(): { [key: string]: LetterState; } {
 		z: "🔳",
 	};
 }
+
+export const definitions = new Map<string, Promise<DictionaryEntry>>();

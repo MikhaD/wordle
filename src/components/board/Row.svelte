@@ -1,4 +1,11 @@
 <script lang="ts">
+	import { getContext } from "svelte";
+
+	import { get } from "svelte/store";
+	import { gameBoard } from "../../stores";
+	import { getRowData } from "../../utils";
+
+	import ContextMenu from "../widgets/ContextMenu.svelte";
 	import Tile from "./Tile.svelte";
 	export let guesses: number;
 	export let num: number;
@@ -10,11 +17,42 @@
 	export function bounce() {
 		tiles.forEach((e) => e.bounce());
 	}
+	const words = getContext<Words>("words");
 	let animation = "";
 	let tiles: Tile[] = [];
+
+	function context(e: MouseEvent) {
+		if (guesses >= num) {
+			x = e.clientX;
+			y = e.clientY;
+			showCtx = true;
+
+			const match = getRowData(num, get(gameBoard));
+			pAns = words.words.filter((w) => match(w)).length;
+			pSols = pAns + words.valid.filter((w) => match(w)).length;
+		}
+	}
+	let showCtx = false;
+	let pAns = 0;
+	let pSols = 0;
+	let x = 0;
+	let y = 0;
 </script>
 
+{#if showCtx}
+	<ContextMenu
+		{pAns}
+		{pSols}
+		{x}
+		{y}
+		bind:visible={showCtx}
+		word={guesses > num && num < 5 ? value : ""}
+	/>
+{/if}
+
 <div
+	class="board-row"
+	on:contextmenu|preventDefault={context}
 	on:animationend={() => (animation = "")}
 	data-animation={animation}
 	class:complete={guesses > num}
@@ -25,7 +63,7 @@
 </div>
 
 <style lang="scss">
-	div {
+	.board-row {
 		display: grid;
 		grid-template-columns: repeat(5, 1fr);
 		gap: 5px;

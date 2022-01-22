@@ -47,7 +47,7 @@
 	.value {
 		animation: pop 0.1s;
 		.front {
-			border-color: var(--color-tone-3);
+			border-color: var(--border-primary);
 		}
 	}
 	.tile {
@@ -70,7 +70,7 @@
 		transition: transform 0s ease-in-out;
 	}
 	.front {
-		border: 2px solid var(--color-tone-4);
+		border: 2px solid var(--border-primary);
 		transform: rotateX(0deg);
 	}
 	.back {

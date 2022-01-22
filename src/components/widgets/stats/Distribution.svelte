@@ -13,7 +13,6 @@
 				<span class="guess">{guess[0]}</span>
 				<div
 					class="bar"
-					on:click={() => console.log(guess, guesses)}
 					class:this={parseInt(guess[0]) === guesses}
 					style="width: {(guess[1] / max) * 100}%;"
 				>

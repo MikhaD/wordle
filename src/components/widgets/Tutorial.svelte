@@ -44,6 +44,8 @@
 	>
 	by Josh Wardle with additional modes and features. Written with Svelte, in Typescript by
 	<a href="https://github.com/MikhaD" target="_blank">MikhaD</a>.
+	<br />
+	Open the settings menu to see some of the additional features.
 </div>
 
 <style lang="scss">
@@ -51,8 +53,8 @@
 		margin: 14px 0;
 	}
 	.examples {
-		border-top: 1px solid var(--color-tone-4);
-		border-bottom: 1px solid var(--color-tone-4);
+		border-top: 1px solid var(--border-primary);
+		border-bottom: 1px solid var(--border-primary);
 		:global(.row > *) {
 			height: 100%;
 			aspect-ratio: 1;

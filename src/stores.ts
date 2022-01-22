@@ -7,3 +7,5 @@ export const mode = writable<GameMode>();
 export const letterStates = writable(createLetterStates());
 
 export const settings = writable(createDefaultSettings());
+
+export const gameBoard = writable<GameBoard>();

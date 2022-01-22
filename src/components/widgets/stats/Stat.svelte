@@ -16,7 +16,7 @@
 		width: 60px;
 	}
 	.stat {
-		font-size: 36px;
+		font-size: var(--fs-large);
 	}
 	.name {
 		text-align: center;

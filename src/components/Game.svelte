@@ -23,7 +23,7 @@
 		modeData,
 		checkHardMode,
 	} from "../utils";
-	import { letterStates, settings, mode } from "../stores";
+	import { letterStates, settings, mode, gameBoard } from "../stores";
 
 	export let word: string;
 	export let stats: Stats;
@@ -42,6 +42,7 @@
 	let showRefresh = false;
 
 	let board: Board;
+	$: gameBoard.set(game.board);
 
 	function submitWord() {
 		if (game.board.words[game.guesses].length !== words.length) {
@@ -164,11 +165,13 @@
 		<Timer slot="1" on:timeup={() => (showRefresh = true)} />
 		<Share slot="2" data={game} />
 	</Seperator>
-	<Definition {word} visible={!game.active} />
+	{#if !game.active}
+		<Definition {word} alternates={4} />
+	{/if}
 </Modal>
 
 <Modal fullscreen={true} bind:visible={showSettings}>
-	<Settings validHard={game.validHard} />
+	<Settings visible={showSettings} validHard={game.validHard} />
 </Modal>
 
 <style>
@@ -177,7 +180,7 @@
 		flex-direction: column;
 		justify-content: space-between;
 		align-items: center;
-		height: 100vh;
+		height: 100%;
 		max-width: var(--game-width);
 		margin: auto;
 		position: relative;

@@ -12,12 +12,12 @@
 
 <style>
 	select {
-		border: solid 1px var(--color-tone-5);
+		border: solid 1px var(--border-secondary);
 		padding: 8px;
 		min-width: 85px;
 		border-radius: 4px;
 		cursor: pointer;
-		background-color: var(--color-tone-6);
-		color: var(--color-tone-1);
+		background: var(--bg-secondary);
+		color: var(--fg-primary);
 	}
 </style>

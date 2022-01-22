@@ -81,7 +81,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		border-bottom: 1px solid var(--color-tone-4);
+		border-bottom: 1px solid var(--border-primary);
 		width: 100%;
 		height: var(--height);
 		position: relative;
@@ -97,8 +97,8 @@
 		padding: var(--padding);
 		margin: 0 auto;
 		border-radius: 4px;
-		color: var(--color-tone-7);
-		background-color: var(--color-tone-1);
+		color: var(--bg-primary);
+		background: var(--fg-primary);
 		z-index: 1;
 		::before {
 			content: "";
@@ -107,7 +107,7 @@
 			transform: translate(-50%);
 			top: calc(-2 * var(--arrow-size));
 			border: var(--arrow-size) solid transparent;
-			border-bottom: var(--arrow-size) solid var(--color-tone-1);
+			border-bottom: var(--arrow-size) solid var(--fg-primary);
 		}
 	}
 	.ok {
@@ -115,7 +115,7 @@
 		margin-left: var(--padding);
 		border-radius: 4px;
 		color: white;
-		background-color: var(--color-correct);
+		background: var(--color-correct);
 		cursor: pointer;
 	}
 	.icons {
@@ -126,7 +126,7 @@
 	h1 {
 		position: absolute;
 		width: 100%;
-		font-size: 36px;
+		font-size: var(--fs-large);
 		cursor: pointer;
 		text-align: center;
 	}

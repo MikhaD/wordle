@@ -3,10 +3,14 @@
 
 	import { mode, settings } from "../../stores";
 	import { getWordNumber, modeData } from "../../utils";
-	import type { Toaster } from "../widgets";
+	import { Tips, Toaster } from "../widgets";
 	import Setting from "./Setting.svelte";
 
 	export let validHard: boolean;
+	export let visible;
+	let tip = 0;
+
+	$: if (visible) tip = Math.floor(9 * Math.random());
 
 	const toaster = getContext<Toaster>("toaster");
 
@@ -57,6 +61,7 @@
 			<a href="https://github.com/MikhaD/wordle" target="_blank">Leave a ⭐</a>
 			<a href="https://github.com/MikhaD/wordle/issues" target="_blank">Report a Bug</a>
 		</div>
+		<Tips index={tip} />
 	</div>
 	<div class="footer">
 		<a href="https://www.powerlanguage.co.uk/wordle/" target="_blank">Original Wordle</a>
@@ -74,15 +79,15 @@
 		justify-content: space-between;
 	}
 	.links {
-		font-size: 18px;
+		font-size: var(--fs-medium);
 		padding: 16px 0;
-		border-bottom: 1px solid var(--color-tone-4);
-		color: var(--color-tone-2);
+		border-bottom: 1px solid var(--border-primary);
+		color: var(--fg-secondary);
 		display: flex;
 		justify-content: space-between;
 	}
 	.footer {
-		color: var(--color-tone-2);
+		color: var(--fg-secondary);
 		display: flex;
 		justify-content: space-between;
 	}

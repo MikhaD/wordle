@@ -26,19 +26,22 @@ This is still in development. My goal is to make it as close to the original wor
 
 # To Do
 ## Before Release
-- Fix timing nonsense with timings & delay variable
-- fix modal width scaling
+- Fix nonsense with timings & delay variable
 
 ## Less serious
+- Don't show definition when right clicking on last row, as that is in the stats
 - add right click menu on rows that allows you to get the dictionary definition for that row
-- if a row is right clicked when the game is over, show the number of possible words that could have been played in that row (if hard mode was on)
-- remove unused css variables
-- Add gallery type tip widget to settings with tips like: You can also change the gamemode by clicking wordle+, right clicking wordle+ chnages the gamemode in the other direction, right click a word on the board to learn its definition, you can turn hard mode on during a game if you haven't violated the hard mode rules during that game so far, after a game you can right click a word to see how many words you could have played there taking all hints into consideration, because words are chosen from the list randomly it is possible to get the same word again, you can refresh the page to play a new wordle when one is ready, etc.
 - get rid of magic numbers (for length of word and number of guesses)
 - Add manifest.json and make it into a PWA
 - Tidy up animation code and make animation mechanism consistant (if possible)
 
 ## Done
+- if a row is right clicked show the number of possible words that could have been played in that row
+- Add option to definition for how many alternate definitions to show
+- remove unused css variables
+- In shared text say X/6 instead of 7/6 if failed
+- fix modal width scaling
+- Add gallery type tip widget to settings
 - Add winning toasts
 - Add link to repo in settings if people find bugs
 - Add animations
@@ -65,8 +68,8 @@ This is still in development. My goal is to make it as close to the original wor
 
 # Bugs
 - Definition frequently fails to be fetched
-- Not reactive enough, goes offscreen on mobile
-- Number of guesses not being recorded properly
+- ~~Not reactive enough, goes offscreen on mobile~~
+- ~~Number of guesses not being recorded properly~~
 - ~~Board does not scale~~
 - ~~Mode symbol not in the correct place on different sized screens (Make it part of the board so that it stays behind it)~~
 - ~~Game not refreshing on reload where it should be (may require saving last on in game state)~~
