@@ -21,7 +21,7 @@
 
 <div class="def">
 	{#await getWordData(word)}
-		<h4>Fetching definition</h4>
+		<h4>Fetching definition...</h4>
 	{:then data}
 		<h2>{word}</h2>
 		<em>{data.meanings[0].partOfSpeech}</em>

@@ -8,7 +8,7 @@
 		data.guesses <= data.board.words.length ? data.guesses : "X"
 	}/${data.board.words.length}\n\n${data.board.state
 		.slice(0, data.guesses)
-		.reduce((a, b) => `${a}${b.join("")}\n`, "")}`;
+		.reduce((a, b) => `${a}${b.join("")}\n`, "")}https://mikhad.github.io/wordle/`;
 </script>
 
 <div on:click={() => navigator.clipboard.writeText(stats)}>

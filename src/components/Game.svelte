@@ -23,7 +23,7 @@
 		modeData,
 		checkHardMode,
 	} from "../utils";
-	import { letterStates, settings, mode, gameBoard } from "../stores";
+	import { letterStates, settings, mode } from "../stores";
 
 	export let word: string;
 	export let stats: Stats;
@@ -42,7 +42,6 @@
 	let showRefresh = false;
 
 	let board: Board;
-	$: gameBoard.set(game.board);
 
 	function submitWord() {
 		if (game.board.words[game.guesses].length !== words.length) {
@@ -120,6 +119,8 @@
 	// $: toaster.pop(word);
 </script>
 
+<svelte:body on:click={board.hideCtx} on:contextmenu={board.hideCtx} />
+
 <main class:guesses={game.guesses !== 0}>
 	<Header
 		bind:showRefresh
@@ -133,12 +134,15 @@
 	<Board
 		bind:this={board}
 		bind:value={game.board.words}
-		state={game.board.state}
+		board={game.board}
 		guesses={game.guesses}
 		icon={modeData.modes[$mode].icon}
 	/>
 	<Keyboard
-		on:keystroke|once={() => ($settings.tutorial = 0)}
+		on:keystroke|once={() => {
+			$settings.tutorial = 0;
+			board.hideCtx();
+		}}
 		bind:value={game.board.words[game.guesses]}
 		on:submitWord={submitWord}
 		on:esc={() => {

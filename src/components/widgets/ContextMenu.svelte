@@ -3,15 +3,10 @@
 
 	export let x = 0;
 	export let y = 0;
-	export let visible = false;
 	export let word = "";
 	export let pAns: number;
 	export let pSols: number;
 
-	function windowClick(e: MouseEvent) {
-		const target = e.target as HTMLElement;
-		visible = false;
-	}
 	$: x = window.innerWidth - x < 250 ? window.innerWidth - 250 : x;
 </script>
 
@@ -35,8 +30,6 @@
 		</div>
 	{/if}
 </div>
-
-<svelte:window on:click={windowClick} />
 
 <style lang="scss">
 	.ctx-menu {

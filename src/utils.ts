@@ -41,7 +41,6 @@ export function getRowData(n: number, board: GameBoard) {
 			? wordData.letters[i].val
 			: `[^${[...wordData.not, ...wordData.letters[i].not].join(" ")}]`;
 	}
-	console.log(exp);
 	return (word: string) => {
 		if (new RegExp(exp).test(word)) {
 			for (const char of wordData.contained) {

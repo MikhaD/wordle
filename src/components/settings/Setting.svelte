@@ -21,11 +21,10 @@
 
 <style>
 	.setting {
-		border-bottom: 1px solid var(--border-primary);
+		/* border-bottom: 1px solid var(--border-primary); */
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding: 16px 0;
 	}
 	.title {
 		font-size: var(--fs-medium);

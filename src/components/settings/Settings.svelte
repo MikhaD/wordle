@@ -32,7 +32,7 @@
 <!-- not currently supported, see https://github.com/sveltejs/svelte/issues/3105 -->
 <!-- <svelte:body class:light={!$settings.dark} class:colorblind={$settings.colorblind} /> -->
 <div class="outer">
-	<div>
+	<div class="settings-top">
 		<h3>settings</h3>
 		<div
 			on:click={() => {
@@ -65,7 +65,13 @@
 	</div>
 	<div class="footer">
 		<a href="https://www.powerlanguage.co.uk/wordle/" target="_blank">Original Wordle</a>
-		<div class="word">
+		<div
+			class="word"
+			on:contextmenu|preventDefault={() => {
+				localStorage.clear();
+				toaster.pop("localStorage cleared");
+			}}
+		>
 			{modeData.modes[$mode].name} word #{getWordNumber($mode)}
 		</div>
 	</div>
@@ -80,7 +86,6 @@
 	}
 	.links {
 		font-size: var(--fs-medium);
-		padding: 16px 0;
 		border-bottom: 1px solid var(--border-primary);
 		color: var(--fg-secondary);
 		display: flex;
@@ -90,5 +95,17 @@
 		color: var(--fg-secondary);
 		display: flex;
 		justify-content: space-between;
+	}
+	:global(.settings-top > div) {
+		padding: 16px 0;
+		border-bottom: 1px solid var(--border-primary);
+	}
+	@media (max-device-width: 480px) {
+		:global(.settings-top > div) {
+			padding: 16px !important;
+		}
+		.footer {
+			padding: 0 16px;
+		}
 	}
 </style>

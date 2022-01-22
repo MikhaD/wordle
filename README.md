@@ -27,15 +27,19 @@ This is still in development. My goal is to make it as close to the original wor
 # To Do
 ## Before Release
 - Fix nonsense with timings & delay variable
+- Distinguish between failing to fetch definition and no definition found. If it failed to fetch the definition, add a retry button
+- Add manifest.json and make it into a PWA
+- Add media queries to tutorial and settings (see original wordle)
 
 ## Less serious
 - Don't show definition when right clicking on last row, as that is in the stats
 - add right click menu on rows that allows you to get the dictionary definition for that row
 - get rid of magic numbers (for length of word and number of guesses)
-- Add manifest.json and make it into a PWA
 - Tidy up animation code and make animation mechanism consistant (if possible)
 
 ## Done
+- Personalize images
+- Close context menu when left or right click occurs anywhere
 - if a row is right clicked show the number of possible words that could have been played in that row
 - Add option to definition for how many alternate definitions to show
 - remove unused css variables
