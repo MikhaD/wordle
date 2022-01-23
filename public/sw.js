@@ -9,6 +9,7 @@ const assetsToCache = [
 ];
 
 self.addEventListener("install", e => {
+	log("Installing");
 	e.waitUntil((async () => {
 		const cache = await caches.open(cacheName);
 		await cache.addAll(assetsToCache);
@@ -16,11 +17,16 @@ self.addEventListener("install", e => {
 });
 
 self.addEventListener("fetch", e => {
+	log("Fetching definition");
 	e.respondWith((async () => {
 		const r = await caches.match(e.request);
-		if (r) return r;
+		if (r) {
+			log("Definition found in cache");
+			return r;
+		};
 		const response = await fetch(e.request);
 		const cache = await caches.open(cacheName);
+		log("Caching definition");
 		cache.put(e.request, response.clone());
 		return response;
 	})());
@@ -30,7 +36,15 @@ self.addEventListener("activate", e => {
 	e.waitUntil(caches.keys().then(keys => {
 		return Promise.all(keys.map((key) => {
 			if (key === cacheName) return;
+			log(`Cache updated to ${cacheName.split("-")[1]}, old cache deleted`);
 			return caches.delete(key);
 		}));
 	}));
 });
+/**
+ * Special log function to clearly distinguish logs from the service worker.
+ * @param {string} text - The text to log
+ */
+function log(text) {
+	console.log("%cService Worker", "color: purple; font-weight: 600; background: white; padding: 5px; border-radius: 2px", text);
+}
