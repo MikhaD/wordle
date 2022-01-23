@@ -124,7 +124,7 @@
 	<Header
 		bind:showRefresh
 		tutorial={$settings.tutorial === 1}
-		on:closeTutPopUp|once={() => ($settings.tutorial = 0)}
+		on:closeTutPopUp={() => ($settings.tutorial = 0)}
 		played={stats.played}
 		on:stats={() => (showStats = true)}
 		on:tutorial={() => (showTutorial = true)}

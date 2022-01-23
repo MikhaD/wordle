@@ -1,17 +1,26 @@
 <script lang="ts">
+	import type Toaster from "./Toaster.svelte";
+
 	import { mode } from "../../stores";
 	import { getWordNumber, modeData, ROWS } from "../../utils";
+	import { getContext } from "svelte";
 
 	export let data: GameState;
+	const toaster = getContext<Toaster>("toaster");
 
 	$: stats = `${modeData.modes[$mode].name} Wordle+ #${getWordNumber($mode)} ${
 		data.guesses <= ROWS ? data.guesses : "X"
 	}/${data.board.words.length}\n\n${data.board.state
 		.slice(0, data.guesses)
-		.reduce((a, b) => `${a}${b.join("")}\n`, "")}https://mikhad.github.io/wordle/`;
+		.reduce((a, b) => `${a}${b.join("")}\n`, "")}mikhad.github.io/wordle/`;
 </script>
 
-<div on:click={() => navigator.clipboard.writeText(stats)}>
+<div
+	on:click={() => {
+		navigator.clipboard.writeText(stats);
+		toaster.pop("Copied");
+	}}
+>
 	share
 	<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
 		<path
