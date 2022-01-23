@@ -1,8 +1,11 @@
-# Wordle+
-[![Publish](https://github.com/MikhaD/wordle/workflows/Publish/badge.svg?branch=main)](https://mikhad.github.io/wordle/)
-![GitHub package.json version](https://img.shields.io/github/package-json/v/MikhaD/wordle)
+![Wordle+](https://raw.githubusercontent.com/MikhaD/wordle/main/public/img/og_1200x630.png)
+<div align="center">
+  <a href="https://mikhad.github.io/wordle/" ><img src="https://github.com/MikhaD/wordle/workflows/Publish/badge.svg?branch=main" alt="Publish workflow"/></a>
+  <img src="https://img.shields.io/github/package-json/v/MikhaD/wordle" alt="GitHub package.json version" />
+</div>
 
-A recreation of the popular game [Wordle](https://www.powerlanguage.co.uk/wordle/) by Josh Wardle with additional modes and features, written with Svelte in Typescript.
+---
+A recreation of the popular game [Wordle](https://www.powerlanguage.co.uk/wordle/) by Josh Wardle, with additional modes and features.
 Hosted on GitHub pages [here](https://mikhad.github.io/wordle/).
 
 ## Additional Features
@@ -15,13 +18,13 @@ Hosted on GitHub pages [here](https://mikhad.github.io/wordle/).
 - Right clicking a submitted word on the board will tell you its definition.
 - Right clicking a submitted word on the board will tell you how many possible words could have been played there, taking all previous information into account.
 - Right clicking the row below the last submitted word will tell you how many possibilities there are taking all previous information into account.
-- The game mode is reflected in the url, allowing you to share a game mode directly. 
+- The game mode is reflected in the url, allowing you to share a game mode directly.
+- Service worker which allows the game to be easily downloaded as a progressive web app and run offline.
 
-### Hourly mode
-A new word every hour.
+## Additional modes
+**Hourly mode**: A new word every hour.
 
-### Infinite mode
-A new word every time you refresh, for the true addicts.
+**Infinite mode**: A new word every time you refresh, for the true addicts.
 
 # Technical details
 This is written with Svelte in Typescript. This is my first Svelte project, and is intended as an exercise to help me learn and become proficient in Svelte.
