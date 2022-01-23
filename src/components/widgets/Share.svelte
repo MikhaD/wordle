@@ -10,9 +10,10 @@
 
 	$: stats = `${modeData.modes[$mode].name} Wordle+ #${getWordNumber($mode)} ${
 		data.guesses <= ROWS ? data.guesses : "X"
-	}/${data.board.words.length}\n\n${data.board.state
+	}/${data.board.words.length}\n\n    ${data.board.state
 		.slice(0, data.guesses)
-		.reduce((a, b) => `${a}${b.join("")}\n`, "")}mikhad.github.io/wordle/`;
+		.map((r) => r.join(""))
+		.join("\n    ")}\nmikhad.github.io/wordle`;
 </script>
 
 <div
