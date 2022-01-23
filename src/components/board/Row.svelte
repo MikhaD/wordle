@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from "svelte";
+	import { COLS } from "../../utils";
 
 	import Tile from "./Tile.svelte";
 	export let guesses: number;
@@ -24,7 +25,7 @@
 	data-animation={animation}
 	class:complete={guesses > num}
 >
-	{#each Array(5) as _, i}
+	{#each Array(COLS) as _, i}
 		<Tile bind:this={tiles[i]} state={state[i]} value={value.charAt(i)} position={i} />
 	{/each}
 </div>
@@ -32,7 +33,7 @@
 <style lang="scss">
 	.board-row {
 		display: grid;
-		grid-template-columns: repeat(5, 1fr);
+		grid-template-columns: repeat(var(--cols), 1fr);
 		gap: 5px;
 		&[data-animation="shake"] {
 			animation: shake 0.6s;

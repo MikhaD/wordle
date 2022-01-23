@@ -1,6 +1,7 @@
 <script lang="ts">
 	export let guesses = 0;
 	export let distribution: Guesses;
+	export let active: boolean;
 
 	$: max = Math.max(...Object.values(distribution));
 </script>
@@ -13,7 +14,7 @@
 				<span class="guess">{guess[0]}</span>
 				<div
 					class="bar"
-					class:this={parseInt(guess[0]) === guesses}
+					class:this={parseInt(guess[0]) === guesses && !active}
 					style="width: {(guess[1] / max) * 100}%;"
 				>
 					{guess[1]}

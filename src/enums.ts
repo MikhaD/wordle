@@ -1,6 +1,5 @@
-export const enum GameMode {
+export enum GameMode {
 	"daily",
 	"hourly",
 	"infinite",
 };
-

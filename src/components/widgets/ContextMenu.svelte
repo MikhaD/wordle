@@ -6,14 +6,15 @@
 	export let word = "";
 	export let pAns: number;
 	export let pSols: number;
+	const width = parseInt(getComputedStyle(document.body).getPropertyValue("--game-width")) / 2;
 
-	$: x = window.innerWidth - x < 250 ? window.innerWidth - 250 : x;
+	$: x = window.innerWidth - x < width ? window.innerWidth - width : x;
 </script>
 
 <div class="ctx-menu" style="top: {y}px; left: {x}px;">
 	{#if word !== ""}
 		<div>
-			Considering all hints this row had:
+			Considering all hints, this row had:
 			<br /><br />
 			{pAns} possible answers
 			<br />

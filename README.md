@@ -8,8 +8,14 @@ Hosted on GitHub pages [here](https://mikhad.github.io/wordle/).
 ## Additional Features
 - Words are chosen from the list of words at random instead of in sequence, and the solution is not stored in localStorage, making it harder to cheat. The seed for the random number is created from the date, ensuring that everyone gets the same random number, so people can still compare answers.
 - When you complete a game the definition of the word is shown on the end of game modal.
-- In addition to the other statistics, your average guesses are also displayed on the win modal.
-- When the timer reaches 0 for a given game mode it changes into a refresh button instead of just staying at 00:00:00
+- In addition to the other statistics, your average guesses and your losses are also displayed on the win modal.
+- When the timer reaches 0 for a given game mode it changes into a refresh button instead of just staying at 00:00:00.
+- When the timer reaches 0 for a given game mode a refresh button appears in the top left corner.
+- A tips widget in the settings menu with useful information about the functionality of the game.
+- Right clicking a submitted word on the board will tell you its definition.
+- Right clicking a submitted word on the board will tell you how many possible words could have been played there, taking all previous information into account.
+- Right clicking the row below the last submitted word will tell you how many possibilities there are taking all previous information into account.
+- The game mode is reflected in the url, allowing you to share a game mode directly. 
 
 ### Hourly mode
 A new word every hour.
@@ -26,18 +32,20 @@ This is still in development. My goal is to make it as close to the original wor
 
 # To Do
 ## Before Release
-- Fix nonsense with timings & delay variable
-- Distinguish between failing to fetch definition and no definition found. If it failed to fetch the definition, add a retry button
-- Add manifest.json and make it into a PWA
-- Add media queries to tutorial and settings (see original wordle)
 
 ## Less serious
-- Don't show definition when right clicking on last row, as that is in the stats
-- add right click menu on rows that allows you to get the dictionary definition for that row
-- get rid of magic numbers (for length of word and number of guesses)
+- Fix nonsense with timings & delay variable
+- Distinguish between failing to fetch definition and no definition found. If it failed to fetch the definition, add a retry button
 - Tidy up animation code and make animation mechanism consistant (if possible)
+- Look into improving the performance
 
 ## Done
+- Add routes for the different game modes so you can share a game mode
+- Improve full screen modals on mobile
+- Add manifest.json and make it into a PWA
+- add right click menu on rows that allows you to get the dictionary definition for that row
+- get rid of magic numbers (for length of word and number of guesses)
+- Prevent mode symbol overflowing screen.
 - Personalize images
 - Close context menu when left or right click occurs anywhere
 - if a row is right clicked show the number of possible words that could have been played in that row

@@ -3,13 +3,13 @@
 
 	import { mode } from "../../stores";
 
-	import { DELAY_INCREMENT } from "../../utils";
+	import { DELAY_INCREMENT, ROWS } from "../../utils";
 
 	export let value = "";
 	export let state: LetterState;
 	export let position = 0;
 	export function bounce() {
-		setTimeout(() => (animation = "bounce"), (6 + position) * DELAY_INCREMENT);
+		setTimeout(() => (animation = "bounce"), (ROWS + position) * DELAY_INCREMENT);
 	}
 	let s: string;
 	let pop = false;

@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { mode } from "../../stores";
-	import { getWordNumber, modeData } from "../../utils";
+	import { getWordNumber, modeData, ROWS } from "../../utils";
 
 	export let data: GameState;
 
 	$: stats = `${modeData.modes[$mode].name} Wordle+ #${getWordNumber($mode)} ${
-		data.guesses <= data.board.words.length ? data.guesses : "X"
+		data.guesses <= ROWS ? data.guesses : "X"
 	}/${data.board.words.length}\n\n${data.board.state
 		.slice(0, data.guesses)
 		.reduce((a, b) => `${a}${b.join("")}\n`, "")}https://mikhad.github.io/wordle/`;

@@ -1,13 +1,16 @@
 import seedrandom from "seedrandom";
 import { GameMode } from "./enums";
 
+export const ROWS = 6;
+export const COLS = 5;
+
 export function checkHardMode(board: GameBoard, row: number): HardModeData {
-	for (let i = 0; i < board.words[row - 1].length; ++i) {
+	for (let i = 0; i < COLS; ++i) {
 		if (board.state[row - 1][i] === "🟩" && board.words[row - 1][i] !== board.words[row][i]) {
 			return { pos: i, char: board.words[row - 1][i], type: "🟩" };
 		}
 	}
-	for (let i = 0; i < board.words[row - 1].length; ++i) {
+	for (let i = 0; i < COLS; ++i) {
 		if (board.state[row - 1][i] === "🟨" && !board.words[row].includes(board.words[row - 1][i])) {
 			return { pos: i, char: board.words[row - 1][i], type: "🟨" };
 		}
@@ -21,10 +24,10 @@ export function getRowData(n: number, board: GameBoard) {
 		not: [],
 		// for letters contained in the word that are not the same as any that are in the correct place
 		contained: new Set<string>(),
-		letters: Array.from({ length: 5 }, () => ({ val: null, not: new Set<string>() })),
+		letters: Array.from({ length: COLS }, () => ({ val: null, not: new Set<string>() })),
 	};
 	for (let row = 0; row < n; ++row) {
-		for (let col = 0; col < 5; ++col)
+		for (let col = 0; col < COLS; ++col)
 			if (board.state[row][col] === "🟨") {
 				wordData.contained.add(board.words[row][col]);
 				wordData.letters[col].not.add(board.words[row][col]);
@@ -36,7 +39,7 @@ export function getRowData(n: number, board: GameBoard) {
 			}
 	}
 	let exp = "";
-	for (let i = 0; i < 5; ++i) {
+	for (let i = 0; i < COLS; ++i) {
 		exp += wordData.letters[i].val
 			? wordData.letters[i].val
 			: `[^${[...wordData.not, ...wordData.letters[i].not].join(" ")}]`;
@@ -133,15 +136,8 @@ export function createNewGame(mode: GameMode): GameState {
 		time: modeData.modes[mode].seed,
 		validHard: true,
 		board: {
-			words: ["", "", "", "", "", ""],
-			state: [
-				["🔳", "🔳", "🔳", "🔳", "🔳"],
-				["🔳", "🔳", "🔳", "🔳", "🔳"],
-				["🔳", "🔳", "🔳", "🔳", "🔳"],
-				["🔳", "🔳", "🔳", "🔳", "🔳"],
-				["🔳", "🔳", "🔳", "🔳", "🔳"],
-				["🔳", "🔳", "🔳", "🔳", "🔳"],
-			]
+			words: Array(ROWS).fill(""),
+			state: Array.from({ length: ROWS }, () => (Array(COLS).fill("🔳")))
 		},
 	};
 }

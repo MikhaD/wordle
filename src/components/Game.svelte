@@ -22,6 +22,8 @@
 		getState,
 		modeData,
 		checkHardMode,
+		ROWS,
+		COLS,
 	} from "../utils";
 	import { letterStates, settings, mode } from "../stores";
 
@@ -34,7 +36,7 @@
 	setContext("toaster", toaster);
 
 	// implement transition delay on keys
-	const delay = DELAY_INCREMENT * game.board.words.length + 800;
+	const delay = DELAY_INCREMENT * ROWS + 800;
 
 	let showTutorial = $settings.tutorial === 2;
 	let showSettings = false;
@@ -44,7 +46,7 @@
 	let board: Board;
 
 	function submitWord() {
-		if (game.board.words[game.guesses].length !== words.length) {
+		if (game.board.words[game.guesses].length !== COLS) {
 			toaster.pop("Not enough letters");
 			board.shake(game.guesses);
 		} else if (words.contains(game.board.words[game.guesses])) {
@@ -74,7 +76,7 @@
 			}
 			++game.guesses;
 			if (game.board.words[game.guesses - 1] === word) win();
-			else if (game.guesses === game.board.words.length) lose();
+			else if (game.guesses === ROWS) lose();
 		} else {
 			toaster.pop("Not in word list");
 			board.shake(game.guesses);
@@ -84,10 +86,7 @@
 	function win() {
 		board.bounce(game.guesses - 1);
 		game.active = false;
-		setTimeout(
-			() => toaster.pop(PRAISE[game.guesses - 1]),
-			DELAY_INCREMENT * game.board.words.length
-		);
+		setTimeout(() => toaster.pop(PRAISE[game.guesses - 1]), DELAY_INCREMENT * ROWS);
 		setTimeout(() => (showStats = true), delay * 1.4);
 		++stats.guesses[game.guesses];
 		++stats.played;
@@ -121,7 +120,7 @@
 
 <svelte:body on:click={board.hideCtx} on:contextmenu={board.hideCtx} />
 
-<main class:guesses={game.guesses !== 0}>
+<main class:guesses={game.guesses !== 0} style="--rows: {ROWS}; --cols: {COLS}">
 	<Header
 		bind:showRefresh
 		tutorial={$settings.tutorial === 1}
@@ -139,8 +138,8 @@
 		icon={modeData.modes[$mode].icon}
 	/>
 	<Keyboard
-		on:keystroke|once={() => {
-			$settings.tutorial = 0;
+		on:keystroke={() => {
+			if ($settings.tutorial) $settings.tutorial = 0;
 			board.hideCtx();
 		}}
 		bind:value={game.board.words[game.guesses]}
@@ -164,7 +163,7 @@
 
 <Modal bind:visible={showStats}>
 	<Statistics data={stats} />
-	<Distribution distribution={stats.guesses} guesses={game.guesses} />
+	<Distribution distribution={stats.guesses} guesses={game.guesses} active={game.active} />
 	<Seperator visible={!game.active}>
 		<Timer slot="1" on:timeup={() => (showRefresh = true)} />
 		<Share slot="2" data={game} />

@@ -79,6 +79,7 @@
 		padding: var(--modal-padding);
 		padding-top: calc(2 * var(--modal-padding));
 		position: absolute;
+		width: 90%;
 		inset: 20vh 0 0;
 		margin: auto;
 		transition: all 0.3s ease;
@@ -94,10 +95,10 @@
 		height: 100%;
 		max-width: var(--game-width);
 		margin: auto;
-		padding: 10px 0;
+		padding: 10px 16px;
 		.exit {
 			top: 10px;
-			right: -9px;
+			right: 10px;
 		}
 	}
 </style>

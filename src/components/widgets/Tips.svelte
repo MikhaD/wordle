@@ -1,11 +1,11 @@
 <script lang="ts">
 	export let index = 0;
 	const tips = [
-		"You can also change the gamemode by clicking wordle+.",
+		"You can change the gamemode by clicking wordle+.",
 		"Right clicking wordle+ changes the gamemode in the other direction.",
-		"Right click a word on the board to learn its definition.",
+		"Long press (right click) a word on the board to learn its definition.",
 		"Hard mode can be enabled during a game if you haven't violated the hard mode rules yet.",
-		"After a game you can right click a word to see how many words you could have played there taking all hints into consideration.",
+		"Long press (right click) the next row to see how many possible words can be played there, if yopu use all the pervious information.",
 		"Because words are chosen from the list randomly it is possible to get the same word again.",
 		"Everyone has the same wordle at the same time. Your word #73 is the same as everyone elses #73.",
 		"You can refresh the page to play a new wordle when one is ready.",

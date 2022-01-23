@@ -100,12 +100,4 @@
 		padding: 16px 0;
 		border-bottom: 1px solid var(--border-primary);
 	}
-	@media (max-device-width: 480px) {
-		:global(.settings-top > div) {
-			padding: 16px !important;
-		}
-		.footer {
-			padding: 0 16px;
-		}
-	}
 </style>

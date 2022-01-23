@@ -6,11 +6,12 @@
 		createNewGame,
 		createDefaultSettings,
 		createLetterStates,
+		ROWS,
 	} from "./utils";
 	import { setContext } from "svelte";
 	import Game from "./components/Game.svelte";
 	import { letterStates, settings, mode } from "./stores";
-	import type { GameMode } from "./enums";
+	import { GameMode } from "./enums";
 	import { Toaster } from "./components/widgets";
 
 	export let words: WordData;
@@ -31,9 +32,14 @@
 	);
 	settings.subscribe((s) => localStorage.setItem("settings", JSON.stringify(s)));
 
-	mode.set((parseInt(localStorage.getItem("mode")) as GameMode) || modeData.default);
+	mode.set(
+		!isNaN(GameMode[window.location.hash])
+			? parseInt(GameMode[window.location.hash])
+			: (parseInt(localStorage.getItem("mode")) as GameMode) || modeData.default
+	);
 	mode.subscribe((m) => {
 		localStorage.setItem("mode", `${m}`);
+		window.location.hash = GameMode[m];
 		stats = (JSON.parse(localStorage.getItem(`stats-${m}`)) as Stats) || createDefaultStats(m);
 		word = words.words[seededRandomInt(0, words.words.length, modeData.modes[m].seed)];
 		let temp: GameState = JSON.parse(localStorage.getItem(`state-${m}`));
@@ -42,7 +48,7 @@
 		} else state = temp;
 		// Set the letter states when data for a new game mode is loaded so the keyboard is correct
 		const letters = createLetterStates();
-		for (let row = 0; row < state.board.words.length; ++row) {
+		for (let row = 0; row < ROWS; ++row) {
 			for (let col = 0; col < state.board.words[row].length; ++col) {
 				letters[state.board.words[row][col]] = state.board.state[row][col];
 			}

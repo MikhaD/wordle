@@ -15,7 +15,7 @@
 	export function bounce(row: number) {
 		rows[row].bounce();
 	}
-	export function hideCtx(e?) {
+	export function hideCtx(e?: MouseEvent) {
 		if (!e || !e.defaultPrevented) showCtx = false;
 	}
 	const words = getContext<Words>("words");
@@ -32,7 +32,7 @@
 			x = cx;
 			y = cy;
 			showCtx = true;
-			word = guesses > num && num < 5 ? val : "";
+			word = guesses > num ? val : "";
 
 			const match = getRowData(num, board);
 			pAns = words.words.filter((w) => match(w)).length;
@@ -66,11 +66,11 @@
 <style>
 	.board {
 		display: grid;
-		grid-template-rows: repeat(6, 1fr);
+		grid-template-rows: repeat(var(--rows), 1fr);
 		gap: 5.5px;
 		max-height: 420px;
 		flex-grow: 1;
-		aspect-ratio: 5/6;
+		aspect-ratio: var(--cols) / var(--rows);
 		padding: 10px;
 		position: relative;
 	}
@@ -80,7 +80,7 @@
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		height: 106%;
+		width: min(130%, 100vw);
 	}
 	path {
 		stroke: var(--bg-secondary);
