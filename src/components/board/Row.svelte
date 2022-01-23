@@ -21,6 +21,7 @@
 <div
 	class="board-row"
 	on:contextmenu|preventDefault={(e) => dispatch("ctx", { x: e.clientX, y: e.clientY })}
+	on:dblclick|preventDefault={(e) => dispatch("ctx", { x: e.clientX, y: e.clientY })}
 	on:animationend={() => (animation = "")}
 	data-animation={animation}
 	class:complete={guesses > num}

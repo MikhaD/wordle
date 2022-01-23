@@ -3,9 +3,9 @@
 	const tips = [
 		"You can change the gamemode by clicking wordle+.",
 		"Right clicking wordle+ changes the gamemode in the other direction.",
-		"Long press (right click) a word on the board to learn its definition.",
+		"Double tap or right click a word on the board to learn its definition.",
 		"Hard mode can be enabled during a game if you haven't violated the hard mode rules yet.",
-		"Long press (right click) the next row to see how many possible words can be played there, if yopu use all the pervious information.",
+		"Double tap or right click the next row to see how many possible words can be played there, if you use all the previous information.",
 		"Because words are chosen from the list randomly it is possible to get the same word again.",
 		"Everyone has the same wordle at the same time. Your word #73 is the same as everyone elses #73.",
 		"You can refresh the page to play a new wordle when one is ready.",
