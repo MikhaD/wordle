@@ -88,13 +88,14 @@
 	}
 	.prompt {
 		--arrow-size: 10px;
-		--padding: 16px;
+		--padding: 10px;
+		font-size: var(--fs-small);
 		letter-spacing: initial;
 		position: absolute;
 		inset: calc(var(--arrow-size) + var(--height)) 0 0 0;
 		width: fit-content;
 		height: fit-content;
-		padding: var(--padding);
+		padding: 14px var(--padding);
 		margin: 0 auto;
 		border-radius: 4px;
 		color: var(--bg-primary);
