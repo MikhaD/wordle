@@ -46,5 +46,5 @@ self.addEventListener("activate", e => {
  * @param {string} text - The text to log
  */
 function log(text) {
-	console.log("%cService Worker", "color: purple; font-weight: 600; background: white; padding: 5px; border-radius: 2px", text);
+	console.log("%cService Worker", "color: purple; font-weight: 600; background: white; padding: 0 5px; border-radius: 2px", text);
 }

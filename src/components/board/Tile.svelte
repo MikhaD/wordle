@@ -67,6 +67,7 @@
 		position: absolute;
 		inset: 0;
 		backface-visibility: hidden;
+		-webkit-backface-visibility: hidden;
 		transition: transform 0s ease-in-out;
 	}
 	.front {

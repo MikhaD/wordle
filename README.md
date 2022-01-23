@@ -34,6 +34,7 @@ This is still in development. My goal is to make it as close to the original wor
 ## Before Release
 
 ## Less serious
+- Consider adding notification when new word is available sometime in the morning.
 - Fix nonsense with timings & delay variable
 - Distinguish between failing to fetch definition and no definition found. If it failed to fetch the definition, add a retry button
 - Tidy up animation code and make animation mechanism consistant (if possible)
