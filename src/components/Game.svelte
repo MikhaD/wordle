@@ -120,8 +120,8 @@
 	}
 
 	function reload() {
-		modeData.modes[$mode].historical = false;
-		modeData.modes[$mode].seed = newSeed($mode);
+//		modeData.modes[$mode].historical = false;
+		modeData.modes[$mode].seed = newSeed();
 		game = createNewGame($mode);
 		word = words.words[seededRandomInt(0, words.words.length, modeData.modes[$mode].seed)];
 		$letterStates = createLetterStates();
@@ -181,12 +181,8 @@
 </Modal>
 
 <Modal bind:visible={showStats}>
-	{#if modeData.modes[$mode].historical}
-		<h2 class="historical">Statistics not available for historical games</h2>
-	{:else}
 		<Statistics data={stats} />
 		<Distribution distribution={stats.guesses} guesses={game.guesses} active={game.active} />
-	{/if}
 	<Seperator visible={!game.active}>
 		<Timer
 			slot="1"

@@ -26,6 +26,7 @@
 				? root.classList.add("colorblind")
 				: root.classList.remove("colorblind");
 			localStorage.setItem("settings", JSON.stringify($settings));
+            $settings.fancyfont ? root.classList.add("fancyfont") : root.classList.remove("fancyfont");
 		}
 	}
 </script>
@@ -54,9 +55,9 @@
 			<span slot="title">Color Blind Mode</span>
 			<span slot="desc">High contrast colors</span>
 		</Setting>
-		<Setting type="dropdown" bind:value={$mode} options={modeData.modes.map((e) => e.name)}>
-			<span slot="title">Game Mode</span>
-			<span slot="desc">The game mode determines how often the word refreshes</span>
+		<Setting type="switch" bind:value={$settings.fancyfont}>
+			<span slot="title">Fancy font mode</span>
+			<span slot="desc">For the full choral experience</span>
 		</Setting>
 		<div class="links">
 			<a href="https://github.com/MikhaD/wordle" target="_blank">Leave a ⭐</a>

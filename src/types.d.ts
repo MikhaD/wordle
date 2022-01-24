@@ -35,14 +35,13 @@ type Settings = {
 	hard: boolean[],
 	dark: boolean,
 	colorblind: boolean,
-	tutorial: 0 | 1 | 2,
+    fancyfont: boolean,
 };
 
 type SettingType = "switch" | "dropdown";
 
 type Word = {
 	daily: string,
-	infinite: string,
 	getState: (char: string, index: number, mode: GameMode) => LetterState,
 };
 

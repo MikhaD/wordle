@@ -86,16 +86,9 @@ export function contractNum(n: number) {
 
 export const keys = ["qwertyuiop", "asdfghjkl", "zxcvbnm"];
 
-export function newSeed(mode: GameMode) {
+export function newSeed() {
 	const today = new Date();
-	switch (mode) {
-		case GameMode.daily:
-			return new Date(today.getFullYear(), today.getMonth(), today.getDate()).valueOf();
-		case GameMode.hourly:
-			return new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours()).valueOf();
-		case GameMode.infinite:
-			return new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours(), today.getMinutes(), today.getSeconds()).valueOf();
-	}
+    return new Date(today.getFullYear(), today.getMonth(), today.getDate()).valueOf();
 }
 
 export const modeData: ModeData = {
@@ -105,26 +98,9 @@ export const modeData: ModeData = {
 			name: "Daily",
 			unit: 86400000,
 			start: 1642370400000,	// 17/01/2022
-			seed: newSeed(GameMode.daily),
+			seed: newSeed(),
 			historical: false,
 			streak: true,
-		},
-		{
-			name: "Hourly",
-			unit: 3600000,
-			start: 1642528800000,	// 18/01/2022 8:00pm
-			seed: newSeed(GameMode.hourly),
-			historical: false,
-			icon: "m50,7h100v33c0,40 -35,40 -35,60c0,20 35,20 35,60v33h-100v-33c0,-40 35,-40 35,-60c0,-20 -35,-20 -35,-60z",
-			streak: true,
-		},
-		{
-			name: "Infinite",
-			unit: 1000,
-			start: 1642428600000,	// 17/01/2022 4:10:00pm
-			seed: newSeed(GameMode.infinite),
-			historical: false,
-			icon: "m7,100c0,-50 68,-50 93,0c25,50 93,50 93,0c0,-50 -68,-50 -93,0c-25,50 -93,50 -93,0z",
 		}
 	]
 };
@@ -134,8 +110,9 @@ export function getWordNumber(mode: GameMode) {
 }
 
 export function seededRandomInt(min: number, max: number, seed: number) {
-	const rng = seedrandom(`${seed}`);
-	return Math.floor(min + (max - min) * rng());
+	//const rng = seedrandom(`${seed}`);
+	//return Math.floor(min + (max - min) * rng());
+    return 4;
 }
 
 export const DELAY_INCREMENT = 150;
@@ -166,9 +143,9 @@ export function createNewGame(mode: GameMode): GameState {
 export function createDefaultSettings(): Settings {
 	return {
 		hard: new Array(modeData.modes.length).map(() => false),
-		dark: true,
+		dark: false,
 		colorblind: false,
-		tutorial: 2,
+        fancyfont: false,
 	};
 }
 

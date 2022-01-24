@@ -13,10 +13,10 @@
 
 <style>
 	div {
-		font-size: calc(var(--fs-tiny) + 1px);
+		font-size: calc(var(--fs-tiny) + 8px);
 		font-weight: bold;
 		text-transform: uppercase;
-		border-radius: 4px;
+		border-radius: 6px;
 		height: 58px;
 		background: var(--key-bg);
 		cursor: pointer;

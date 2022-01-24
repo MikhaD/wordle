@@ -52,6 +52,7 @@
 	}
 	.tile {
 		font-size: 2rem;
+        font-family: var(--tile-font);
 		font-weight: bold;
 		text-transform: uppercase;
 		position: relative;
@@ -60,9 +61,16 @@
 			animation: bounce 1s;
 		}
 	}
+    @media (max-height: 600px) {
+        .tile {
+            font-size: 1em;
+            line-height: 1em;
+        }
+    }
 	.back,
 	.front {
 		display: grid;
+        border-radius: 33%;
 		place-items: center;
 		position: absolute;
 		inset: 0;

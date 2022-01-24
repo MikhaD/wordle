@@ -63,7 +63,13 @@
 		{/each}
 	</div>
 	<div class="row">
-		<Key letter="ENTER" on:keystroke={() => !disabled && dispatch("submitWord")} />
+		<Key letter="" on:keystroke={() => !disabled && dispatch("submitWord")}>
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path 
+                    d="M21 2a3 3 0 0 1 3 3v7.6a3 3 0 0 1-3 3H3.413l4.695 4.692a1 1 0 0 1-1.416 1.416l-6.4-6.4a1 1 0 0 1 0-1.416l6.4-6.4a1 1 0 1 1 1.416 1.416L3.413 13.6H21.5a1 1 0 0 0 .5-.5V4.6a.5.5 0 0 0-.5-.5h-4a1 1 0 0 1 0-2z"
+                />
+			</svg>
+        </Key>
 		{#each keys[2] as letter}
 			<Key
 				{letter}
@@ -92,7 +98,7 @@
 	.row {
 		width: 100%;
 		display: flex;
-		margin: 0 auto 8px;
+		margin: 0 auto 6px;
 		padding: 0 8px;
 		gap: 6px;
 	}
