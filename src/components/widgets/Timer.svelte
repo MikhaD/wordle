@@ -16,7 +16,6 @@
 	let countDown: number;
 
 	export function reset(m: GameMode) {
-		console.log("on mode change triggered");
 		clearInterval(countDown);
 		ms = modeData.modes[m].unit - (new Date().valueOf() - modeData.modes[m].seed);
 		if (ms < 0) dispatch("timeup");

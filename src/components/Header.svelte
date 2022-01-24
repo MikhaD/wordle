@@ -6,7 +6,7 @@
 	import GameIcon from "./GameIcon.svelte";
 	import type { Toaster } from "./widgets";
 
-	export let played: number;
+	export let showStats: boolean;
 	export let tutorial: boolean;
 	export let showRefresh: boolean;
 
@@ -49,7 +49,7 @@
 		wordle+
 	</h1>
 	<div class="icons">
-		{#if played > 0}
+		{#if showStats}
 			<GameIcon onClick={() => dispatch("stats")}>
 				<path
 					transition:fade={{ duration: 200 }}

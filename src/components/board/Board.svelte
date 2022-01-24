@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { getContext } from "svelte";
-	import { getRowData } from "../../utils";
+	import { getRowData, words } from "../../utils";
 
 	import Row from "./Row.svelte";
 	import ContextMenu from "../widgets/ContextMenu.svelte";
@@ -18,7 +17,6 @@
 	export function hideCtx(e?: MouseEvent) {
 		if (!e || !e.defaultPrevented) showCtx = false;
 	}
-	const words = getContext<Words>("words");
 	let rows: Row[] = [];
 	let showCtx = false;
 	let pAns = 0;

@@ -2,15 +2,16 @@
 	import { getContext, onMount } from "svelte";
 
 	import { mode, settings } from "../../stores";
-	import { getWordNumber, modeData } from "../../utils";
+	import { modeData } from "../../utils";
 	import { Tips, Toaster } from "../widgets";
 	import Setting from "./Setting.svelte";
 
 	export let validHard: boolean;
-	export let visible;
+	export let visible: boolean;
+	export let wordNumber: number;
 	let tip = 0;
 
-	$: if (visible) tip = Math.floor(9 * Math.random());
+	$: if (visible) tip = Math.floor(10 * Math.random());
 
 	const toaster = getContext<Toaster>("toaster");
 
@@ -72,7 +73,7 @@
 				toaster.pop("localStorage cleared");
 			}}
 		>
-			{modeData.modes[$mode].name} word #{getWordNumber($mode)}
+			{modeData.modes[$mode].name} word #{wordNumber}
 		</div>
 	</div>
 </div>

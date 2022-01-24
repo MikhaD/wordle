@@ -1,8 +1,16 @@
 import seedrandom from "seedrandom";
 import { GameMode } from "./enums";
+import wordList from "./words_5";
 
 export const ROWS = 6;
 export const COLS = 5;
+
+export const words = {
+	...wordList,
+	contains: (word: string) => {
+		return wordList.words.includes(word) || wordList.valid.includes(word);
+	},
+};
 
 export function checkHardMode(board: GameBoard, row: number): HardModeData {
 	for (let i = 0; i < COLS; ++i) {
@@ -98,6 +106,7 @@ export const modeData: ModeData = {
 			unit: 86400000,
 			start: 1642370400000,	// 17/01/2022
 			seed: newSeed(GameMode.daily),
+			historical: false,
 			streak: true,
 		},
 		{
@@ -105,6 +114,7 @@ export const modeData: ModeData = {
 			unit: 3600000,
 			start: 1642528800000,	// 18/01/2022 8:00pm
 			seed: newSeed(GameMode.hourly),
+			historical: false,
 			icon: "m50,7h100v33c0,40 -35,40 -35,60c0,20 35,20 35,60v33h-100v-33c0,-40 35,-40 35,-60c0,-20 -35,-20 -35,-60z",
 			streak: true,
 		},
@@ -113,13 +123,14 @@ export const modeData: ModeData = {
 			unit: 1000,
 			start: 1642428600000,	// 17/01/2022 4:10:00pm
 			seed: newSeed(GameMode.infinite),
+			historical: false,
 			icon: "m7,100c0,-50 68,-50 93,0c25,50 93,50 93,0c0,-50 -68,-50 -93,0c-25,50 -93,50 -93,0z",
 		}
 	]
 };
 
 export function getWordNumber(mode: GameMode) {
-	return Math.round((modeData.modes[mode].seed - modeData.modes[mode].start) / modeData.modes[mode].unit + 1);
+	return Math.round((modeData.modes[mode].seed - modeData.modes[mode].start) / modeData.modes[mode].unit) + 1;
 }
 
 export function seededRandomInt(min: number, max: number, seed: number) {
@@ -143,6 +154,7 @@ export function createNewGame(mode: GameMode): GameState {
 		active: true,
 		guesses: 0,
 		time: modeData.modes[mode].seed,
+		wordNumber: getWordNumber(mode),
 		validHard: true,
 		board: {
 			words: Array(ROWS).fill(""),

@@ -3,7 +3,7 @@
 	import { Board } from "./board";
 	import Keyboard from "./keyboard";
 	import Modal from "./Modal.svelte";
-	import { getContext, onMount, setContext } from "svelte";
+	import { onMount, setContext } from "svelte";
 	import Settings from "./settings";
 	import {
 		Share,
@@ -14,6 +14,7 @@
 		Distribution,
 		Timer,
 		Toaster,
+		ShareGame,
 	} from "./widgets";
 	import {
 		contractNum,
@@ -28,6 +29,7 @@
 		createNewGame,
 		seededRandomInt,
 		createLetterStates,
+		words,
 	} from "../utils";
 	import { letterStates, settings, mode } from "../stores";
 
@@ -36,7 +38,6 @@
 	export let game: GameState;
 	export let toaster: Toaster;
 
-	const words = getContext<Words>("words");
 	setContext("toaster", toaster);
 
 	// implement transition delay on keys
@@ -90,31 +91,36 @@
 		game.active = false;
 		setTimeout(() => toaster.pop(PRAISE[game.guesses - 1]), DELAY_INCREMENT * ROWS);
 		setTimeout(() => (showStats = true), delay * 1.4);
-		++stats.guesses[game.guesses];
-		++stats.played;
-		if ("streak" in stats) {
-			stats.streak =
-				modeData.modes[$mode].seed - stats.lastGame >= modeData.modes[$mode].unit
-					? 1
-					: stats.streak + 1;
-			if (stats.streak > stats.maxStreak) stats.maxStreak = stats.streak;
+		if (!modeData.modes[$mode].historical) {
+			++stats.guesses[game.guesses];
+			++stats.played;
+			if ("streak" in stats) {
+				stats.streak =
+					modeData.modes[$mode].seed - stats.lastGame >= modeData.modes[$mode].unit
+						? 1
+						: stats.streak + 1;
+				if (stats.streak > stats.maxStreak) stats.maxStreak = stats.streak;
+			}
+			stats.lastGame = modeData.modes[$mode].seed;
+			localStorage.setItem(`stats-${$mode}`, JSON.stringify(stats));
 		}
-		stats.lastGame = modeData.modes[$mode].seed;
-		localStorage.setItem(`stats-${$mode}`, JSON.stringify(stats));
 	}
 
 	function lose() {
 		++game.guesses;
 		game.active = false;
 		setTimeout(() => (showStats = true), delay);
-		++stats.guesses.fail;
-		++stats.played;
-		if ("streak" in stats) stats.streak = 0;
-		stats.lastGame = modeData.modes[$mode].seed;
-		localStorage.setItem(`stats-${$mode}`, JSON.stringify(stats));
+		if (!modeData.modes[$mode].historical) {
+			++stats.guesses.fail;
+			++stats.played;
+			if ("streak" in stats) stats.streak = 0;
+			stats.lastGame = modeData.modes[$mode].seed;
+			localStorage.setItem(`stats-${$mode}`, JSON.stringify(stats));
+		}
 	}
 
 	function reload() {
+		modeData.modes[$mode].historical = false;
 		modeData.modes[$mode].seed = newSeed($mode);
 		game = createNewGame($mode);
 		word = words.words[seededRandomInt(0, words.words.length, modeData.modes[$mode].seed)];
@@ -137,7 +143,7 @@
 		bind:showRefresh
 		tutorial={$settings.tutorial === 1}
 		on:closeTutPopUp={() => ($settings.tutorial = 0)}
-		played={stats.played}
+		showStats={stats.played > 0 || (modeData.modes[$mode].historical && !game.active)}
 		on:stats={() => (showStats = true)}
 		on:tutorial={() => (showTutorial = true)}
 		on:settings={() => (showSettings = true)}
@@ -175,8 +181,12 @@
 </Modal>
 
 <Modal bind:visible={showStats}>
-	<Statistics data={stats} />
-	<Distribution distribution={stats.guesses} guesses={game.guesses} active={game.active} />
+	{#if modeData.modes[$mode].historical}
+		<h2 class="historical">Statistics not available for historical games</h2>
+	{:else}
+		<Statistics data={stats} />
+		<Distribution distribution={stats.guesses} guesses={game.guesses} active={game.active} />
+	{/if}
 	<Seperator visible={!game.active}>
 		<Timer
 			slot="1"
@@ -184,15 +194,16 @@
 			on:timeup={() => (showRefresh = true)}
 			on:reload={reload}
 		/>
-		<Share slot="2" data={game} />
+		<Share slot="2" state={game} />
 	</Seperator>
+	<ShareGame wordNumber={game.wordNumber} />
 	{#if !game.active}
 		<Definition {word} alternates={2} />
 	{/if}
 </Modal>
 
 <Modal fullscreen={true} bind:visible={showSettings}>
-	<Settings visible={showSettings} validHard={game.validHard} />
+	<Settings visible={showSettings} wordNumber={game.wordNumber} validHard={game.validHard} />
 </Modal>
 
 <style>
@@ -205,5 +216,11 @@
 		max-width: var(--game-width);
 		margin: auto;
 		position: relative;
+	}
+	.historical {
+		text-align: center;
+		margin-top: 10px;
+		padding: 0 20px;
+		text-transform: uppercase;
 	}
 </style>

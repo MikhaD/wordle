@@ -21,6 +21,7 @@ type GameState = {
 	active: boolean,
 	guesses: number,
 	time: number,
+	wordNumber: number,
 	validHard: boolean,
 	board: GameBoard,
 };
@@ -98,6 +99,7 @@ type Mode = {
 	unit: number,
 	start: number,
 	seed: number,
+	historical: boolean,
 	icon?: string,
 	streak?: boolean,
 };
