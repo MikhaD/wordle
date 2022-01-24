@@ -2,6 +2,7 @@
 	import { createEventDispatcher, onDestroy } from "svelte";
 
 	import { blur } from "svelte/transition";
+	import type { GameMode } from "../../enums";
 	import { mode } from "../../stores";
 	import { modeData } from "../../utils";
 
@@ -14,7 +15,8 @@
 
 	let countDown: number;
 
-	const unsub = mode.subscribe((m) => {
+	export function reset(m: GameMode) {
+		console.log("on mode change triggered");
 		clearInterval(countDown);
 		ms = modeData.modes[m].unit - (new Date().valueOf() - modeData.modes[m].seed);
 		if (ms < 0) dispatch("timeup");
@@ -25,9 +27,8 @@
 				dispatch("timeup");
 			}
 		}, SECOND);
-	});
-
-	onDestroy(unsub);
+	}
+	$: reset($mode);
 </script>
 
 <h3>Next wordle</h3>
@@ -39,7 +40,7 @@
 			)}`.padStart(2, "0")}:{`${Math.floor((ms % MINUTE) / SECOND)}`.padStart(2, "0")}
 		</div>
 	{:else}
-		<div transition:blur class="button" on:click={() => window.location.reload()}>
+		<div transition:blur class="button" on:click={() => dispatch("reload")}>
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 				<path
 					d="M4.609 12c0-4.082 3.309-7.391 7.391-7.391a7.39 7.39 0 0 1 6.523 3.912l-1.653 1.567H22v-5.13l-1.572 1.659C18.652 3.841 15.542 2 12 2 6.477 2 2 6.477 2 12s4.477 10 10 10c4.589 0 8.453-3.09 9.631-7.301l-2.512-.703c-.871 3.113-3.73 5.395-7.119 5.395-4.082 0-7.391-3.309-7.391-7.391z"

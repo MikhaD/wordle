@@ -55,10 +55,16 @@ export function getRowData(n: number, board: GameBoard) {
 	};
 }
 
-export function getState(word: string, index: number, char: string): LetterState {
-	if (word.charAt(index) === char) return "🟩";
-	if (word.includes(char)) return "🟨";
-	return "⬛";
+export function getState(word: string, guess: string): LetterState[] {
+	const charArr = word.split("");
+	const result = Array<LetterState>(5).fill("⬛");
+	for (let i = 0; i < word.length; ++i) {
+		if (charArr[i] === guess.charAt(i)) {
+			result[i] = "🟩";
+			charArr[i] = "$";
+		}
+	}
+	return result.map((e, i) => charArr.includes(guess[i]) ? "🟨" : e);
 }
 
 export function contractNum(n: number) {
@@ -72,6 +78,18 @@ export function contractNum(n: number) {
 
 export const keys = ["qwertyuiop", "asdfghjkl", "zxcvbnm"];
 
+export function newSeed(mode: GameMode) {
+	const today = new Date();
+	switch (mode) {
+		case GameMode.daily:
+			return new Date(today.getFullYear(), today.getMonth(), today.getDate()).valueOf();
+		case GameMode.hourly:
+			return new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours()).valueOf();
+		case GameMode.infinite:
+			return new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours(), today.getMinutes(), today.getSeconds()).valueOf();
+	}
+}
+
 export const modeData: ModeData = {
 	default: GameMode.daily,
 	modes: [
@@ -79,20 +97,14 @@ export const modeData: ModeData = {
 			name: "Daily",
 			unit: 86400000,
 			start: 1642370400000,	// 17/01/2022
-			seed: (() => {
-				const today = new Date();
-				return new Date(today.getFullYear(), today.getMonth(), today.getDate()).valueOf();
-			})(),
+			seed: newSeed(GameMode.daily),
 			streak: true,
 		},
 		{
 			name: "Hourly",
 			unit: 3600000,
 			start: 1642528800000,	// 18/01/2022 8:00pm
-			seed: (() => {
-				const today = new Date();
-				return new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours()).valueOf();
-			})(),
+			seed: newSeed(GameMode.hourly),
 			icon: "m50,7h100v33c0,40 -35,40 -35,60c0,20 35,20 35,60v33h-100v-33c0,-40 35,-40 35,-60c0,-20 -35,-20 -35,-60z",
 			streak: true,
 		},
@@ -100,17 +112,14 @@ export const modeData: ModeData = {
 			name: "Infinite",
 			unit: 1000,
 			start: 1642428600000,	// 17/01/2022 4:10:00pm
-			seed: (() => {
-				const today = new Date();
-				return new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours(), today.getMinutes(), today.getSeconds()).valueOf();
-			})(),
+			seed: newSeed(GameMode.infinite),
 			icon: "m7,100c0,-50 68,-50 93,0c25,50 93,50 93,0c0,-50 -68,-50 -93,0c-25,50 -93,50 -93,0z",
 		}
 	]
 };
 
 export function getWordNumber(mode: GameMode) {
-	return (modeData.modes[mode].seed - modeData.modes[mode].start) / modeData.modes[mode].unit + 1;
+	return Math.round((modeData.modes[mode].seed - modeData.modes[mode].start) / modeData.modes[mode].unit + 1);
 }
 
 export function seededRandomInt(min: number, max: number, seed: number) {

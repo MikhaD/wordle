@@ -24,6 +24,10 @@
 		checkHardMode,
 		ROWS,
 		COLS,
+		newSeed,
+		createNewGame,
+		seededRandomInt,
+		createLetterStates,
 	} from "../utils";
 	import { letterStates, settings, mode } from "../stores";
 
@@ -44,6 +48,7 @@
 	let showRefresh = false;
 
 	let board: Board;
+	let timer: Timer;
 
 	function submitWord() {
 		if (game.board.words[game.guesses].length !== COLS) {
@@ -68,12 +73,9 @@
 					game.validHard = false;
 				}
 			}
-			for (let i = 0; i < word.length; ++i) {
-				const char = game.board.words[game.guesses][i];
-				const state = getState(word, i, char);
-				game.board.state[game.guesses][i] = state;
-				$letterStates[char] = state;
-			}
+			const state = getState(word, game.board.words[game.guesses]);
+			game.board.state[game.guesses] = state;
+			state.forEach((e, i) => ($letterStates[game.board.words[game.guesses][i]] = e));
 			++game.guesses;
 			if (game.board.words[game.guesses - 1] === word) win();
 			else if (game.guesses === ROWS) lose();
@@ -112,6 +114,16 @@
 		localStorage.setItem(`stats-${$mode}`, JSON.stringify(stats));
 	}
 
+	function reload() {
+		modeData.modes[$mode].seed = newSeed($mode);
+		game = createNewGame($mode);
+		word = words.words[seededRandomInt(0, words.words.length, modeData.modes[$mode].seed)];
+		$letterStates = createLetterStates();
+		showStats = false;
+		showRefresh = false;
+		timer.reset($mode);
+	}
+
 	onMount(() => {
 		if (!game.active) setTimeout(() => (showStats = true), delay);
 	});
@@ -129,6 +141,7 @@
 		on:stats={() => (showStats = true)}
 		on:tutorial={() => (showTutorial = true)}
 		on:settings={() => (showSettings = true)}
+		on:reload={reload}
 	/>
 	<Board
 		bind:this={board}
@@ -165,11 +178,16 @@
 	<Statistics data={stats} />
 	<Distribution distribution={stats.guesses} guesses={game.guesses} active={game.active} />
 	<Seperator visible={!game.active}>
-		<Timer slot="1" on:timeup={() => (showRefresh = true)} />
+		<Timer
+			slot="1"
+			bind:this={timer}
+			on:timeup={() => (showRefresh = true)}
+			on:reload={reload}
+		/>
 		<Share slot="2" data={game} />
 	</Seperator>
 	{#if !game.active}
-		<Definition {word} alternates={4} />
+		<Definition {word} alternates={2} />
 	{/if}
 </Modal>
 
