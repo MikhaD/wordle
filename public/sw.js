@@ -1,5 +1,5 @@
 // Increase the v number when the app is updated
-const cacheName = "wordle+-v1.1.0";
+const cacheName = "wordle+-v1.1.1";
 
 const assetsToCache = [
 	"./",
@@ -25,7 +25,7 @@ self.addEventListener("fetch", e => {
 			return r;
 		};
 		const response = await fetch(e.request);
-		const cache = await caches.open(cacheName);
+		const cache = await caches.open("defs");
 		log("Caching definition");
 		cache.put(e.request, response.clone());
 		return response;
@@ -35,7 +35,7 @@ self.addEventListener("fetch", e => {
 self.addEventListener("activate", e => {
 	e.waitUntil(caches.keys().then(keys => {
 		return Promise.all(keys.map((key) => {
-			if (key === cacheName) return;
+			if (key === cacheName || key === "defs") return;
 			log(`Cache updated to ${cacheName.split("-")[1]}, old cache deleted`);
 			return caches.delete(key);
 		}));

@@ -66,14 +66,17 @@
 	</div>
 	<div class="footer">
 		<a href="https://www.powerlanguage.co.uk/wordle/" target="_blank">Original Wordle</a>
-		<div
-			class="word"
-			on:contextmenu|preventDefault={() => {
-				localStorage.clear();
-				toaster.pop("localStorage cleared");
-			}}
-		>
-			{modeData.modes[$mode].name} word #{wordNumber}
+		<div>
+			<div>v1.1.1</div>
+			<div
+				class="word"
+				on:contextmenu|preventDefault={() => {
+					localStorage.clear();
+					toaster.pop("localStorage cleared");
+				}}
+			>
+				{modeData.modes[$mode].name} word #{wordNumber}
+			</div>
 		</div>
 	</div>
 </div>
@@ -96,6 +99,8 @@
 		color: var(--fg-secondary);
 		display: flex;
 		justify-content: space-between;
+		align-items: flex-end;
+		text-align: end;
 	}
 	:global(.settings-top > div) {
 		padding: 16px 0;
