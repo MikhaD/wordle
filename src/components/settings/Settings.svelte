@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { getContext, onMount } from "svelte";
 
-	import { mode, settings } from "../../stores";
+	import { mode, darkTheme, fancyFont, colorBlindTheme, hardMode } from "../../stores";
 	import { modeData } from "../../utils";
 	import { Tips, Toaster } from "../widgets";
 	import Setting from "./Setting.svelte";
@@ -17,22 +17,26 @@
 
 	let root: HTMLElement;
 	onMount(() => {
-		root = document.documentElement;
+		root = document.body;//documentElement;
 	});
 	$: {
 		if (root) {
-			$settings.dark ? root.classList.remove("light") : root.classList.add("light");
-			$settings.colorblind
+			$darkTheme ? root.classList.remove("light") : root.classList.add("light");
+			$colorBlindTheme
 				? root.classList.add("colorblind")
 				: root.classList.remove("colorblind");
-			localStorage.setItem("settings", JSON.stringify($settings));
-            $settings.fancyfont ? root.classList.add("fancyfont") : root.classList.remove("fancyfont");
+            $fancyFont ? root.classList.add("fancyfont") : root.classList.remove("fancyfont");
+            localStorage.setItem("darkTheme",$darkTheme)
+            localStorage.setItem("colorBlindTheme",$colorBlindTheme)
+            localStorage.setItem("fancyFont",$fancyFont)
+            // Old storage (to be removed):
+            //localStorage.setItem("settings", JSON.stringify($settings));
 		}
 	}
 </script>
 
 <!-- not currently supported, see https://github.com/sveltejs/svelte/issues/3105 -->
-<!-- <svelte:body class:light={!$settings.dark} class:colorblind={$settings.colorblind} /> -->
+<!-- <svelte:body class:light={!$darkTheme} class:colorblind={$colorBlindTheme} class:fancyfont={$fancyFont} /> -->
 <div class="outer">
 	<div class="settings-top">
 		<h3>settings</h3>
@@ -43,19 +47,19 @@
 				}
 			}}
 		>
-			<Setting type="switch" bind:value={$settings.hard[$mode]} disabled={!validHard}>
+			<Setting type="switch" bind:value={$hardMode} disabled={!validHard}>
 				<span slot="title">Hard Mode</span>
 				<span slot="desc">Any revealed hints must be used in subsequent guesses</span>
 			</Setting>
 		</div>
-		<Setting type="switch" bind:value={$settings.dark}>
+		<Setting type="switch" bind:value={$darkTheme}>
 			<span slot="title">Dark Theme</span>
 		</Setting>
-		<Setting type="switch" bind:value={$settings.colorblind}>
+		<Setting type="switch" bind:value={$colorBlindTheme}>
 			<span slot="title">Color Blind Mode</span>
 			<span slot="desc">High contrast colors</span>
 		</Setting>
-		<Setting type="switch" bind:value={$settings.fancyfont}>
+		<Setting type="switch" bind:value={$fancyFont}>
 			<span slot="title">Fancy font mode</span>
 			<span slot="desc">For the full choral experience</span>
 		</Setting>

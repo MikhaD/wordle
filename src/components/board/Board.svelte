@@ -2,10 +2,12 @@
 	import { getRowData, words } from "../../utils";
 
 	import Row from "./Row.svelte";
-	import ContextMenu from "../widgets/ContextMenu.svelte";
+//	import ContextMenu from "../widgets/ContextMenu.svelte";
 
 	export let value: string[];
-	export let board: GameBoard;
+//	export let board: GameBoard;
+//  export let boardState: string[];
+    export let evaluations: LetterState[][];
 	export let guesses: number;
 	export let icon: string;
 	export function shake(row: number) {
@@ -32,16 +34,13 @@
 			showCtx = true;
 			word = guesses > num ? val : "";
 
-			const match = getRowData(num, board);
+			const match = getRowData(num, boardState, evaluations);
 			pAns = words.words.filter((w) => match(w)).length;
 			pSols = pAns + words.valid.filter((w) => match(w)).length;
 		}
 	}
 </script>
 
-{#if showCtx}
-	<ContextMenu {pAns} {pSols} {x} {y} {word} />
-{/if}
 
 <div class="board">
 	{#each value as _, i}
@@ -50,7 +49,7 @@
 			{guesses}
 			bind:this={rows[i]}
 			bind:value={value[i]}
-			state={board.state[i]}
+			evaluation={evaluations[i]}
 			on:ctx={(e) => context(e.detail.x, e.detail.y, i, value[i])}
 		/>
 	{/each}

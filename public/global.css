@@ -7,9 +7,6 @@
 
 :root {
 	font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
-    --tile-font: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
-	background: var(--bg-primary);
-	color: var(--fg-primary);
 	font-size: var(--fs-regular);
 	user-select: none;
 	-webkit-user-select: none;
@@ -37,22 +34,27 @@
 	--color-absent: var(--border-primary);
 	--evaluated-key-color: var(--fg-primary);
 	--key-bg: var(--fg-secondary);
+    --tile-font: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
 }
 
-body { height: 100% }
+body { 
+    height: 100%; 
+	background: var(--bg-primary);
+	color: var(--fg-primary);
+}
 
 .light {
 	--fg-primary: #1a1a1b;
 	--fg-secondary: #787c7e;
-	--icon-color: var(--fg-secondary);
+	--icon-color: var(--fg-primary);
 	--border-primary: #d3d6da;
 	--border-secondary: var(--border-primary);
 	--bg-secondary: #e0e0e0;
 	--bg-primary: #ffffff;
 
-	--color-present: #c9b458;
-	--color-correct: #6aaa64;
-	--color-absent: var(--fg-secondary);
+	--color-present: #d9b418;
+	--color-correct: #3a9934;
+    --color-absent: var(--fg-secondary);
 	--evaluated-key-color: var(--bg-primary);
 	--key-bg: var(--border-primary);
 }

@@ -22,7 +22,7 @@
 		}
 	}
 	function handleKeystroke(e: KeyboardEvent) {
-		if (!disabled && !e.ctrlKey && !e.altKey) {
+		if (!disabled && !e.ctrlKey && !e.altKey && !e.metaKey) {
 			if (e.key && /^[a-z]$/.test(e.key.toLowerCase())) {
 				return appendValue(e.key.toLowerCase());
 			}

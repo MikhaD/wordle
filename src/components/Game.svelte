@@ -4,11 +4,11 @@
 	import Keyboard from "./keyboard";
 	import Modal from "./Modal.svelte";
 	import { onMount, setContext } from "svelte";
-	import Settings from "./settings";
+	import Settings from "./Settings";
 	import {
 		Share,
 		Seperator,
-		Definition,
+//		Definition,
 		Tutorial,
 		Statistics,
 		Distribution,
@@ -27,11 +27,12 @@
 		COLS,
 		newSeed,
 		createNewGame,
-		seededRandomInt,
+//		seededRandomInt,
+        getWordNumber,
 		createLetterStates,
 		words,
 	} from "../utils";
-	import { letterStates, settings, mode } from "../stores";
+	import { letterStates, hardMode, mode } from "../stores";
 
 	export let word: string;
 	export let stats: Stats;
@@ -43,7 +44,7 @@
 	// implement transition delay on keys
 	const delay = DELAY_INCREMENT * ROWS + 800;
 
-	let showTutorial = $settings.tutorial === 2;
+	let showTutorial = false; // hopefully just kills this...
 	let showSettings = false;
 	let showStats = false;
 	let showRefresh = false;
@@ -52,13 +53,13 @@
 	let timer: Timer;
 
 	function submitWord() {
-		if (game.board.words[game.guesses].length !== COLS) {
+		if (game.boardState[game.guesses].length !== COLS) {
 			toaster.pop("Not enough letters");
 			board.shake(game.guesses);
-		} else if (words.contains(game.board.words[game.guesses])) {
+		} else if (words.contains(game.boardState[game.guesses])) {
 			if (game.guesses > 0) {
-				const hm = checkHardMode(game.board, game.guesses);
-				if ($settings.hard[$mode]) {
+				const hm = checkHardMode(game.boardState, game.evaluations, game.guesses);
+				if ($hardMode) {
 					if (hm.type === "🟩") {
 						toaster.pop(
 							`${contractNum(hm.pos + 1)} letter must be ${hm.char.toUpperCase()}`
@@ -74,11 +75,11 @@
 					game.validHard = false;
 				}
 			}
-			const state = getState(word, game.board.words[game.guesses]);
-			game.board.state[game.guesses] = state;
-			state.forEach((e, i) => ($letterStates[game.board.words[game.guesses][i]] = e));
+			const state = getState(word, game.boardState[game.guesses]);
+			game.evaluations[game.guesses] = state;
+			state.forEach((e, i) => ($letterStates[game.boardState[game.guesses][i]] = e));
 			++game.guesses;
-			if (game.board.words[game.guesses - 1] === word) win();
+			if (game.boardState[game.guesses - 1] === word) win();
 			else if (game.guesses === ROWS) lose();
 		} else {
 			toaster.pop("Not in word list");
@@ -88,34 +89,34 @@
 
 	function win() {
 		board.bounce(game.guesses - 1);
-		game.active = false;
+        game.gameStatus = "WIN";
 		setTimeout(() => toaster.pop(PRAISE[game.guesses - 1]), DELAY_INCREMENT * ROWS);
 		setTimeout(() => (showStats = true), delay * 1.4);
 		if (!modeData.modes[$mode].historical) {
 			++stats.guesses[game.guesses];
-			++stats.played;
-			if ("streak" in stats) {
-				stats.streak =
+			++stats.gamesPlayed;
+			if ("currentStreak" in stats) {
+				stats.currentStreak =
 					modeData.modes[$mode].seed - stats.lastGame >= modeData.modes[$mode].unit
 						? 1
-						: stats.streak + 1;
-				if (stats.streak > stats.maxStreak) stats.maxStreak = stats.streak;
+						: stats.currentStreak + 1;
+				if (stats.currentStreak > stats.maxStreak) stats.maxStreak = stats.currentStreak;
 			}
 			stats.lastGame = modeData.modes[$mode].seed;
-			localStorage.setItem(`stats-${$mode}`, JSON.stringify(stats));
+			localStorage.setItem(`statistics`, JSON.stringify(stats));
 		}
 	}
 
 	function lose() {
-		++game.guesses;
-		game.active = false;
+//		++game.guesses;
+        game.gameStatus = "FAIL";
 		setTimeout(() => (showStats = true), delay);
 		if (!modeData.modes[$mode].historical) {
 			++stats.guesses.fail;
-			++stats.played;
-			if ("streak" in stats) stats.streak = 0;
+			++stats.gamesPlayed;
+			if ("currentStreak" in stats) stats.currentStreak = 0;
 			stats.lastGame = modeData.modes[$mode].seed;
-			localStorage.setItem(`stats-${$mode}`, JSON.stringify(stats));
+			localStorage.setItem(`statistics`, JSON.stringify(stats));
 		}
 	}
 
@@ -123,15 +124,16 @@
 //		modeData.modes[$mode].historical = false;
 		modeData.modes[$mode].seed = newSeed();
 		game = createNewGame($mode);
-		word = words.words[seededRandomInt(0, words.words.length, modeData.modes[$mode].seed)];
-		$letterStates = createLetterStates();
+//		word = words.words[seededRandomInt(0, words.words.length, modeData.modes[$mode].seed)];
+        word = words.words[getWordNumber % words.words.length]
+        $letterStates = createLetterStates();
 		showStats = false;
 		showRefresh = false;
 		timer.reset($mode);
 	}
 
 	onMount(() => {
-		if (!game.active) setTimeout(() => (showStats = true), delay);
+		if (!game.gameStatus === "IN_PROGRESS") setTimeout(() => (showStats = true), delay);
 	});
 	// $: toaster.pop(word);
 </script>
@@ -141,9 +143,7 @@
 <main class:guesses={game.guesses !== 0} style="--rows: {ROWS}; --cols: {COLS}">
 	<Header
 		bind:showRefresh
-		tutorial={$settings.tutorial === 1}
-		on:closeTutPopUp={() => ($settings.tutorial = 0)}
-		showStats={stats.played > 0 || (modeData.modes[$mode].historical && !game.active)}
+		showStats={stats.gamesPlayed > 0 || (modeData.modes[$mode].historical && !(game.gameStatus === "IN_PROGRESS"))}
 		on:stats={() => (showStats = true)}
 		on:tutorial={() => (showTutorial = true)}
 		on:settings={() => (showSettings = true)}
@@ -151,39 +151,36 @@
 	/>
 	<Board
 		bind:this={board}
-		bind:value={game.board.words}
-		board={game.board}
+		bind:value={game.boardState}
+		evaluations={game.evaluations}
 		guesses={game.guesses}
 		icon={modeData.modes[$mode].icon}
 	/>
 	<Keyboard
 		on:keystroke={() => {
-			if ($settings.tutorial) $settings.tutorial = 0;
 			board.hideCtx();
 		}}
-		bind:value={game.board.words[game.guesses]}
+		bind:value={game.boardState[game.guesses === ROWS ? 0 : game.guesses]}
 		on:submitWord={submitWord}
 		on:esc={() => {
 			showTutorial = false;
 			showStats = false;
 			showSettings = false;
 		}}
-		disabled={!game.active || $settings.tutorial === 2}
+		disabled={!(game.gameStatus === "IN_PROGRESS")}
 	/>
 </main>
 
 <Modal
 	bind:visible={showTutorial}
-	on:close|once={() => $settings.tutorial === 2 && --$settings.tutorial}
-	fullscreen={$settings.tutorial === 0}
 >
 	<Tutorial visible={showTutorial} />
 </Modal>
 
 <Modal bind:visible={showStats}>
 		<Statistics data={stats} />
-		<Distribution distribution={stats.guesses} guesses={game.guesses} active={game.active} />
-	<Seperator visible={!game.active}>
+		<Distribution distribution={stats.guesses} guesses={game.guesses} active={game.gameStatus==="IN_PROGRESS"} />
+	<Seperator visible={!game.gameStatus === "IN_PROGRESS"}>
 		<Timer
 			slot="1"
 			bind:this={timer}
@@ -192,10 +189,7 @@
 		/>
 		<Share slot="2" state={game} />
 	</Seperator>
-	<ShareGame wordNumber={game.wordNumber} />
-	{#if !game.active}
-		<Definition {word} alternates={2} />
-	{/if}
+	<ShareGame />
 </Modal>
 
 <Modal fullscreen={true} bind:visible={showSettings}>
@@ -212,11 +206,5 @@
 		max-width: var(--game-width);
 		margin: auto;
 		position: relative;
-	}
-	.historical {
-		text-align: center;
-		margin-top: 10px;
-		padding: 0 20px;
-		text-transform: uppercase;
 	}
 </style>

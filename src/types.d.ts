@@ -18,25 +18,17 @@ type RowData = {
 type LetterState = "🔳" | "⬛" | "🟨" | "🟩";
 
 type GameState = {
-	active: boolean,
+    gameState: "IN_PROGRESS" | "WIN" | "FAIL",
 	guesses: number,
 	time: number,
 	wordNumber: number,
 	validHard: boolean,
-	board: GameBoard,
+    boardState: string[],
+    evaluations: LetterState[][],
 };
 
-type GameBoard = {
-	words: string[],
-	state: LetterState[][],
-};
 
-type Settings = {
-	hard: boolean[],
-	dark: boolean,
-	colorblind: boolean,
-    fancyfont: boolean,
-};
+
 
 type SettingType = "switch" | "dropdown";
 
@@ -71,8 +63,8 @@ type Phonetic = {
 };
 
 type Stats = {
-	played: number;
-	streak?: number;
+	gamesPlayed: number;
+	currentStreak?: number;
 	maxStreak?: number;
 	lastGame: number;
 	guesses: Guesses;

@@ -12,21 +12,21 @@ export const words = {
 	},
 };
 
-export function checkHardMode(board: GameBoard, row: number): HardModeData {
+export function checkHardMode(boardState: string[], evaluations: LetterState[][], row: number): HardModeData {
 	for (let i = 0; i < COLS; ++i) {
-		if (board.state[row - 1][i] === "🟩" && board.words[row - 1][i] !== board.words[row][i]) {
-			return { pos: i, char: board.words[row - 1][i], type: "🟩" };
+		if (evaluations[row - 1][i] === "🟩" && boardState[row - 1][i] !== boardState[row][i]) {
+			return { pos: i, char: boardState[row - 1][i], type: "🟩" };
 		}
 	}
 	for (let i = 0; i < COLS; ++i) {
-		if (board.state[row - 1][i] === "🟨" && !board.words[row].includes(board.words[row - 1][i])) {
-			return { pos: i, char: board.words[row - 1][i], type: "🟨" };
+		if (evaluations[row - 1][i] === "🟨" && !boardState[row].includes(boardState[row - 1][i])) {
+			return { pos: i, char: boardState[row - 1][i], type: "🟨" };
 		}
 	}
 	return { pos: -1, char: "", type: "⬛" };
 }
 
-export function getRowData(n: number, board: GameBoard) {
+export function getRowData(n: number, boardState: string[], evaluations: LetterState[][]) {
 	const wordData = {
 		// letters not contained
 		not: [],
@@ -36,14 +36,14 @@ export function getRowData(n: number, board: GameBoard) {
 	};
 	for (let row = 0; row < n; ++row) {
 		for (let col = 0; col < COLS; ++col)
-			if (board.state[row][col] === "🟨") {
-				wordData.contained.add(board.words[row][col]);
-				wordData.letters[col].not.add(board.words[row][col]);
-			} else if (board.state[row][col] === "🟩") {
-				wordData.contained.delete(board.words[row][col]);
-				wordData.letters[col].val = board.words[row][col];
+			if (evaluations[row][col] === "🟨") {
+				wordData.contained.add(boardState[row][col]);
+				wordData.letters[col].not.add(boardState[row][col]);
+			} else if (evaluations[row][col] === "🟩") {
+				wordData.contained.delete(boardState[row][col]);
+				wordData.letters[col].val = boardState[row][col];
 			} else {
-				wordData.not.push(board.words[row][col]);
+				wordData.not.push(boardState[row][col]);
 			}
 	}
 	let exp = "";
@@ -72,7 +72,17 @@ export function getState(word: string, guess: string): LetterState[] {
 			charArr[i] = "$";
 		}
 	}
-	return result.map((e, i) => charArr.includes(guess[i]) && e !== "🟩" ? "🟨" : e);
+    // Now look for letters in wrong position.
+    // Replace letter with $ in the charArr whenever we find one
+    // to avoid multiple counting
+	for (let i = 0; i < word.length; ++i) {
+		if (charArr.includes(guess.charAt(i)) && result[i] !== "🟩") {
+			result[i] = "🟨";
+			charArr[charArr.indexOf(guess.charAt(i))] = "$";
+		}
+	}
+    
+	return result; //result.map((e, i) => charArr.includes(guess[i]) && e !== "🟩" ? "🟨" : e);
 }
 
 export function contractNum(n: number) {
@@ -85,6 +95,7 @@ export function contractNum(n: number) {
 }
 
 export const keys = ["qwertyuiop", "asdfghjkl", "zxcvbnm"];
+
 
 export function newSeed() {
 	const today = new Date();
@@ -105,15 +116,22 @@ export const modeData: ModeData = {
 	]
 };
 
-export function getWordNumber(mode: GameMode) {
-	return Math.round((modeData.modes[mode].seed - modeData.modes[mode].start) / modeData.modes[mode].unit) + 1;
+export function getWordNumber() {
+    const numbleOneDate = new Date(2022,0,12,0,0,0,0).setHours(0,0,0,0)
+    const now = new Date().setHours(0,0,0,0)
+    const msInDay = 86400000
+    return Math.floor((now - numbleOneDate) / msInDay) //% WORDS.length
+//	return Math.round((modeData.modes[mode].seed - modeData.modes[mode].start) / modeData.modes[mode].unit) + 1;
 }
 
-export function seededRandomInt(min: number, max: number, seed: number) {
+//export function seededRandomInt() { //min: number, max: number, seed: number) {
 	//const rng = seedrandom(`${seed}`);
 	//return Math.floor(min + (max - min) * rng());
-    return 4;
-}
+//    const numbleOneDate = new Date(2022,0,12,0,0,0,0).setHours(0,0,0,0)
+//    const now = new Date().setHours(0,0,0,0)
+//    const msInDay = 86400000
+//    return Math.floor((now - numbleOneDate) / msInDay) //% WORDS.length
+//}
 
 export const DELAY_INCREMENT = 150;
 
@@ -128,30 +146,20 @@ export const PRAISE = [
 
 export function createNewGame(mode: GameMode): GameState {
 	return {
-		active: true,
+        gameStatus: "IN_PROGRESS",
 		guesses: 0,
 		time: modeData.modes[mode].seed,
-		wordNumber: getWordNumber(mode),
+		wordNumber: getWordNumber(),
 		validHard: true,
-		board: {
-			words: Array(ROWS).fill(""),
-			state: Array.from({ length: ROWS }, () => (Array(COLS).fill("🔳")))
-		},
+        boardState: Array(ROWS).fill(""),
+        evaluations: Array.from({ length: ROWS }, () => (Array(COLS).fill("🔳"))),
 	};
 }
 
-export function createDefaultSettings(): Settings {
-	return {
-		hard: new Array(modeData.modes.length).map(() => false),
-		dark: false,
-		colorblind: false,
-        fancyfont: false,
-	};
-}
 
 export function createDefaultStats(mode: GameMode): Stats {
 	const stats = {
-		played: 0,
+		gamesPlayed: 0,
 		lastGame: 0,
 		guesses: {
 			fail: 0,
@@ -166,7 +174,7 @@ export function createDefaultStats(mode: GameMode): Stats {
 	if (!modeData.modes[mode].streak) return stats;
 	return {
 		...stats,
-		streak: 0,
+		currentStreak: 0,
 		maxStreak: 0,
 	};
 };

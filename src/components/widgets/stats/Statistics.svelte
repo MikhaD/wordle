@@ -8,8 +8,8 @@
 	let stats: [string, string | number][];
 	$: {
 		stats = [
-			["Played", data.played],
-			["Win %", Math.round(((data.played - data.guesses.fail) / data.played) * 100) || 0],
+			["Played", data.gamesPlayed],
+			["Win %", Math.round(((data.gamesPlayed - data.guesses.fail) / data.gamesPlayed) * 100) || 0],
 			[
 				"Average Guesses",
 				(
@@ -18,21 +18,21 @@
 							return a + parseInt(b[0]) * b[1];
 						}
 						return a;
-					}, 0) / data.played || 0
+					}, 0) / data.gamesPlayed || 0
 				).toFixed(1),
 			],
 		];
 		if (data.guesses.fail > 0) {
 			stats.push(["Lost", data.guesses.fail]);
 		}
-		if ("streak" in data) {
-			stats.push(["Current Streak", data.streak]);
+		if ("currentStreak" in data) {
+			stats.push(["Current Streak", data.currentStreak]);
 			stats.push(["Max Streak", data.maxStreak]);
 		}
 	}
 </script>
 
-<h3>Statistics ({modeData.modes[$mode].name})</h3>
+<h3>Statistics</h3>
 <div>
 	{#each stats as stat}
 		<Stat name={stat[0]} stat={stat[1]} />
