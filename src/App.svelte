@@ -32,20 +32,11 @@
     hardMode.subscribe(s => localStorage.setItem("hardMode",s));
 
 
-    const hash = window.location.hash.slice(1).split("/");
-	const modeVal: GameMode = !isNaN(GameMode[hash[0]])
-		? GameMode[hash[0]]
-		: parseInt(localStorage.getItem("mode")) || modeData.default;
+	const modeVal: GameMode = modeData.default;
 	mode.set(modeVal);
-	// If this is a link to a specific word make sure that that is the word
-	if (!isNaN(parseInt(hash[1])) && parseInt(hash[1]) < getWordNumber()) {
-		modeData.modes[modeVal].seed =
-			(parseInt(hash[1]) - 1) * modeData.modes[modeVal].unit + modeData.modes[modeVal].start;
-		modeData.modes[modeVal].historical = true;
-	}
+
 	mode.subscribe((m) => {
 		localStorage.setItem("mode", `${m}`);
-		window.location.hash = GameMode[m];
 		stats = (JSON.parse(localStorage.getItem("statistics")) as Stats) || createDefaultStats(m);
 		word = words.words[getWordNumber() % words.words.length];
 		let temp: GameState;

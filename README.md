@@ -13,4 +13,4 @@ Hosted on GitHub pages [here](https://rbrignall.github.io/byrdle/).
 # Technical details
 Written using Svelte in Typescript. This version is written by [rbrignall](https://github.com/rbrignall/)
 
-This is written with Svelte in Typescript. The underlying codebase was written by [MikhaD](https://github.com/MikhaD) as a Wordle clone.
+This is written with Svelte in Typescript. The underlying codebase was written by [MikhaD](https://github.com/MikhaD) as an open source Wordle clone.
