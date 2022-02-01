@@ -160,7 +160,7 @@
 			if ($settings.tutorial) $settings.tutorial = 0;
 			board.hideCtx();
 		}}
-		bind:value={game.board.words[game.guesses]}
+		bind:value={game.board.words[game.guesses === ROWS ? 0 : game.guesses]}
 		on:submitWord={submitWord}
 		on:esc={() => {
 			showTutorial = false;
