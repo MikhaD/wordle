@@ -107,7 +107,6 @@
 	}
 
 	function lose() {
-		++game.guesses;
 		game.active = false;
 		setTimeout(() => (showStats = true), delay);
 		if (!modeData.modes[$mode].historical) {
