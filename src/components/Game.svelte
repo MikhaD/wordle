@@ -160,7 +160,7 @@
 		on:keystroke={() => {
 			board.hideCtx();
 		}}
-		bind:value={game.boardState[game.guesses === ROWS ? 0 : game.guesses]}
+		bind:value={game.boardState[game.guesses < ROWS ? game.guesses : 0]}
 		on:submitWord={submitWord}
 		on:esc={() => {
 			showTutorial = false;
