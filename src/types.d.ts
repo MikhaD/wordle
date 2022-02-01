@@ -15,7 +15,7 @@ type RowData = {
 	guess: number;
 };
 
-type LetterState = "🔳" | "⬛" | "🟨" | "🟩";
+type LetterState = "🔳" | "⚪" | "🟡" | "🟢";
 
 type GameState = {
     gameState: "IN_PROGRESS" | "WIN" | "FAIL",
@@ -98,5 +98,5 @@ type Mode = {
 type HardModeData = {
 	pos: number,
 	char: string,
-	type: "🟩" | "🟨" | "⬛",
+	type: "🟢" | "🟡" | "⚪",
 };

@@ -86,10 +86,10 @@
 		background: var(--color-absent);
 		transform: rotateX(180deg);
 	}
-	.🟩 .back {
+	.🟢 .back {
 		background: var(--color-correct);
 	}
-	.🟨 .back {
+	.🟡 .back {
 		background: var(--color-present);
 	}
 	:global(.complete) .tile:not(.🔳) .front {

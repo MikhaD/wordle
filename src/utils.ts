@@ -14,16 +14,16 @@ export const words = {
 
 export function checkHardMode(boardState: string[], evaluations: LetterState[][], row: number): HardModeData {
 	for (let i = 0; i < COLS; ++i) {
-		if (evaluations[row - 1][i] === "🟩" && boardState[row - 1][i] !== boardState[row][i]) {
-			return { pos: i, char: boardState[row - 1][i], type: "🟩" };
+		if (evaluations[row - 1][i] === "🟢" && boardState[row - 1][i] !== boardState[row][i]) {
+			return { pos: i, char: boardState[row - 1][i], type: "🟢" };
 		}
 	}
 	for (let i = 0; i < COLS; ++i) {
-		if (evaluations[row - 1][i] === "🟨" && !boardState[row].includes(boardState[row - 1][i])) {
-			return { pos: i, char: boardState[row - 1][i], type: "🟨" };
+		if (evaluations[row - 1][i] === "🟡" && !boardState[row].includes(boardState[row - 1][i])) {
+			return { pos: i, char: boardState[row - 1][i], type: "🟡" };
 		}
 	}
-	return { pos: -1, char: "", type: "⬛" };
+	return { pos: -1, char: "", type: "⚪" };
 }
 
 export function getRowData(n: number, boardState: string[], evaluations: LetterState[][]) {
@@ -36,10 +36,10 @@ export function getRowData(n: number, boardState: string[], evaluations: LetterS
 	};
 	for (let row = 0; row < n; ++row) {
 		for (let col = 0; col < COLS; ++col)
-			if (evaluations[row][col] === "🟨") {
+			if (evaluations[row][col] === "🟡") {
 				wordData.contained.add(boardState[row][col]);
 				wordData.letters[col].not.add(boardState[row][col]);
-			} else if (evaluations[row][col] === "🟩") {
+			} else if (evaluations[row][col] === "🟢") {
 				wordData.contained.delete(boardState[row][col]);
 				wordData.letters[col].val = boardState[row][col];
 			} else {
@@ -65,10 +65,10 @@ export function getRowData(n: number, boardState: string[], evaluations: LetterS
 
 export function getState(word: string, guess: string): LetterState[] {
 	const charArr = word.split("");
-	const result = Array<LetterState>(5).fill("⬛");
+	const result = Array<LetterState>(5).fill("⚪");
 	for (let i = 0; i < word.length; ++i) {
 		if (charArr[i] === guess.charAt(i)) {
-			result[i] = "🟩";
+			result[i] = "🟢";
 			charArr[i] = "$";
 		}
 	}
@@ -76,13 +76,13 @@ export function getState(word: string, guess: string): LetterState[] {
     // Replace letter with $ in the charArr whenever we find one
     // to avoid multiple counting
 	for (let i = 0; i < word.length; ++i) {
-		if (charArr.includes(guess.charAt(i)) && result[i] !== "🟩") {
-			result[i] = "🟨";
+		if (charArr.includes(guess.charAt(i)) && result[i] !== "🟢") {
+			result[i] = "🟡";
 			charArr[charArr.indexOf(guess.charAt(i))] = "$";
 		}
 	}
     
-	return result; //result.map((e, i) => charArr.includes(guess[i]) && e !== "🟩" ? "🟨" : e);
+	return result; //result.map((e, i) => charArr.includes(guess[i]) && e !== "🟢" ? "🟡" : e);
 }
 
 export function contractNum(n: number) {
