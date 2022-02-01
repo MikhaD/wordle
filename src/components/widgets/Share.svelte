@@ -8,7 +8,7 @@
 	export let state: GameState;
 	const toaster = getContext<Toaster>("toaster");
 
-	$: stats = `Byrdle ${state.wordNumber} ${
+	$: stats = `Byrdle ${state.wordNumber+1} ${
 		state.guesses <= ROWS ? state.guesses : "X"
 	}/${state.boardState.length}\n\n    ${state.evaluations
 		.slice(0, state.guesses)

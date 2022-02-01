@@ -49,30 +49,32 @@
 		>
 			<Setting type="switch" bind:value={$hardMode} disabled={!validHard}>
 				<span slot="title">Hard Mode</span>
-				<span slot="desc">Any revealed hints must be used in subsequent guesses</span>
+				<span slot="desc">Revealed hints must be used in subsequent guesses</span>
 			</Setting>
 		</div>
 		<Setting type="switch" bind:value={$darkTheme}>
 			<span slot="title">Dark Theme</span>
 		</Setting>
 		<Setting type="switch" bind:value={$colorBlindTheme}>
-			<span slot="title">Color Blind Mode</span>
-			<span slot="desc">High contrast colors</span>
+			<span slot="title">Colour Blind Mode</span>
+			<span slot="desc">High contrast colours</span>
 		</Setting>
 		<Setting type="switch" bind:value={$fancyFont}>
 			<span slot="title">Fancy font mode</span>
 			<span slot="desc">For the full choral experience</span>
 		</Setting>
 		<div class="links">
-			<a href="https://github.com/MikhaD/wordle" target="_blank">Leave a ⭐</a>
-			<a href="https://github.com/MikhaD/wordle/issues" target="_blank">Report a Bug</a>
+			Feedback
+			<a href="https://twitter.com/intent/tweet?screen_name=rbrignall" target="_blank">Twitter</a>
 		</div>
-		<Tips index={tip} />
+        <h3 style="margin-top: 10px;">Credits</h3>
+        <div>
+            <p>This game is inspired by <a href="https://www.powerlanguage.co.uk/wordle/" target="_blank">Wordle</a>, and is an implementation of an idea of <a href="https://twitter.com/QuireMemes">QuireMemes</a>.</p>
+            <p>Code is Open Source, written with Svelte, in Typescript by <a href="https://github.com/rbrignall" target="_blank">rbrignall</a> on a base by <a href="https://github.com/MikhaD" target="_blank">MikhaD</a>.</p>
+        </div>
 	</div>
 	<div class="footer">
-		<a href="https://www.powerlanguage.co.uk/wordle/" target="_blank">Original Wordle</a>
-		<div>
-			<div>v1.1.1</div>
+			<div>Version: Byrd 4</div>
 			<div
 				class="word"
 				on:contextmenu|preventDefault={() => {
@@ -80,9 +82,8 @@
 					toaster.pop("localStorage cleared");
 				}}
 			>
-				{modeData.modes[$mode].name} word #{wordNumber}
+				Game #{wordNumber+1}
 			</div>
-		</div>
 	</div>
 </div>
 

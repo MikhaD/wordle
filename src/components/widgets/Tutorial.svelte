@@ -41,14 +41,7 @@
 	<div>The letter <strong>L</strong> is not in the word in any spot.</div>
 </div>
 <div>A new BYRDLE will be available at midnight each day!</div>
-<div><strong>Credits</strong></div>
-<div>
-	This game is inspired by <a href="https://www.powerlanguage.co.uk/wordle/" target="_blank">Wordle</a
-	>, and is an implementation of an idea of <a href="https://twitter.com/QuireMemes">QuireMemes</a>.
-</div>
-<div>    
-    Code is Open Source, written with Svelte, in Typescript by <a href="https://github.com/rbrignall" target="_blank">rbrignall</a> on a base by <a href="https://github.com/MikhaD" target="_blank">MikhaD</a>.
-</div>
+
 
 
 
