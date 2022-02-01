@@ -1,20 +1,15 @@
 const words = {
 	"words": [
-        "choir","motet","chant","credo","zadok",
-        "organ","triad","darke","tenor","stave",
-        "clerk","minim","dyson","clefs","carol",
-        "finzi","sixth","breve","agnus","tempo",
-        "neume","slurs","solos","notes","glory",
-        "fifth","jesus","verdi","noble","altar",
-        "kyrie","elgar","major","vicar","altos",
-        "largo","drone","quire","haydn","minor",
-        "scale","forte","sharp","parry","dixit",
-        "psalm","flats","modus","tutti","mundy",
-        "verse","holst","tonic","piano","hymns",
-        "trill","segue","music","lotti","onset",
-        "creed","swell","mezzo","lobet","third",
-        "molto","canon","stops","pedal","faure",
-        "pitch","vocal","widor","kings","dolce"
+        "choir","motet","chant","credo","zadok","organ","triad","darke","tenor","stave",
+        "clerk","minim","dyson","clefs","carol","finzi","sixth","breve","agnus","tempo",
+        "neume","slurs","solos","notes","glory","fifth","sicut","verdi","noble","altar",
+        "kyrie","elgar","major","vicar","altos","largo","drone","quire","haydn","minor",
+        "scale","forte","sharp","parry","dixit","psalm","flats","modus","tutti","mundy",
+        "verse","holst","tonic","piano","hymns","trill","segue","music","lotti","onset",
+        "creed","swell","mezzo","lobet","third","molto","canon","stops","pedal","nonet",
+        "faure","stall","pitch","vocal","staff","shake","widor","chord","kings","tones",
+        "songs","dolce","duets","fugue","arias","lyric","trios","missa","score","voice",
+        "vigil","abbey","robes","octet","locus","round","fugal","fixer","sings","amens"
     ],
 	"valid": [    
 		"cigar",
