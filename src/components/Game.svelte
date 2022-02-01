@@ -51,7 +51,11 @@
 
 	let board: Board;
 	let timer: Timer;
-
+    
+    function sampleArray(myarray: string[]){
+        return myarray[Math.floor(Math.random()*myarray.length)];
+    }
+    
 	function submitWord() {
 		if (game.boardState[game.guesses].length !== COLS) {
 			toaster.pop("Not enough letters");
@@ -90,7 +94,7 @@
 	function win() {
 		board.bounce(game.guesses - 1);
         game.gameStatus = "WIN";
-		setTimeout(() => toaster.pop(PRAISE[game.guesses - 1]), DELAY_INCREMENT * ROWS);
+		setTimeout(() => toaster.pop(sampleArray(PRAISE[game.guesses - 1])), DELAY_INCREMENT * ROWS);
 		setTimeout(() => (showStats = true), delay * 1.4);
 		if (!modeData.modes[$mode].historical) {
 			++stats.guesses[game.guesses];
