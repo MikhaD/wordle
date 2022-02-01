@@ -184,7 +184,7 @@
 <Modal bind:visible={showStats}>
 		<Statistics data={stats} />
 		<Distribution distribution={stats.guesses} guesses={game.guesses} active={game.gameStatus==="IN_PROGRESS"} />
-	<Seperator visible={!game.gameStatus === "IN_PROGRESS"}>
+	<Seperator visible={!(game.gameStatus === "IN_PROGRESS")}>
 		<Timer
 			slot="1"
 			bind:this={timer}
