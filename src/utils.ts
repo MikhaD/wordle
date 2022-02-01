@@ -72,7 +72,13 @@ export function getState(word: string, guess: string): LetterState[] {
 			charArr[i] = "$";
 		}
 	}
-	return result.map((e, i) => charArr.includes(guess[i]) && e !== "🟩" ? "🟨" : e);
+	for (let i = 0; i < word.length; ++i) {
+		if (charArr.includes(guess.charAt(i)) && result[i] !== "🟩") {
+			result[i] = "🟨";
+			charArr[charArr.indexOf(guess.charAt(i))] = "$";
+		}
+	}    
+	return result;
 }
 
 export function contractNum(n: number) {
