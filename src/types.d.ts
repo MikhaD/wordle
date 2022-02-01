@@ -30,7 +30,7 @@ type GameState = {
 
 
 
-type SettingType = "switch" | "dropdown";
+type SettingType = "switch";
 
 type Word = {
 	daily: string,

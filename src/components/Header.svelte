@@ -7,7 +7,7 @@
 	import type { Toaster } from "./widgets";
 
 	export let showStats: boolean;
-	export let tutorial: boolean;
+//	export let tutorial: boolean;
 	export let showRefresh: boolean;
 
 	export let toaster = getContext<Toaster>("toaster");
