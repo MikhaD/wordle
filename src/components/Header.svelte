@@ -10,7 +10,7 @@
 //	export let tutorial: boolean;
 	export let showRefresh: boolean;
 
-	export let toaster = getContext<Toaster>("toaster");
+//	export let toaster = getContext<Toaster>("toaster");
 
 	const dispatch = createEventDispatcher();
 	mode.subscribe((m) => {

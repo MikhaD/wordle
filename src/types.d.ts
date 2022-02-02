@@ -18,7 +18,7 @@ type RowData = {
 type LetterState = "🔳" | "⚪" | "🟡" | "🟢";
 
 type GameState = {
-    gameState: "IN_PROGRESS" | "WIN" | "FAIL",
+    gameStatus: "IN_PROGRESS" | "WIN" | "FAIL",
 	guesses: number,
 	time: number,
 	wordNumber: number,
