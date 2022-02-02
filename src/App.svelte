@@ -84,11 +84,10 @@
 
     function iFrameListener(event){
         iFrameStats = (JSON.parse(event.data) as Stats) || createDefaultStats(0);
-        console.log(iFrameStats);
-        console.log(stats);
+        // console.log(iFrameStats);
         if (stats.gamesPlayed === 0 && iFrameStats.gamesPlayed > 0)
             stats=iFrameStats;
-        console.log(stats);
+        // console.log(stats);
 }
 
     onMount(() => {

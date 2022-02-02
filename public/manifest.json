@@ -3,12 +3,12 @@
   "name": "Byrdle",
   "icons": [
     {
-      "src": "/byrdle/img/byrdle_logo_32x32.png",
+      "src": "/img/byrdle_logo_32x32.png",
       "type": "image/png",
       "sizes": "32x32"
     },
     {
-      "src": "/byrdle/img/byrdle_logo_192x192.png",
+      "src": "/img/byrdle_logo_192x192.png",
       "type": "image/png",
       "sizes": "192x192"
     }
