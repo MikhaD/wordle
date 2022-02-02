@@ -1,12 +1,12 @@
 ![Byrdle](https://raw.githubusercontent.com/rbrignall/byrdle/main/public/img/byrdle_og_1200x630.png)
 <div align="center">
-  <a href="https://rbrignall.github.io/byrdle/" ><img src="https://github.com/rbrignall/byrdle/workflows/Publish/badge.svg?branch=main" alt="Publish workflow"/></a>
+  <a href="https://www.byrdle.net/" ><img src="https://github.com/rbrignall/byrdle/workflows/Publish/badge.svg?branch=main" alt="Publish workflow"/></a>
   <img src="https://img.shields.io/github/package-json/v/rbrignall/byrdle" alt="GitHub package.json version" />
 </div>
 
 ---
 The popular choral-themed word guessing game BYRDLE, inspired by [Wordle](https://www.powerlanguage.co.uk/wordle/) by Josh Wardle.
-Hosted on GitHub pages [here](https://rbrignall.github.io/byrdle/).
+Hosted using AWS at [www.byrdle.net](https://www.byrdle.net/).
 
 
 

@@ -13,7 +13,7 @@
 	}/${state.boardState.length}\n\n    ${state.evaluations
 		.slice(0, state.guesses)
 		.map((r) => r.join(""))
-		.join("\n    ")}\nrbrignall.github.io/byrdle`;
+		.join("\n    ")}\nwww.byrdle.net`;
 </script>
 
 <div
