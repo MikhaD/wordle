@@ -14,10 +14,13 @@
     } from "./stores";
 	import { GameMode } from "./enums";
 	import { Toaster } from "./components/widgets";
+	import { onMount, setContext } from "svelte";
+
 
 	let stats: Stats;
 	let word: string;
 	let state: GameState;
+    var iFrameStats='';
 
 
     // Settings separated out:
@@ -30,15 +33,17 @@
     colorBlindTheme.subscribe(s => localStorage.setItem("colorBlindTheme",s));
     fancyFont.subscribe(s => localStorage.setItem("fancyFont",s));
     hardMode.subscribe(s => localStorage.setItem("hardMode",s));
-
-
+    
 	const modeVal: GameMode = modeData.default;
 	mode.set(modeVal);
+    
 
 	mode.subscribe((m) => {
 		localStorage.setItem("mode", `${m}`);
-		stats = (JSON.parse(localStorage.getItem("statistics")) as Stats) || createDefaultStats(m);
-		word = words.words[getWordNumber() % words.words.length];
+		stats = (JSON.parse(localStorage.getItem("statistics")) as Stats) || 
+//		stats = (JSON.parse(iFrameStats) as Stats) || 
+                    createDefaultStats(m);
+        word = words.words[getWordNumber() % words.words.length];
 		let temp: GameState;
         temp = JSON.parse(localStorage.getItem("gameState"));
         if (!temp || modeData.modes[m].seed - temp.time >= modeData.modes[m].unit) {
@@ -48,6 +53,7 @@
             if (!temp.wordNumber) {
 				temp.wordNumber = getWordNumber();
             }
+            // TODO: Add checks for missing items in temp (e.g. evaluation being null)
             state = temp;
 		}
 		// Set the letter states when data for a new game mode is loaded so the keyboard is correct
@@ -65,9 +71,37 @@
         localStorage.setItem("gameState", JSON.stringify(state));
 	}
 	let toaster: Toaster;
+    
+    let frame;
+    // Code to capture stats from iframe
+    function addAnEventListener(obj,evt,func){
+        if ('addEventListener' in obj){
+            obj.addEventListener(evt,func, false);
+        } else if ('attachEvent' in obj){//IE
+            obj.attachEvent('on'+evt,func);
+        }
+    }
+
+    function iFrameListener(event){
+        iFrameStats = (JSON.parse(event.data) as Stats) || createDefaultStats(0);
+        console.log(iFrameStats);
+        console.log(stats);
+        if (stats.gamesPlayed === 0 && iFrameStats.gamesPlayed > 0)
+            stats=iFrameStats;
+        console.log(stats);
+}
+
+    onMount(() => {
+        addAnEventListener(window,'message',iFrameListener);
+    })
+    
+    
 </script>
 
 <Toaster bind:this={toaster} />
 {#if toaster}
 	<Game {stats} {word} {toaster} bind:game={state} />
+
+    <iframe width="0" height="0" src="https://rbrignall.github.io/byrdle/iframe.html" frameborder="0" title="loadstats" />
+
 {/if}
