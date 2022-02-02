@@ -129,7 +129,7 @@
 		modeData.modes[$mode].seed = newSeed();
 		game = createNewGame($mode);
 //		word = words.words[seededRandomInt(0, words.words.length, modeData.modes[$mode].seed)];
-        word = words.words[getWordNumber % words.words.length]
+        word = words.words[getWordNumber() % words.words.length]
         $letterStates = createLetterStates();
 		showStats = false;
 		showRefresh = false;
