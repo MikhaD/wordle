@@ -3,7 +3,7 @@
 	import DropDown from "./DropDown.svelte";
 	export let value: any;
 	export let type: SettingType;
-	export let options: (string | number)[] = [];
+//	export let options: (string | number)[] = [];
 	export let disabled = false;
 	const types = {
 		switch: Switch,
@@ -16,7 +16,7 @@
 		<div class="title"><slot name="title" /></div>
 		<div class="desc"><slot name="desc" /></div>
 	</div>
-	<svelte:component this={types[type]} bind:value {options} {disabled} />
+	<svelte:component this={types[type]} bind:value {disabled} />
 </div>
 
 <style>

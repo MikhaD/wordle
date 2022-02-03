@@ -30,7 +30,7 @@
 	$: reset($mode);
 </script>
 
-<h3>Next wordle</h3>
+<h3>Next Byrdle</h3>
 <div class="container">
 	{#if ms > 0}
 		<div transition:blur class="timer">
@@ -64,6 +64,11 @@
 		font-size: var(--fs-large);
 		text-align: center;
 	}
+    @media (max-width: 500px) {
+        .timer {
+            font-size: var(--fs-medium);
+        }
+    }
 	.button {
 		height: 80%;
 		aspect-ratio: 1;

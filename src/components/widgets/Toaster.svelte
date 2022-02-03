@@ -3,7 +3,7 @@
 
 	export function pop(text: string, duration = 1) {
 		toast = [text, ...toast];
-		setTimeout(() => (toast = toast.slice(0, toast.length - 1)), duration * 1000);
+		setTimeout(() => (toast = toast.slice(0, toast.length - 1)), duration * 5000);
 	}
 	let toast: string[] = [];
 </script>

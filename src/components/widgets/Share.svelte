@@ -8,18 +8,25 @@
 	export let state: GameState;
 	const toaster = getContext<Toaster>("toaster");
 
-	$: stats = `${modeData.modes[$mode].name} Wordle+ #${state.wordNumber} ${
+	$: stats = `Byrdle ${state.wordNumber+1} ${
 		state.guesses <= ROWS ? state.guesses : "X"
-	}/${state.board.words.length}\n\n    ${state.board.state
+	}/${state.boardState.length}\n\n    ${state.evaluations
 		.slice(0, state.guesses)
 		.map((r) => r.join(""))
-		.join("\n    ")}\nmikhad.github.io/wordle`;
+		.join("\n    ")}\nwww.byrdle.net`;
 </script>
 
 <div
 	on:click={() => {
-		navigator.clipboard.writeText(stats);
-		toaster.pop("Copied");
+        if (navigator.share||navigator.canShare) {
+            navigator.share({
+                text: stats
+            })
+            .catch(console.error);
+        } else {
+            navigator.clipboard.writeText(stats);
+		    toaster.pop("Copied to clipboard");
+        }
 	}}
 >
 	share
@@ -35,6 +42,7 @@
 	div {
 		font-size: var(--fs-medium);
 		text-transform: uppercase;
+        color: white;
 		font-weight: bold;
 		background: var(--color-correct);
 		border-radius: 4px;

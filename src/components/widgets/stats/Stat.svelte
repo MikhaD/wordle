@@ -18,6 +18,11 @@
 	.stat {
 		font-size: var(--fs-large);
 	}
+    @media (max-width: 500px) {
+        .stat {
+            font-size: var(--fs-medium);
+        }
+    }
 	.name {
 		text-align: center;
 	}

@@ -6,49 +6,45 @@
 </script>
 
 <h3>how to play</h3>
-<div>Guess the <strong>WORDLE</strong> in {ROWS} tries.</div>
-<div>Each guess must be a valid {COLS} letter word. Hit the enter button to submit.</div>
-<div>
-	After each guess, the color of the tiles will change to show how close your guess was to the
-	word.
+
+
+<div><strong>Note:</strong> Are you looking for <a href="https://www.powerlanguage.co.uk/wordle/">WORDLE</a> (the guessing game created by <a href="https://twitter.com/powerlanguish">Josh Wardle</a>)? This is not it.</div>
+
+<div>Guess the <strong>BYRDLE</strong> in {ROWS} tries. The word is related to choral music, and answers include proper nouns, plurals and musical term in other languages.</div>
+<div>Each guess must be a valid {COLS} letter word. Press enter to submit a guess. The colour of the tiles will then change as follows.
 </div>
 <div class:complete={visible} class="examples">
 	<div><strong>Examples</strong></div>
 	<div class="row">
-		<Tile value="w" state="🟩" />
-		<Tile value="e" state="🔳" />
-		<Tile value="a" state="🔳" />
+		<Tile value="q" state="🟢" />
+		<Tile value="u" state="🔳" />
+		<Tile value="i" state="🔳" />
 		<Tile value="r" state="🔳" />
-		<Tile value="y" state="🔳" />
+		<Tile value="e" state="🔳" />
 	</div>
-	<div>The letter <strong>W</strong> is in the word and in the correct spot.</div>
+	<div>The letter <strong>Q</strong> is in the word and in the correct spot.</div>
 	<div class="row">
-		<Tile value="p" state="🔳" />
-		<Tile value="i" state="🟨" />
-		<Tile value="l" state="🔳" />
-		<Tile value="l" state="🔳" />
+		<Tile value="m" state="🔳" />
+		<Tile value="e" state="🟡" />
+		<Tile value="m" state="🔳" />
+		<Tile value="e" state="🔳" />
 		<Tile value="s" state="🔳" />
 	</div>
-	<div>The letter <strong>I</strong> is in the word but in the wrong spot.</div>
+	<div>The letter <strong>E</strong> is in the word but in the wrong spot.</div>
 	<div class="row">
-		<Tile value="v" state="🔳" />
+		<Tile value="p" state="🔳" />
+		<Tile value="s" state="🔳" />
 		<Tile value="a" state="🔳" />
-		<Tile value="g" state="🔳" />
-		<Tile value="u" state="⬛" />
-		<Tile value="e" state="🔳" />
+		<Tile value="l" state="⚪" />
+		<Tile value="m" state="🔳" />
 	</div>
-	<div>The letter <strong>U</strong> is not in the word in any spot.</div>
+	<div>The letter <strong>L</strong> is not in the word in any spot.</div>
 </div>
-<div>
-	This is a recreation of the original <a
-		href="https://www.powerlanguage.co.uk/wordle/"
-		target="_blank">Wordle</a
-	>
-	by Josh Wardle with additional modes and features. Written with Svelte, in Typescript by
-	<a href="https://github.com/MikhaD" target="_blank">MikhaD</a>.
-	<br />
-	Open the settings menu to see some of the additional features.
-</div>
+<div>A new BYRDLE will be available at midnight each day!</div>
+
+
+
+
 
 <style lang="scss">
 	div {
