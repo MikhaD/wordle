@@ -1,7 +1,7 @@
 ![Byrdle](https://raw.githubusercontent.com/rbrignall/byrdle/main/public/img/byrdle_og_1200x630.png)
 <div align="center">
-  <a href="https://www.byrdle.net/" ><img src="https://github.com/rbrignall/byrdle/workflows/Publish/badge.svg?branch=main" alt="Publish workflow"/></a>
-  <img src="https://img.shields.io/github/package-json/v/rbrignall/byrdle" alt="GitHub package.json version" />
+  <a href="https://www.byrdle.net/" ><img src="https://github.com/rbrignall/open-byrdle/workflows/Publish/badge.svg?branch=main" alt="Publish workflow"/></a>
+  <img src="https://img.shields.io/github/package-json/v/rbrignall/open-byrdle" alt="GitHub package.json version" />
 </div>
 
 ---
