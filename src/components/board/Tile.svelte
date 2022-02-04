@@ -51,7 +51,8 @@
 		}
 	}
 	.tile {
-		font-size: 2rem;
+        font-size: 100%;
+        vertical-align: middle;
         font-family: var(--tile-font);
 		font-weight: bold;
 		text-transform: uppercase;
@@ -61,12 +62,6 @@
 			animation: bounce 1s;
 		}
 	}
-    @media (max-height: 600px) {
-        .tile {
-            font-size: 1em;
-            line-height: 1em;
-        }
-    }
 	.back,
 	.front {
 		display: grid;

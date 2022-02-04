@@ -154,6 +154,7 @@
 		on:settings={() => (showSettings = true)}
 		on:reload={reload}
 	/>
+    <div>
 	<Board
 		bind:this={board}
 		bind:value={game.boardState}
@@ -161,6 +162,7 @@
 		guesses={game.guesses}
 		icon={modeData.modes[$mode].icon}
 	/>
+    </div>
 	<Keyboard
 		on:keystroke={() => {
 			board.hideCtx();

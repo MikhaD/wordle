@@ -3,6 +3,8 @@
 
 	import { Tile } from "../board";
 	export let visible: boolean;
+    
+    let rowWidth = 44*COLS-4;
 </script>
 
 <h3>how to play</h3>
@@ -13,7 +15,7 @@
 <div>Guess the <strong>BYRDLE</strong> in {ROWS} tries. The word is related to choral music, and answers include proper nouns, plurals and musical term in other languages.</div>
 <div>Each guess must be a valid {COLS} letter word. Press enter to submit a guess. The colour of the tiles will then change as follows.
 </div>
-<div class:complete={visible} class="examples">
+<div class:complete={visible} class="examples" style="--tutorial-row-width: {rowWidth}px; --cols: {COLS}">
 	<div><strong>Examples</strong></div>
 	<div class="row">
 		<Tile value="q" state="🟢" />
@@ -48,7 +50,7 @@
 
 <style lang="scss">
 	div {
-		margin: 14px 0;
+		margin: 10px 0;
 	}
 	.examples {
 		border-top: 1px solid var(--border-primary);
@@ -62,8 +64,14 @@
 		}
 	}
 	.row {
+		display: grid;
+		grid-template-columns: repeat(var(--cols), 1fr);
 		height: 40px;
-		display: flex;
-		gap: 4px;
+        width: var(--tutorial-row-width);
+		gap: 5px;
+        font-size: 1.8em;
+        line-height: 1.4em;
+        vertical-align: middle;
+
 	}
 </style>

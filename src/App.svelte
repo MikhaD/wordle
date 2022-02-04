@@ -70,8 +70,7 @@
 	function saveState(state: GameState) {
         localStorage.setItem("gameState", JSON.stringify(state));
 	}
-	let toaster: Toaster;    
-    
+	let toaster: Toaster;
 </script>
 
 <Toaster bind:this={toaster} />

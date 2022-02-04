@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getRowData, words } from "../../utils";
+	import { getRowData, words, ROWS, COLS } from "../../utils";
 
 	import Row from "./Row.svelte";
 //	import ContextMenu from "../widgets/ContextMenu.svelte";
@@ -39,10 +39,14 @@
 			pSols = pAns + words.valid.filter((w) => match(w)).length;
 		}
 	}
+    
+    let boardHeight = Math.min(Math.floor(window.innerHeight*(4/7)),420);
+    let boardWidth = COLS * Math.floor(boardHeight/ROWS);
+
 </script>
 
 
-<div class="board">
+<div class="board" style="--board-width: {boardWidth}px;--board-height: {boardHeight}px;">
 	{#each value as _, i}
 		<Row
 			num={i}
@@ -65,11 +69,12 @@
 		display: grid;
 		grid-template-rows: repeat(var(--rows), 1fr);
 		gap: 5.5px;
-		max-height: 420px;
 		flex-grow: 1;
-		aspect-ratio: var(--cols) / var(--rows);
-		padding: 10px;
+/*		aspect-ratio: var(--cols) / var(--rows);*/
+		padding: 5px;
 		position: relative;
+        width: var(--board-width);
+        height: var(--board-height);
 	}
 	svg {
 		position: absolute;
