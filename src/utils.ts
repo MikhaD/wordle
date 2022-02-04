@@ -201,14 +201,16 @@ export function createDefaultStats(mode: GameMode): Stats {
 			4: parseInt(urlStats.get("g4")) || 0,
 			5: parseInt(urlStats.get("g5")) || 0,
 			6: parseInt(urlStats.get("g6")) || 0,
-		}
-	};
-	if (!modeData.modes[mode].streak) return stats;
-	return {
-		...stats,
+		},
 		currentStreak: parseInt(urlStats.get("cs")) || 0,
 		maxStreak: parseInt(urlStats.get("ms")) || 0,
 	};
+    if (stats.gamesPlayed > 0) { // Imported from URL: save it now
+        localStorage.setItem(`statistics`, JSON.stringify(stats));
+        // Now remove the query data from URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+	return stats;
 };
 
 export function createLetterStates(): { [key: string]: LetterState; } {
