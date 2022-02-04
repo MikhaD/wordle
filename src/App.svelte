@@ -44,7 +44,7 @@
 		stats = (JSON.parse(localStorage.getItem("statistics")) as Stats) || createDefaultStats(m);
         localStorage.setItem(`statistics`, JSON.stringify(stats));
         // In any case, now remove the query data
-        window.history.replaceState({}, document.title, window.location.pathname;
+        window.history.replaceState({}, document.title, window.location.pathname);
 
         word = words.words[getWordNumber() % words.words.length];
 		let temp: GameState;

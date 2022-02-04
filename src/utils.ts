@@ -191,23 +191,23 @@ export function createDefaultStats(mode: GameMode): Stats {
 
     const urlStats = new URLSearchParams(window.location.search);
 	const stats = {
-		gamesPlayed: urlStats.get("p") || 0,
-		lastGame: urlStats.get("lastGame") || 0,
+		gamesPlayed: parseInt(urlStats.get("p")) || 0,
+		lastGame: parseInt(urlStats.get("lastGame")) || 0,
 		guesses: {
-			fail: urlStats.get("fail") || 0,
-			1: urlStats.get("g1") || 0,
-			2: urlStats.get("g2") || 0,
-			3: urlStats.get("g3") || 0,
-			4: urlStats.get("g4") || 0,
-			5: urlStats.get("g5") || 0,
-			6: urlStats.get("g6") || 0,
+			fail: parseInt(urlStats.get("fail")) || 0,
+			1: parseInt(urlStats.get("g1")) || 0,
+			2: parseInt(urlStats.get("g2")) || 0,
+			3: parseInt(urlStats.get("g3")) || 0,
+			4: parseInt(urlStats.get("g4")) || 0,
+			5: parseInt(urlStats.get("g5")) || 0,
+			6: parseInt(urlStats.get("g6")) || 0,
 		}
 	};
 	if (!modeData.modes[mode].streak) return stats;
 	return {
 		...stats,
-		currentStreak: urlStats.get("cs") || 0,
-		maxStreak: urlStats.get("ms") || 0,
+		currentStreak: parseInt(urlStats.get("cs")) || 0,
+		maxStreak: parseInt(urlStats.get("ms")) || 0,
 	};
 };
 
