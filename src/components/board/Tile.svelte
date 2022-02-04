@@ -80,11 +80,11 @@
 	}
 	.front {
 		border: 2px solid var(--border-primary);
-		transform: rotateX(0deg);
-	}
+		transform: rotateY(0deg);
+    }
 	.back {
 		background: var(--color-absent);
-		transform: rotateX(180deg);
+		transform: rotateY(180deg);
 	}
 	.🟢 .back {
 		background: var(--color-correct);
@@ -95,12 +95,12 @@
 	:global(.complete) .tile:not(.🔳) .front {
 		transition-delay: inherit !important;
 		transition-duration: 0.8s;
-		transform: rotateX(180deg);
+		transform: rotateY(180deg);
 	}
 	:global(.complete) .tile:not(.🔳) .back {
 		transition-delay: inherit !important;
 		transition-duration: 0.8s;
-		transform: rotateX(0deg);
+		transform: rotateY(0deg);
 	}
 	@keyframes pop {
 		from {
