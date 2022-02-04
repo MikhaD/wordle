@@ -20,7 +20,6 @@
 	let stats: Stats;
 	let word: string;
 	let state: GameState;
-    var iFrameStats='';
 
 
     // Settings separated out:
@@ -40,9 +39,13 @@
 
 	mode.subscribe((m) => {
 		localStorage.setItem("mode", `${m}`);
-		stats = (JSON.parse(localStorage.getItem("statistics")) as Stats) || 
-//		stats = (JSON.parse(iFrameStats) as Stats) || 
-                    createDefaultStats(m);
+        
+        // Grab statistics. CreateDefaultStats looks for URL data
+		stats = (JSON.parse(localStorage.getItem("statistics")) as Stats) || createDefaultStats(m);
+        localStorage.setItem(`statistics`, JSON.stringify(stats));
+        // In any case, now remove the query data
+        window.history.replaceState({}, document.title, window.location.pathname;
+
         word = words.words[getWordNumber() % words.words.length];
 		let temp: GameState;
         temp = JSON.parse(localStorage.getItem("gameState"));
@@ -70,37 +73,11 @@
 	function saveState(state: GameState) {
         localStorage.setItem("gameState", JSON.stringify(state));
 	}
-	let toaster: Toaster;
-    
-    let frame;
-    // Code to capture stats from iframe
-    function addAnEventListener(obj,evt,func){
-        if ('addEventListener' in obj){
-            obj.addEventListener(evt,func, false);
-        } else if ('attachEvent' in obj){//IE
-            obj.attachEvent('on'+evt,func);
-        }
-    }
-
-    function iFrameListener(event){
-        iFrameStats = (JSON.parse(event.data) as Stats) || createDefaultStats(0);
-        // console.log(iFrameStats);
-        if (stats.gamesPlayed === 0 && iFrameStats.gamesPlayed > 0)
-            stats=iFrameStats;
-        // console.log(stats);
-}
-
-    onMount(() => {
-        addAnEventListener(window,'message',iFrameListener);
-    })
-    
+	let toaster: Toaster;    
     
 </script>
 
 <Toaster bind:this={toaster} />
 {#if toaster}
 	<Game {stats} {word} {toaster} bind:game={state} />
-
-    <iframe width="0" height="0" src="https://rbrignall.github.io/byrdle/iframe.html" frameborder="0" title="loadstats" />
-
 {/if}

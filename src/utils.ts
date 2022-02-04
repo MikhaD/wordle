@@ -188,24 +188,26 @@ export function createNewGame(mode: GameMode): GameState {
 
 
 export function createDefaultStats(mode: GameMode): Stats {
+
+    const urlStats = new URLSearchParams(window.location.search);
 	const stats = {
-		gamesPlayed: 0,
-		lastGame: 0,
+		gamesPlayed: urlStats.get("p") || 0,
+		lastGame: urlStats.get("lastGame") || 0,
 		guesses: {
-			fail: 0,
-			1: 0,
-			2: 0,
-			3: 0,
-			4: 0,
-			5: 0,
-			6: 0,
+			fail: urlStats.get("fail") || 0,
+			1: urlStats.get("g1") || 0,
+			2: urlStats.get("g2") || 0,
+			3: urlStats.get("g3") || 0,
+			4: urlStats.get("g4") || 0,
+			5: urlStats.get("g5") || 0,
+			6: urlStats.get("g6") || 0,
 		}
 	};
 	if (!modeData.modes[mode].streak) return stats;
 	return {
 		...stats,
-		currentStreak: 0,
-		maxStreak: 0,
+		currentStreak: urlStats.get("cs") || 0,
+		maxStreak: urlStats.get("ms") || 0,
 	};
 };
 
