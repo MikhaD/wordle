@@ -1,7 +1,7 @@
 {
   "name": "byrdle",
   "description": "The choral-themed word guessing game.",
-  "version": "Byrd 4",
+  "version": "4.0.0",
   "private": "true",
   "scripts": {
     "build": "rollup -c",
