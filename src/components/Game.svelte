@@ -4,7 +4,7 @@
 	import Keyboard from "./keyboard";
 	import Modal from "./Modal.svelte";
 	import { onMount, setContext } from "svelte";
-	import Settings from "./Settings";
+	import Settings from "./settings";
 	import {
 		Share,
 		Seperator,
