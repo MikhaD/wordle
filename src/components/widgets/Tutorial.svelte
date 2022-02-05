@@ -9,7 +9,7 @@
 </script>
 
 {#if imported}
-    <h3>welcome to byrdle!</h3>
+    <h3>welcome to the new byrdle!</h3>
     Have you played before? You can fetch your statistics from the old web page:
     
     <div class="importstats" onclick="location.href='https://rbrignall.github.io/byrdle/handover.html';">
