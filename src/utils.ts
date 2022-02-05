@@ -204,12 +204,11 @@ export function createDefaultStats(mode: GameMode): Stats {
 		},
 		currentStreak: parseInt(urlStats.get("cs")) || 0,
 		maxStreak: parseInt(urlStats.get("ms")) || 0,
+        imported: false,
 	};
-    if (stats.gamesPlayed > 0) { // Imported from URL: save it now
-        localStorage.setItem(`statistics`, JSON.stringify(stats));
-        // Now remove the query data from URL
-        window.history.replaceState({}, document.title, window.location.pathname);
-    }
+	if (stats.gamesPlayed === 0) return stats;
+    // Data was imported from URL
+    stats.imported = true;
 	return stats;
 };
 

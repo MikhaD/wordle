@@ -44,10 +44,11 @@
 	// implement transition delay on keys
 	const delay = DELAY_INCREMENT * ROWS + 800;
 
-	let showTutorial = false; // hopefully just kills this...
+	let showTutorial = false; 
 	let showSettings = false;
 	let showStats = false;
 	let showRefresh = false;
+    let showImport = false;
 
 	let board: Board;
 	let timer: Timer;
@@ -138,7 +139,18 @@
 	}
 
 	onMount(() => {
-		if (!game.gameStatus === "IN_PROGRESS") setTimeout(() => (showStats = true), delay);
+		if (!(game.gameStatus === "IN_PROGRESS")) setTimeout(() => (showStats = true), delay);
+        if (stats.gamesPlayed === 0) {
+            showImport = true;
+            setTimeout(() => (showTutorial = true), delay);
+        }
+        if (stats.imported) {
+            stats.imported = false;
+            localStorage.setItem(`statistics`, JSON.stringify(stats));
+            window.history.replaceState({}, document.title, window.location.pathname);
+            toaster.pop("Statistics successfully imported!");
+            setTimeout(() => (showStats = true), delay);
+        }
 	});
 	// $: toaster.pop(word);
 </script>
@@ -181,8 +193,10 @@
 <Modal
 	bind:visible={showTutorial}
 >
-	<Tutorial visible={showTutorial} />
+	<Tutorial visible={showTutorial} imported={showImport} />
 </Modal>
+
+
 
 <Modal bind:visible={showStats}>
 		<Statistics data={stats} />
