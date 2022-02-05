@@ -1,6 +1,2 @@
 /node_modules/
 /public/build/
-
-source.js
-package-lock.json
-test.html
