@@ -49,7 +49,7 @@
 		color: white;
 		font-weight: bold;
 		display: flex;
-		justify-content: end;
+		justify-content: flex-end;
 		align-items: center;
 		padding-right: 8px;
 	}
