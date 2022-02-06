@@ -89,15 +89,16 @@
 
 <style>
 	.outer {
-		height: 100%;
+/*		height: 100%;
 		display: flex;
-		flex-direction: column;
+		flex-direction: column;*/
 		justify-content: space-between;
 	}
 	.links {
 		font-size: var(--fs-medium);
+		font-weight: 500;
 		border-bottom: 1px solid var(--border-primary);
-		color: var(--fg-secondary);
+		color: var(--fg-primary);
 		display: flex;
 		justify-content: space-between;
 	}
@@ -107,7 +108,14 @@
 		justify-content: space-between;
 		align-items: flex-end;
 		text-align: end;
+        position: absolute;
+        bottom: 0;
+        width: calc(100% - 2*var(--modal-padding));
+        padding: 16px 0px;
 	}
+    .settings-top {
+        padding: 0px 0px 60px 0px;
+    }
 	:global(.settings-top > div) {
 		padding: 16px 0;
 		border-bottom: 1px solid var(--border-primary);

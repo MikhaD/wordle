@@ -10,8 +10,6 @@
 	font-size: var(--fs-regular);
 	user-select: none;
 	-webkit-user-select: none;
-	overflow: hidden;
-	height: 100%;
 
 	--fs-tiny: 12px;
 	--fs-small: 14px;
@@ -36,11 +34,16 @@
 	--key-bg: var(--fg-secondary);
     --tile-font: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
 }
-
+html {
+    height: 100%;
+}
 body { 
     height: 100%; 
 	background: var(--bg-primary);
 	color: var(--fg-primary);
+    margin: 0;
+    padding: 0;
+    overflow-y: hidden;
 }
 
 .light {

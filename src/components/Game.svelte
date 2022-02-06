@@ -213,7 +213,7 @@
 	<ShareGame />
 </Modal>
 
-<Modal fullscreen={true} bind:visible={showSettings}>
+<Modal bind:visible={showSettings}>
 	<Settings visible={showSettings} wordNumber={game.wordNumber} validHard={game.validHard} />
 </Modal>
 
