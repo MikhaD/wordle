@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rbrignall/byrdle-dev.git"
+    "url": "git+https://github.com/rbrignall/open-byrdle.git"
   },
   "keywords": [],
   "author": "rbrignall",
   "bugs": {
-    "url": "https://github.com/rbrignall/byrdle-dev/issues"
+    "url": "https://github.com/rbrignall/open-byrdle/issues"
   },
-  "homepage": "https://github.com/rbrignall/byrdle#readme",
+  "homepage": "https://github.com/rbrignall/open-byrdle#readme",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-json": "^4.1.0",
