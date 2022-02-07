@@ -5,7 +5,7 @@ const words = {
         "legato","cantor","tuning","octave","melody","phrase","rhythm","sextet","unison","plagal",
         "cantus","ballad","warble","mozart","intone","firmus","lieder","brahms","dorian","second",
         "fourth","degree","lydian","hymnal","wesley","kodaly","atonal","custos","rutter","spirit",
-        "timbre","rubato","vivace"
+        "timbre","rubato","vivace","softly","loudly"
     ],
 	"valid": [  
         "should","people","become","system","number","course","school","before","really","member",
