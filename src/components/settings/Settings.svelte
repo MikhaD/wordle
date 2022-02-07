@@ -63,7 +63,16 @@
 			<span slot="title">Fancy font mode</span>
 			<span slot="desc">For the full choral experience</span>
 		</Setting>
-		<div class="links">
+        <div style="text-align: center; color: red; cursor: pointer;"><span 
+            on:click={() => {
+                localStorage.clear();
+                toaster.pop("Deleted! Refreshing page...");
+                setTimeout(() => (location.reload()), 3000);
+            }}
+        >
+            ** Click here to delete all game data **
+        </span></div>
+        <div class="links">
 			Feedback
 			<a href="https://twitter.com/intent/tweet?screen_name=rbrignall" target="_blank">Twitter</a>
 		</div>
