@@ -13,7 +13,7 @@
 
 <style>
 	div {
-		font-size: calc(var(--fs-tiny) + 8px);
+		font-size: calc(var(--fs-tiny) + 6px);
 		font-weight: bold;
 		text-transform: uppercase;
 		border-radius: 6px;

@@ -4,7 +4,7 @@
 	import Keyboard from "./keyboard";
 	import Modal from "./Modal.svelte";
 	import { onMount, setContext } from "svelte";
-	import Settings from "./Settings";
+	import Settings from "./settings";
 	import {
 		Share,
 		Seperator,
@@ -44,10 +44,11 @@
 	// implement transition delay on keys
 	const delay = DELAY_INCREMENT * ROWS + 800;
 
-	let showTutorial = false; // hopefully just kills this...
+	let showTutorial = false; 
 	let showSettings = false;
 	let showStats = false;
 	let showRefresh = false;
+    let showImport = false;
 
 	let board: Board;
 	let timer: Timer;
@@ -138,7 +139,18 @@
 	}
 
 	onMount(() => {
-		if (!game.gameStatus === "IN_PROGRESS") setTimeout(() => (showStats = true), delay);
+		if (!(game.gameStatus === "IN_PROGRESS")) setTimeout(() => (showStats = true), delay);
+        if (stats.gamesPlayed === 0) {
+            showImport = true;
+            setTimeout(() => (showTutorial = true), delay);
+        }
+        if (stats.imported) {
+            stats.imported = false;
+            localStorage.setItem(`statistics`, JSON.stringify(stats));
+            window.history.replaceState({}, document.title, window.location.pathname);
+            toaster.pop("Statistics successfully imported!");
+            setTimeout(() => (showStats = true), delay);
+        }
 	});
 	// $: toaster.pop(word);
 </script>
@@ -154,6 +166,7 @@
 		on:settings={() => (showSettings = true)}
 		on:reload={reload}
 	/>
+    <div>
 	<Board
 		bind:this={board}
 		bind:value={game.boardState}
@@ -161,6 +174,7 @@
 		guesses={game.guesses}
 		icon={modeData.modes[$mode].icon}
 	/>
+    </div>
 	<Keyboard
 		on:keystroke={() => {
 			board.hideCtx();
@@ -179,8 +193,10 @@
 <Modal
 	bind:visible={showTutorial}
 >
-	<Tutorial visible={showTutorial} />
+	<Tutorial visible={showTutorial} imported={showImport} />
 </Modal>
+
+
 
 <Modal bind:visible={showStats}>
 		<Statistics data={stats} />
@@ -197,7 +213,7 @@
 	<ShareGame />
 </Modal>
 
-<Modal fullscreen={true} bind:visible={showSettings}>
+<Modal bind:visible={showSettings}>
 	<Settings visible={showSettings} wordNumber={game.wordNumber} validHard={game.validHard} />
 </Modal>
 
@@ -209,7 +225,7 @@
 		align-items: center;
 		height: 100%;
 		max-width: var(--game-width);
-		margin: auto;
+		margin: 0px auto;
 		position: relative;
 	}
 </style>

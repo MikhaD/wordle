@@ -63,7 +63,18 @@
 			<span slot="title">Fancy font mode</span>
 			<span slot="desc">For the full choral experience</span>
 		</Setting>
-		<div class="links">
+        <div style="text-align: center; color: red; cursor: pointer;"><span 
+            on:click={() => {
+                if (confirm("This will delete all statistics. Are you sure?")) {
+                    localStorage.clear();
+                    toaster.pop("Deleted! Refreshing page...");
+                    setTimeout(() => (location.reload()), 3000);
+                }
+            }}
+        >
+            ** Click here to delete all game data **
+        </span></div>
+        <div class="links">
 			Feedback
 			<a href="https://twitter.com/intent/tweet?screen_name=rbrignall" target="_blank">Twitter</a>
 		</div>
@@ -73,31 +84,33 @@
             <p>Code is Open Source, written with Svelte, in Typescript by <a href="https://github.com/rbrignall" target="_blank">rbrignall</a> on a base by <a href="https://github.com/MikhaD" target="_blank">MikhaD</a>.</p>
         </div>
 	</div>
-	<div class="footer">
-			<div>Version: Byrd 4</div>
-			<div
-				class="word"
-				on:contextmenu|preventDefault={() => {
-					localStorage.clear();
-					toaster.pop("localStorage cleared");
-				}}
-			>
-				Game #{wordNumber+1}
-			</div>
-	</div>
+    <div class="footer">
+        <div>Version: Byrd 4</div>
+        <div
+            class="word"
+                on:contextmenu|preventDefault={() => {
+                    localStorage.clear();
+				    toaster.pop("localStorage cleared");
+                }}
+        >
+            Game #{wordNumber+1}
+        </div>
+    </div>
 </div>
 
 <style>
 	.outer {
-		height: 100%;
+/*		height: 100%;
 		display: flex;
 		flex-direction: column;
-		justify-content: space-between;
-	}
+        justify-content: space-between;*/
+        position: relative;
+    }
 	.links {
 		font-size: var(--fs-medium);
+		font-weight: 500;
 		border-bottom: 1px solid var(--border-primary);
-		color: var(--fg-secondary);
+		color: var(--fg-primary);
 		display: flex;
 		justify-content: space-between;
 	}
@@ -107,7 +120,14 @@
 		justify-content: space-between;
 		align-items: flex-end;
 		text-align: end;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 16px 0px;
 	}
+    .settings-top {
+        padding: 0px 0px 60px 0px;
+    }
 	:global(.settings-top > div) {
 		padding: 16px 0;
 		border-bottom: 1px solid var(--border-primary);

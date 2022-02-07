@@ -98,9 +98,10 @@
 	.row {
 		width: 100%;
 		display: flex;
-		margin: 0 auto 6px;
-		padding: 0 8px;
-		gap: 6px;
+		margin: 0 auto 4px;
+		padding: 0 4px;
+		gap: 4px;
+        touch-action: manipulation;
 	}
 	.row:nth-of-type(2) {
 		padding: 0 30px;

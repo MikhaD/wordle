@@ -26,7 +26,7 @@
 	class:complete={guesses > num}
 >
 	{#each Array(COLS) as _, i}
-		<Tile bind:this={tiles[i]} state={evaluation[i]} value={value.charAt(i)} position={i} />
+		<Tile bind:this={tiles[i]} state={evaluation[i]} value={value.charAt(i)} position={i+num} />
 	{/each}
 </div>
 
@@ -35,10 +35,28 @@
 		display: grid;
 		grid-template-columns: repeat(var(--cols), 1fr);
 		gap: 5px;
+		font-size: 2.4rem;
+        line-height: 2.4rem;
 		&[data-animation="shake"] {
 			animation: shake 0.6s;
 		}
 	}
+    @media (max-height: 600px) {
+        .board-row {
+            font-size: 2em;
+            line-height: 2em;
+        }
+    }
+    @media (max-height: 450px) {
+        .board-row {
+            font-size: 1.5em;
+            line-height: 1.5em;
+        }
+    }
+    
+    
+    
+    
 	@keyframes shake {
 		10%,
 		90% {

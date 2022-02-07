@@ -188,25 +188,28 @@ export function createNewGame(mode: GameMode): GameState {
 
 
 export function createDefaultStats(mode: GameMode): Stats {
+
+    const urlStats = new URLSearchParams(window.location.search);
 	const stats = {
-		gamesPlayed: 0,
-		lastGame: 0,
+		gamesPlayed: parseInt(urlStats.get("p")) || 0,
+		lastGame: parseInt(urlStats.get("l")) || 0,
 		guesses: {
-			fail: 0,
-			1: 0,
-			2: 0,
-			3: 0,
-			4: 0,
-			5: 0,
-			6: 0,
-		}
+			fail: parseInt(urlStats.get("fail")) || 0,
+			1: parseInt(urlStats.get("g1")) || 0,
+			2: parseInt(urlStats.get("g2")) || 0,
+			3: parseInt(urlStats.get("g3")) || 0,
+			4: parseInt(urlStats.get("g4")) || 0,
+			5: parseInt(urlStats.get("g5")) || 0,
+			6: parseInt(urlStats.get("g6")) || 0,
+		},
+		currentStreak: parseInt(urlStats.get("cs")) || 0,
+		maxStreak: parseInt(urlStats.get("ms")) || 0,
+        imported: false,
 	};
-	if (!modeData.modes[mode].streak) return stats;
-	return {
-		...stats,
-		currentStreak: 0,
-		maxStreak: 0,
-	};
+	if (stats.gamesPlayed === 0) return stats;
+    // Data was imported from URL
+    stats.imported = true;
+	return stats;
 };
 
 export function createLetterStates(): { [key: string]: LetterState; } {
