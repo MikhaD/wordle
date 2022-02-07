@@ -65,9 +65,11 @@
 		</Setting>
         <div style="text-align: center; color: red; cursor: pointer;"><span 
             on:click={() => {
-                localStorage.clear();
-                toaster.pop("Deleted! Refreshing page...");
-                setTimeout(() => (location.reload()), 3000);
+                if (confirm("This will delete all statistics. Are you sure?")) {
+                    localStorage.clear();
+                    toaster.pop("Deleted! Refreshing page...");
+                    setTimeout(() => (location.reload()), 3000);
+                }
             }}
         >
             ** Click here to delete all game data **
