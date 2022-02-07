@@ -84,27 +84,28 @@
             <p>Code is Open Source, written with Svelte, in Typescript by <a href="https://github.com/rbrignall" target="_blank">rbrignall</a> on a base by <a href="https://github.com/MikhaD" target="_blank">MikhaD</a>.</p>
         </div>
 	</div>
-	<div class="footer">
-			<div>Version: Byrd 4</div>
-			<div
-				class="word"
-				on:contextmenu|preventDefault={() => {
-					localStorage.clear();
-					toaster.pop("localStorage cleared");
-				}}
-			>
-				Game #{wordNumber+1}
-			</div>
-	</div>
+    <div class="footer">
+        <div>Version: Byrd 4</div>
+        <div
+            class="word"
+                on:contextmenu|preventDefault={() => {
+                    localStorage.clear();
+				    toaster.pop("localStorage cleared");
+                }}
+        >
+            Game #{wordNumber+1}
+        </div>
+    </div>
 </div>
 
 <style>
 	.outer {
 /*		height: 100%;
 		display: flex;
-		flex-direction: column;*/
-		justify-content: space-between;
-	}
+		flex-direction: column;
+        justify-content: space-between;*/
+        position: relative;
+    }
 	.links {
 		font-size: var(--fs-medium);
 		font-weight: 500;
@@ -121,7 +122,7 @@
 		text-align: end;
         position: absolute;
         bottom: 0;
-        width: calc(100% - 2*var(--modal-padding));
+        width: 100%;
         padding: 16px 0px;
 	}
     .settings-top {

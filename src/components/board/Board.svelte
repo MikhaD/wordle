@@ -70,7 +70,6 @@
 		grid-template-rows: repeat(var(--rows), 1fr);
 		gap: 5.5px;
 		flex-grow: 1;
-/*		aspect-ratio: var(--cols) / var(--rows);*/
 		padding: 5px;
 		position: relative;
         width: var(--board-width);

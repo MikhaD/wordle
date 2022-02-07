@@ -9,7 +9,7 @@
 </script>
 
 {#if imported}
-    <h3>welcome to the new byrdle!</h3>
+    <h3>welcome to new byrdle!</h3>
     Have you played before? You can fetch your statistics from the old web page:
     
     <div class="importstats" onclick="location.href='https://rbrignall.github.io/byrdle/handover.html';">
@@ -69,7 +69,6 @@
 		border-bottom: 1px solid var(--border-primary);
 		:global(.row > *) {
 			height: 100%;
-			aspect-ratio: 1;
 		}
 		&:not(.complete) :global(.row .back) {
 			transition-delay: 0.3s;
