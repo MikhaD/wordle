@@ -36,7 +36,7 @@
 		grid-template-columns: repeat(var(--cols), 1fr);
 		gap: 5px;
 		font-size: 2.4rem;
-        line-height: 3.6rem;
+        line-height: 2.4rem;
 		&[data-animation="shake"] {
 			animation: shake 0.6s;
 		}
@@ -44,14 +44,13 @@
     @media (max-height: 600px) {
         .board-row {
             font-size: 2em;
-            line-height: 1.4em;
-            vertical-align: middle;
+            line-height: 2em;
         }
     }
-    @media (max-height: 400px) {
+    @media (max-height: 450px) {
         .board-row {
             font-size: 1.5em;
-            line-height: 2.25em;
+            line-height: 1.5em;
         }
     }
     

@@ -52,7 +52,6 @@
 	}
 	.tile {
         font-size: 100%;
-        vertical-align: middle;
         font-family: var(--tile-font);
 		font-weight: bold;
 		text-transform: uppercase;
@@ -64,7 +63,11 @@
 	}
 	.back,
 	.front {
-		display: grid;
+		display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        vertical-align: middle;
         border-radius: 33%;
 		place-items: center;
 		position: absolute;

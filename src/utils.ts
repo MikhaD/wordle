@@ -192,7 +192,7 @@ export function createDefaultStats(mode: GameMode): Stats {
     const urlStats = new URLSearchParams(window.location.search);
 	const stats = {
 		gamesPlayed: parseInt(urlStats.get("p")) || 0,
-		lastGame: parseInt(urlStats.get("lastGame")) || 0,
+		lastGame: parseInt(urlStats.get("l")) || 0,
 		guesses: {
 			fail: parseInt(urlStats.get("fail")) || 0,
 			1: parseInt(urlStats.get("g1")) || 0,
