@@ -14,18 +14,7 @@
 	}
 </script>
 
-{#if fullscreen}
-	<div class:visible class="page">
-		<div class="exit" on:click={close}>
-			<GameIcon>
-				<path
-					d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
-				/>
-			</GameIcon>
-		</div>
-		<slot />
-	</div>
-{:else}
+
 	<div class:visible class="overlay" on:click|self={close}>
 		<div class="modal">
 			<div class="exit" on:click={close}>
@@ -38,7 +27,7 @@
 			<slot />
 		</div>
 	</div>
-{/if}
+
 
 <style lang="scss">
 	@mixin modal-outer() {
@@ -85,20 +74,6 @@
 		transition: all 0.3s ease;
 		> :global(*:not(h3)) {
 			margin-bottom: 15px;
-		}
-	}
-	/* fullscreen modal */
-	.page {
-		@include modal-outer();
-		background: var(--bg-primary);
-		top: 10vh;
-		height: 100%;
-		max-width: var(--game-width);
-		margin: auto;
-		padding: 10px 16px;
-		.exit {
-			top: 10px;
-			right: 10px;
 		}
 	}
 </style>

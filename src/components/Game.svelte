@@ -225,7 +225,7 @@
 		align-items: center;
 		height: 100%;
 		max-width: var(--game-width);
-		margin: auto;
+		margin: 0px auto;
 		position: relative;
 	}
 </style>
