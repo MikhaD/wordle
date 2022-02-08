@@ -81,7 +81,7 @@
         <h3 style="margin-top: 10px;">Credits</h3>
         <div>
             <p>This game is inspired by <a href="https://www.powerlanguage.co.uk/wordle/" target="_blank">Wordle</a>, and is an implementation of an idea of <a href="https://twitter.com/QuireMemes">QuireMemes</a>.</p>
-            <p>Code is Open Source, written with Svelte, in Typescript by <a href="https://github.com/rbrignall" target="_blank">rbrignall</a> on a base by <a href="https://github.com/MikhaD" target="_blank">MikhaD</a>.</p>
+            <p>The <a href="https://github.com/rbrignall/open-byrdle">code</a> is open source, written with Svelte in Typescript by <a href="https://github.com/rbrignall" target="_blank">rbrignall</a> on a base by <a href="https://github.com/MikhaD" target="_blank">MikhaD</a>.</p>
         </div>
 	</div>
     <div class="footer">
