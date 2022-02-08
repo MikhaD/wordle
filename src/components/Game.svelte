@@ -102,7 +102,7 @@
 			++stats.gamesPlayed;
 			if ("currentStreak" in stats) {
 				stats.currentStreak =
-					modeData.modes[$mode].seed - stats.lastGame >= modeData.modes[$mode].unit
+					modeData.modes[$mode].seed - stats.lastGame > modeData.modes[$mode].unit
 						? 1
 						: stats.currentStreak + 1;
 				if (stats.currentStreak > stats.maxStreak) stats.maxStreak = stats.currentStreak;
