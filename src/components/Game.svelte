@@ -57,6 +57,20 @@
         return myarray[Math.floor(Math.random()*myarray.length)];
     }
     
+    function updateKey(e,i) {
+        var temp = $letterStates[game.boardState[game.guesses][i]] 
+        switch(temp) {
+            case "nil":
+                $letterStates[game.boardState[game.guesses][i]] = e;
+                break;
+            case "present":
+                $letterStates[game.boardState[game.guesses][i]] = (e === "correct" ? e : temp);
+                break;
+            default:
+                $letterStates[game.boardState[game.guesses][i]] = temp;
+        }
+    }
+    
 	function submitWord() {
 		if (game.boardState[game.guesses].length !== COLS) {
 			toaster.pop("Not enough letters");
@@ -82,7 +96,7 @@
 			}
 			const state = getState(word, game.boardState[game.guesses]);
 			game.evaluations[game.guesses] = state;
-			state.forEach((e, i) => ($letterStates[game.boardState[game.guesses][i]] = e));
+			state.forEach((e, i) => (updateKey(e,i)));
 			++game.guesses;
 			if (game.boardState[game.guesses - 1] === word) win();
 			else if (game.guesses === ROWS) lose();
