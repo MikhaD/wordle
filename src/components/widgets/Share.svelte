@@ -8,11 +8,12 @@
 	export let state: GameState;
 	const toaster = getContext<Toaster>("toaster");
 
+
 	$: stats = `Byrdle ${state.wordNumber+1} ${
 		state.guesses <= ROWS ? state.guesses : "X"
 	}/${state.boardState.length}\n\n${state.evaluations
 		.slice(0, state.guesses)
-		.map((r) => r.join(""))
+		.map((r) => r.map((l) => l === "absent" ? "⚪" : (l === "correct" ? "🟢" : "🟡")).join(""))
 		.join("\n")}\nwww.byrdle.net`;
 </script>
 

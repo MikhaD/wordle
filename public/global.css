@@ -76,9 +76,9 @@ h3 {
 	text-transform: uppercase;
 	margin-bottom: 10px;
 }
-.⚪,
-.🟡,
-.🟢 {
+.absent,
+.present,
+.correct {
 	color: var(--evaluated-key-color);
 }
 a:link,

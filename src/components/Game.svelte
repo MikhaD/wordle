@@ -65,18 +65,18 @@
 			if (game.guesses > 0) {
 				const hm = checkHardMode(game.boardState, game.evaluations, game.guesses);
 				if ($hardMode) {
-					if (hm.type === "🟢") {
+					if (hm.type === "correct") {
 						toaster.pop(
 							`${contractNum(hm.pos + 1)} letter must be ${hm.char.toUpperCase()}`
 						);
 						board.shake(game.guesses);
 						return;
-					} else if (hm.type === "🟡") {
+					} else if (hm.type === "present") {
 						toaster.pop(`Guess must contain ${hm.char.toUpperCase()}`);
 						board.shake(game.guesses);
 						return;
 					}
-				} else if (hm.type !== "⚪") {
+				} else if (hm.type !== "absent") {
 					game.validHard = false;
 				}
 			}
