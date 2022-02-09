@@ -11,7 +11,7 @@
 </script>
 
 <div>
-	Don't get it? Read this&nbsp;<a href="https://twitter.com/rbrignall/status/1483940627335233545" target="_blank">Twitter thread</a>.
+	<a href="https://twitter.com/rbrignall/status/1483940627335233545" target="_blank">Past BYRDLEs explained here</a>
 </div>
 
 <style>
