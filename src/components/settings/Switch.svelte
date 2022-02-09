@@ -22,7 +22,7 @@
 			content: "";
 			position: absolute;
 			width: 16px;
-			aspect-ratio: 1;
+			height: 16px;
 			background: white;
 			border-radius: 50%;
 			margin: 2px;

@@ -55,20 +55,21 @@
 	.overlay {
 		@include modal-outer();
 		background: #0008;
+        overflow-y: hidden;
 	}
 	.modal {
 		--modal-padding: 16px;
 		background: var(--bg-primary);
 		max-width: var(--game-width);
 		height: min-content;
-		max-height: 90%;
+		max-height: 100%;
 		overflow-y: auto;
-		border-radius: 8px;
+		border-radius: 0px;
 		border: 1px solid var(--bg-secondary);
 		padding: var(--modal-padding);
 		padding-top: calc(2 * var(--modal-padding));
 		position: absolute;
-		width: 90%;
+		width: 100%;
 		inset: 20vh 0 0;
 		margin: auto;
 		transition: all 0.3s ease;

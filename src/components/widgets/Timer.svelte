@@ -70,8 +70,8 @@
         }
     }
 	.button {
-		height: 80%;
-		aspect-ratio: 1;
+		height: 36px;
+        width: 36px;
 		padding: 4px;
 		background: var(--color-correct);
 		border-radius: 4px;

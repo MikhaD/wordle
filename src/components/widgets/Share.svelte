@@ -10,10 +10,10 @@
 
 	$: stats = `Byrdle ${state.wordNumber+1} ${
 		state.guesses <= ROWS ? state.guesses : "X"
-	}/${state.boardState.length}\n\n    ${state.evaluations
+	}/${state.boardState.length}\n\n${state.evaluations
 		.slice(0, state.guesses)
 		.map((r) => r.join(""))
-		.join("\n    ")}\nwww.byrdle.net`;
+		.join("\n")}\nwww.byrdle.net`;
 </script>
 
 <div
