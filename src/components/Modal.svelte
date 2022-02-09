@@ -4,7 +4,6 @@
 	import GameIcon from "./GameIcon.svelte";
 
 	export let visible = false;
-	export let fullscreen = false;
 
 	const dispach = createEventDispatcher();
 
@@ -40,7 +39,6 @@
 		inset: 0;
 	}
 	.overlay.visible,
-	.visible.page,
 	.visible .modal {
 		top: 0;
 		opacity: 1;

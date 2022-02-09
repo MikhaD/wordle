@@ -30,27 +30,27 @@
 <div class:complete={visible} class="examples" style="--tutorial-row-width: {rowWidth}px; --cols: {COLS}">
 	<div><strong>Examples</strong></div>
 	<div class="row">
-		<Tile value="q" state="🟢" />
-		<Tile value="u" state="🔳" />
-		<Tile value="i" state="🔳" />
-		<Tile value="r" state="🔳" />
-		<Tile value="e" state="🔳" />
+		<Tile value="q" state="correct" />
+		<Tile value="u" state="nil" />
+		<Tile value="i" state="nil" />
+		<Tile value="r" state="nil" />
+		<Tile value="e" state="nil" />
 	</div>
 	<div>The letter <strong>Q</strong> is in the word and in the correct spot.</div>
 	<div class="row">
-		<Tile value="m" state="🔳" />
-		<Tile value="e" state="🟡" />
-		<Tile value="m" state="🔳" />
-		<Tile value="e" state="🔳" />
-		<Tile value="s" state="🔳" />
+		<Tile value="m" state="nil" />
+		<Tile value="e" state="present" />
+		<Tile value="m" state="nil" />
+		<Tile value="e" state="nil" />
+		<Tile value="s" state="nil" />
 	</div>
 	<div>The letter <strong>E</strong> is in the word but in the wrong spot.</div>
 	<div class="row">
-		<Tile value="p" state="🔳" />
-		<Tile value="s" state="🔳" />
-		<Tile value="a" state="🔳" />
-		<Tile value="l" state="⚪" />
-		<Tile value="m" state="🔳" />
+		<Tile value="p" state="nil" />
+		<Tile value="s" state="nil" />
+		<Tile value="a" state="nil" />
+		<Tile value="l" state="absent" />
+		<Tile value="m" state="nil" />
 	</div>
 	<div>The letter <strong>L</strong> is not in the word in any spot.</div>
 </div>

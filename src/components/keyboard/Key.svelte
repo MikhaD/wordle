@@ -2,7 +2,7 @@
 	import { createEventDispatcher } from "svelte";
 
 	export let letter: string;
-	export let state: LetterState = "🔳";
+	export let state: LetterState = "nil";
 
 	const dispatch = createEventDispatcher();
 </script>
@@ -37,13 +37,13 @@
 		font-size: var(--fs-tiny);
 		flex-grow: 1.5;
 	}
-	.⚪ {
+	.absent {
 		background: var(--color-absent);
 	}
-	.🟡 {
+	.present {
 		background: var(--color-present);
 	}
-	.🟢 {
+	.correct {
 		background: var(--color-correct);
 	}
 </style>
