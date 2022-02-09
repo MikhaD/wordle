@@ -26,6 +26,7 @@
 	let x = 0;
 	let y = 0;
 	let word = "";
+    let innerHeight;
 
 	function context(cx: number, cy: number, num: number, val: string) {
 		if (guesses >= num) {
@@ -39,14 +40,10 @@
 			pSols = pAns + words.valid.filter((w) => match(w)).length;
 		}
 	}
-    
-    let boardHeight = Math.min(Math.floor(window.innerHeight*(4/7)),420);
-    let boardWidth = COLS * Math.floor(boardHeight/ROWS);
-
 </script>
+<svelte:window bind:innerHeight={innerHeight} />
 
-
-<div class="board" style="--board-width: {boardWidth}px;--board-height: {boardHeight}px;">
+<div class="board" id="boardid" style="width: {COLS * Math.floor(Math.min(Math.floor(innerHeight*(4/7)),420)/ROWS)}px; height: {Math.min(Math.floor(innerHeight*(4/7)),420)}px;">
 	{#each value as _, i}
 		<Row
 			num={i}
@@ -72,8 +69,6 @@
 		flex-grow: 1;
 		padding: 5px;
 		position: relative;
-        width: var(--board-width);
-        height: var(--board-height);
 	}
 	svg {
 		position: absolute;
