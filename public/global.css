@@ -85,3 +85,12 @@ a:link,
 a:visited {
 	color: inherit;
 }
+ .ssbc-button {
+    border-radius: 13px;
+    height: 40px;
+    width: 40px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    vertical-align: middle;
+}
