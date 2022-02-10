@@ -57,6 +57,20 @@
         return myarray[Math.floor(Math.random()*myarray.length)];
     }
     
+    function updateKey(e,i) {
+        var temp = $letterStates[game.boardState[game.guesses][i]] 
+        switch(temp) {
+            case "nil":
+                $letterStates[game.boardState[game.guesses][i]] = e;
+                break;
+            case "present":
+                $letterStates[game.boardState[game.guesses][i]] = (e === "correct" ? e : temp);
+                break;
+            default:
+                $letterStates[game.boardState[game.guesses][i]] = temp;
+        }
+    }
+    
 	function submitWord() {
 		if (game.boardState[game.guesses].length !== COLS) {
 			toaster.pop("Not enough letters");
@@ -65,24 +79,24 @@
 			if (game.guesses > 0) {
 				const hm = checkHardMode(game.boardState, game.evaluations, game.guesses);
 				if ($hardMode) {
-					if (hm.type === "🟢") {
+					if (hm.type === "correct") {
 						toaster.pop(
 							`${contractNum(hm.pos + 1)} letter must be ${hm.char.toUpperCase()}`
 						);
 						board.shake(game.guesses);
 						return;
-					} else if (hm.type === "🟡") {
+					} else if (hm.type === "present") {
 						toaster.pop(`Guess must contain ${hm.char.toUpperCase()}`);
 						board.shake(game.guesses);
 						return;
 					}
-				} else if (hm.type !== "⚪") {
+				} else if (hm.type !== "absent") {
 					game.validHard = false;
 				}
 			}
 			const state = getState(word, game.boardState[game.guesses]);
 			game.evaluations[game.guesses] = state;
-			state.forEach((e, i) => ($letterStates[game.boardState[game.guesses][i]] = e));
+			state.forEach((e, i) => (updateKey(e,i)));
 			++game.guesses;
 			if (game.boardState[game.guesses - 1] === word) win();
 			else if (game.guesses === ROWS) lose();
@@ -102,7 +116,7 @@
 			++stats.gamesPlayed;
 			if ("currentStreak" in stats) {
 				stats.currentStreak =
-					modeData.modes[$mode].seed - stats.lastGame >= modeData.modes[$mode].unit
+					modeData.modes[$mode].seed - stats.lastGame > modeData.modes[$mode].unit
 						? 1
 						: stats.currentStreak + 1;
 				if (stats.currentStreak > stats.maxStreak) stats.maxStreak = stats.currentStreak;
