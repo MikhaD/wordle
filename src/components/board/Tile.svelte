@@ -72,6 +72,7 @@
 	}
 	.front {
 		border: 2px solid var(--border-primary);
+		color: var(--fg-primary);
 		transform: rotateX(0deg);
 	}
 	.back {
