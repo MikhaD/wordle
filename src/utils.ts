@@ -1,14 +1,18 @@
 import seedrandom from "seedrandom";
 import { GameMode } from "./enums";
-import wordList from "./words_5_slim";
+import wordLists from "./words_5_6";
+
+export const SIXLETTERDAY = 110;
 
 export const ROWS = 6;
-export const COLS = 5;
+
+export const COLS = ((getWordNumber() < SIXLETTERDAY) ? 5 : 6);
 
 export const words = {
-	...wordList,
+	words: wordLists.words,
+    valid: ((getWordNumber() < SIXLETTERDAY) ? wordLists.validFive : wordLists.validSix),
 	contains: (word: string) => {
-		return wordList.words.includes(word) || wordList.valid.includes(word);
+		return words.words.includes(word) || words.valid.includes(word);
 	},
 };
 
@@ -90,7 +94,7 @@ export function contractNum(n: number) {
 		case 1: return `${n}st`;
 		case 2: return `${n}nd`;
 		case 3: return `${n}rd`;
-		default: return `${n}rd`;
+		default: return `${n}th`;
 	}
 }
 
