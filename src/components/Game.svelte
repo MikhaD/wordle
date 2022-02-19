@@ -25,6 +25,7 @@
 		checkHardMode,
 		ROWS,
 		COLS,
+        SIXLETTERDAY,
 		newSeed,
 		createNewGame,
 //		seededRandomInt,
@@ -150,6 +151,7 @@
 		showStats = false;
 		showRefresh = false;
 		timer.reset($mode);
+        if (SIXLETTERDAY<=getWordNumber() && COLS===5) location.reload();
 	}
 
 	onMount(() => {
@@ -162,7 +164,7 @@
             stats.imported = false;
             localStorage.setItem(`statistics`, JSON.stringify(stats));
             window.history.replaceState({}, document.title, window.location.pathname);
-            toaster.pop("Statistics successfully imported!");
+            toaster.pop("Statistics imported! Welcome to New Byrdle!");
             setTimeout(() => (showStats = true), delay);
         }
 	});

@@ -95,9 +95,13 @@
             <p>This game is inspired by <a href="https://www.powerlanguage.co.uk/wordle/" target="_blank">Wordle</a>, and is an implementation of an idea of <a href="https://twitter.com/QuireMemes">QuireMemes</a>.</p>
             <p>The <a href="https://github.com/rbrignall/open-byrdle">code</a> is open source, written with Svelte in Typescript by <a href="https://github.com/rbrignall" target="_blank">rbrignall</a> on a base by <a href="https://github.com/MikhaD" target="_blank">MikhaD</a>.</p>
         </div>
+        
+        <div>
+	       Byrdle is free to play and ad-free, but you can <a href="https://www.buymeacoffee.com/rbrignall" target="_blank">buy me a coffee</a>!
+        </div>
 	</div>
     <div class="footer">
-        <div>Version: Byrd 4</div>
+        <div>Version: Byrd 5</div>
         <div class="word">
             Game #{wordNumber+1}
         </div>
