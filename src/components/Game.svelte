@@ -151,7 +151,7 @@
 		showStats = false;
 		showRefresh = false;
 		timer.reset($mode);
-        if (SIXLETTERDAY===getWordNumber()) location.reload();
+        if (SIXLETTERDAY<=getWordNumber() && COLS===5) location.reload();
 	}
 
 	onMount(() => {
