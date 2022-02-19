@@ -56,8 +56,11 @@
 </div>
 <div>A new BYRDLE will be available at midnight each day!</div>
 
+<h3>The history of Byrdle</h3>
+<div>On January 11 2022, QuireMemes posted <a href="https://twitter.com/QuireMemes/status/1480896862978727937" target="_blank">this tweet</a>, and asked if it could be made for real, just for a bit of fun. The next day, <a href="https://twitter.com/QuireMemes/status/1481205826601771010" target="_blank">Byrdle went live</a>.</div>
 
-
+<div>Far from just being a quick laugh, it turns out that Byrdle was actually quite fun to play: sometimes hard, sometimes easy, often educational.</div> 
+<div>Within a week, 20,000 people were playing Byrdle every day. Within 3 weeks that increased to 50,000, assisted by media coverage, including <a href="https://www.classicfm.com/discover-music/humour/byrdle-choral-music-meme/" target="_blank">Classic FM</a>, <a href="https://eu.usatoday.com/story/money/reviewed/2022/01/24/games-like-wordle-alternative-word-games-play-online/6632088001/" target="_blank">USA Today</a>, <a href="https://www.churchtimes.co.uk/articles/2022/28-january/news/uk/byrd-in-five-parts-wordle-inspires-sacred-mimicry" target="_blank">The Church Times</a>, <a href="https://nypost.com/2022/02/18/8-wordle-spinoffs-to-play-from-subwaydle-to-nerdle/" target="_blank">The New York Post</a>, <a href="https://www.ladepeche.fr/2022/02/01/vous-aimez-wordle-et-la-musique-classique-essayez-byrdle-10082250.php" target="_blank">La Depeche</a> and the <a href="https://www.malaymail.com/news/tech-gadgets/2022/02/02/if-you-like-wordle-and-classical-music-have-a-go-at-byrdle/2039102" target="_blank">Malay Mail</a>.</div>
 
 
 <style lang="scss">

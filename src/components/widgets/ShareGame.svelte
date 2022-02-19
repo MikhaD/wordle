@@ -14,6 +14,10 @@
 	<a href="https://twitter.com/rbrignall/status/1483940627335233545" target="_blank">Past BYRDLEs explained here</a>
 </div>
 
+<div>
+	<a href="https://www.buymeacoffee.com/rbrignall" target="_blank">Buy me a coffee!</a>
+</div>
+
 <style>
 	div {
 		color: var(--fg-secondary);
