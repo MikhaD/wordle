@@ -69,7 +69,7 @@ export function getRowData(n: number, boardState: string[], evaluations: LetterS
 
 export function getState(word: string, guess: string): LetterState[] {
 	const charArr = word.split("");
-	const result = Array<LetterState>(5).fill("absent");
+	const result = Array<LetterState>(COLS).fill("absent");
 	for (let i = 0; i < word.length; ++i) {
 		if (charArr[i] === guess.charAt(i)) {
 			result[i] = "correct";
