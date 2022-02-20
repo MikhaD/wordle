@@ -1,5 +1,5 @@
 // Increase the v number when the app is updated
-const cacheName = "byrdle+-v3.1.3";
+const cacheName = "byrdle-v5.0.1";
 
 const assetsToCache = [
 //	"./",
