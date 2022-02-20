@@ -100,7 +100,7 @@
 		display: flex;
 		margin: 0 auto 4px;
 		padding: 0 4px;
-		gap: 4px;
+		grid-gap: 4px;
         touch-action: manipulation;
 	}
 	.row:nth-of-type(2) {
