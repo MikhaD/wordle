@@ -10,15 +10,18 @@ const answers = [
         "songs","dolce","duets","fugue","arias","lyric","trios","missa","score","voice",
         "locus","abbey","robes","lotti","vigil","arise","round","fugal","fixer","sings",
         "hodie","piano","locus","mundy","ficta","staff","nobis","maria","aston","amens",
-        "handel","tallis","anthem","matins","gloria","choral","treble","vierne","basses","tenors",
-        "singer","quaver","preces","batten","record","adagio","corpus","chapel","church","chorus",
-        "legato","cantor","tuning","octave","melody","phrase","rhythm","sextet","unison","plagal",
-        "cantus","ballad","warble","mozart","intone","firmus","lieder","brahms","dorian","second",
-        "fourth","degree","lydian","hymnal","wesley","kodaly","atonal","custos","rutter","spirit",
-        "timbre","rubato","vivace","softly","loudly","brahms","brevis","office","presto","tenuto",
-        "troppo","finale","sempre","subito","triste","stabat","tierce","accent","dotted","eighth",
-        "beamed","breath","tuplet","repeat","walton","byrdle","lassus","mealor","morley","shanty",
-        "divisi","phonic","attack","encore","palate","larynx","nodule","septet","system","upbeat"
+        "singer","handel","anthem","matins","gloria","choral","treble","rhythm","vierne","second",
+        "timbre","rubato","walton","shanty","unison","mozart","custos","tenors","softly","larynx",
+        "eighth","cantus","ballad","warble","brahms","brevis","office","presto","rutter","atonal",
+        "septet","vivace","tallis","basses","tuning","dorian","octave","melody","phrase","sextet",
+        "palate","lassus","sempre","loudly","preces","tenuto","chapel","chorus","wesley","beamed",
+        "divisi","quaver","batten","record","adagio","lydian","corpus","nodule","church","kodaly",
+        "spirit","legato","cantor","plagal","brahms","degree","lieder","stabat","upbeat","subito",
+        "intone","firmus","mealor","triste","fourth","hymnal","accent","repeat","breath","morley",
+        "troppo","dotted","system","phonic","attack","tierce","tuplet","byrdle","finale","encore",
+        "byrdle","byrdle","byrdle","byrdle","byrdle","byrdle","byrdle","byrdle","byrdle","byrdle",
+        "byrdle","byrdle","byrdle","byrdle","byrdle","byrdle","byrdle","byrdle","byrdle","byrdle",
+        "byrdle","byrdle","byrdle","byrdle","byrdle","byrdle","byrdle","byrdle","byrdle","byrdle"
     ];
 const validFive = [
 "ahedaliiarghartibacabacibackbacsbaftbakabampbandbasebashbaskbatebayabbasbbedbbesbbeybbotbceebeambearbelebendbersbetsbhorbidebiesbledblerblesbletblowbmhobodebohmboilbomaboonbordborebortboutbovebrambraybrimbrinbrisbseybsitbunabunebusebutsbuzzbyesbysmbysscaiscariccasccoycerbcerscetacharchedcheschoocidscidycingcinickeeckercmescmiccnedcnescockcoldcorncredcrescridcrosctedctinctonctorcutecylsdagedaptdawsdaysdbotddaxddeddderddioddledeemdeptdhandieudiosditsdmandmendmindmitdmixdobedobodoptdoredorndowndozedraddreddsumdukidultduncdustdvewdytadzeddzeseciaedesegiseonserieerosesirfaldfarafarsfearffixfireflajfootforefoulfritfrosftergaingamagamigapegarsgastgategavegazegenegentgersggerggieggriggroggryghasgilagileginggiosgismgistgitagleegletgleyglooglowglusgmasgogegonegonsgonygoodgoragreegriagringrosguedguesgunagutiheadheaphenthighhindhinghintholdhullhuruidasidedideridesidoiidosieryigasightiledimedimerineeingaioliiredirerirnsirthirtsisleitchitusiveriyeeizlejiesjivajugajwankeeskelakenekingkitakkaslaaplacklamolandlanelanglanslantlapalapslarmlarylatelayslbaslbeelbumlcidlcosldealderldollecklecslefsleftlephlertlewsleyelfaslgaelgallgaslgidlginlgorlgumliaslibilienlifslignlikelinelistliveliyalkielkoslkydlkylllaylleellellleyllisllodllotllowlloyllyllmahlmaslmehlmeslmudlmuglodsloedloesloftlohaloinlonelongloofloosloudlowelphaltarlterltholtoslulalumslurelvarlwaymahsmainmassmatemautmazembanmbermbitmblembosmbrymebameermendmenemensmentmiasmicemicimidemidomidsmiesmigamigomineminominsmirsmissmitymlasmmanmmonmmosmniamnicmniomoksmolemongmortmourmovemowtmpedmplemplympulmritmuckmusemylsnananatanchonclenconndronearnelenentngasngelngernglenglongryngstnighnilenilsnimanimeniminionnisenkernkhsnklenkusnlasnnalnnasnnatnnexnnoynnulnoasnodenolenomynsaentaentarntasntedntesnticntisntrantrentsynuranvilnyonortapacepagepaidpartpaydpayspeakpeekperspertperypgarphidphispianpingpiolpishpismpneapodepodspoopportppalppayppelpplepplypproppuippuyprespronpsespsispsosptedpterptlyquaequasrabaraksramerarsrbasrborrcedrchircosrcusrdebrdorrdrireadreaerealrearreasrecareddrederefyreicrenarenereparerereteretsrettrgalrganrgilrglergolrgonrgotrguergusrhatriasrielrikirilsriotriserishrkedrledrlesrmedrmerrmetrmilrmorrnasrnutrobaroharoidromaroserpasrpenrrahrrasrrayrretrrisrrowrrozrsedrsesrseyrsisrsonrtalrtelrticrtisrtsyruherumsrvalrveervosrylssanasconscotscussdicshedshenshesshetsideskedskerskewskoiskosspensperspicspiespissprossaissamssayssesssetssezssotsterstirstunsuraswayswimsylatapstaxytigitilttimytlastmantmastmostocstoketokstolltomstomytonetonytopytriatripttapttarttictuasudadudiouditugerughtugurulasuliculoiulosumilunesuntsuntyuraeuralurarurasureiuresuricurisurumutosuxinvailvalevantvastvelsvensversvertvgasvianvinevionvisevisovizevoidvowsvyzewaitwakewardwarewarnwashwatowavewayswdlsweelwetowfulwingwmrywnedwnerwokewolsworkxelsxialxilexilsxingxiomxionxitexledxlesxmanxmenxoidxonexonsyahsyayayelpygreyinsyontyresyriezanszidezidozinezlonzoiczolezonszotezothzukizurezurnzuryzygyzymezyms",
