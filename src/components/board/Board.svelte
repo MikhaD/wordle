@@ -54,31 +54,15 @@
 			on:ctx={(e) => context(e.detail.x, e.detail.y, i, value[i])}
 		/>
 	{/each}
-	{#if icon}
-		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
-			<path d={icon} stroke-width="14" />
-		</svg>
-	{/if}
 </div>
 
 <style>
 	.board {
 		display: grid;
 		grid-template-rows: repeat(var(--rows), 1fr);
-		gap: 5.5px;
+		grid-gap: 5.5px;
 		flex-grow: 1;
 		padding: 5px;
 		position: relative;
-	}
-	svg {
-		position: absolute;
-		z-index: -1;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		width: min(130%, 100vw);
-	}
-	path {
-		stroke: var(--bg-secondary);
 	}
 </style>

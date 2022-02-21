@@ -42,8 +42,9 @@
 		margin-bottom: 10px;
 	}
     .sharecontainer {
-        display: flex; 
-        gap: 10px;
+        display: grid; 
+        grid-template-columns: 37.5px 37.5px 75px;
+        grid-gap: 10px;
         justify-content: center;
         width: 100%;
     }
@@ -65,7 +66,7 @@
 	}
     @media (max-width: 500px) {
         .sharecontainer {
-            gap: 5px;
+            grid-gap: 5px;
         }
         .copybutton {
             width: 70px;

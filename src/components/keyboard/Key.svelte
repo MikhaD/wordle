@@ -18,10 +18,12 @@
 		text-transform: uppercase;
 		border-radius: 6px;
 		height: 58px;
+        margin: 0px 4px 0px 0px;
 		background: var(--key-bg);
 		cursor: pointer;
-		display: grid;
-		place-items: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 		flex: 1;
 		transition: background-color 0.3s ease-in-out;
 	}

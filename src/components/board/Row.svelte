@@ -34,7 +34,7 @@
 	.board-row {
 		display: grid;
 		grid-template-columns: repeat(var(--cols), 1fr);
-		gap: 5px;
+		grid-gap: 5px;
 		font-size: 2.4rem;
         line-height: 2.4rem;
 		&[data-animation="shake"] {

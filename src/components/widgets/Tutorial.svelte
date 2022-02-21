@@ -82,7 +82,7 @@
 		grid-template-columns: repeat(var(--cols), 1fr);
 		height: 40px;
         width: var(--tutorial-row-width);
-		gap: 5px;
+		grid-gap: 5px;
         font-size: 1.8em;
         line-height: 1.4em;
         vertical-align: middle;
@@ -97,7 +97,6 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		gap: 8px;
         margin: 5px 10px;
 /*		width: 50%;*/
 		cursor: pointer;
