@@ -51,6 +51,7 @@
 		}
 	}
 	.tile {
+        width: 100%;
         font-size: 100%;
         font-family: var(--tile-font);
 		font-weight: bold;
@@ -61,8 +62,14 @@
 			animation: bounce 1s;
 		}
 	}
+    .tile::before {
+        content: '';
+        display: inline-block;
+        padding-bottom: 100%;
+    }
 	.back,
 	.front {
+        width: 100%;
 		display: inline-flex;
         justify-content: center;
         align-items: center;
