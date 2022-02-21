@@ -31,7 +31,6 @@
 <style lang="scss">
 	.overlay.visible,
 	.visible .modal {
-		top: 0;
 		opacity: 1;
 		visibility: visible;
 	}
@@ -50,7 +49,7 @@
         height: 100%;
         top: 0;
         left: 0;
-		z-index: 1;
+		z-index: 10;
 		opacity: 0;
         background: #0008;
         overflow-y: hidden;        
@@ -58,19 +57,19 @@
         align-items: center;
 	}
 	.modal {
-		--modal-padding: 16px;
+		position: relative;
 		background: var(--bg-primary);
 		max-width: var(--game-width);
-		height: min-content;
-		max-height: 100%;
+/*		height: min-content;*/
+		max-height: 90%;
+		width: 100%;
 		overflow-y: auto;
 		border-radius: 0px;
 		border: 1px solid var(--bg-secondary);
+		--modal-padding: 16px;
 		padding: var(--modal-padding);
 		padding-top: calc(2 * var(--modal-padding));
-		position: relative;
-		width: 100%;
-		margin: 8vh auto;
+		margin: 5% auto;
 		transition: all 0.3s ease;
 		> :global(*:not(h3)) {
 			margin-bottom: 15px;
