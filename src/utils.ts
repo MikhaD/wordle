@@ -26,41 +26,117 @@ export function checkHardMode(board: GameBoard, row: number): HardModeData {
 	return { pos: -1, char: "", type: "⬛" };
 }
 
+class Tile {
+	public value: string;
+	public notSet: Set<string>;
+	constructor() {
+		this.notSet = new Set<string>();
+	}
+	not(char: string) {
+		this.notSet.add(char);
+	}
+}
+
+class WordData {
+	public letterCounts: Map<string, [number, boolean]>;
+	private notSet: Set<string>;
+	public word: Tile[];
+	constructor() {
+		this.notSet = new Set<string>();
+		this.letterCounts = new Map<string, [number, boolean]>();
+		this.word = [];
+		for (let col = 0; col < COLS; ++col) {
+			this.word.push(new Tile());
+		}
+	}
+	confirmCount(char: string) {
+		let c = this.letterCounts.get(char);
+		if (!c) {
+			this.not(char);
+		} else {
+			c[1] = true;
+		}
+	}
+	countConfirmed(char: string) {
+		const val = this.letterCounts.get(char);
+		return val ? val[1] : false;
+	}
+	setCount(char: string, count: number) {
+		let c = this.letterCounts.get(char);
+		if (!c) {
+			this.letterCounts.set(char, [count, false]);
+		} else {
+			c[0] = count;
+		}
+	}
+	incrementCount(char: string) {
+		++this.letterCounts.get(char)[0];
+	}
+	not(char: string) {
+		this.notSet.add(char);
+	}
+	inGlobalNotList(char: string) {
+		return this.notSet.has(char);
+	}
+	lettersNotAt(pos: number) {
+		return new Set([...this.notSet, ...this.word[pos].notSet]);
+	}
+}
+
 export function getRowData(n: number, board: GameBoard) {
-	const wordData = {
-		// letters not contained
-		not: [],
-		// for letters contained in the word that are not the same as any that are in the correct place
-		contained: new Set<string>(),
-		letters: Array.from({ length: COLS }, () => ({ val: null, not: new Set<string>() })),
-	};
+	const wd = new WordData();
 	for (let row = 0; row < n; ++row) {
-		for (let col = 0; col < COLS; ++col)
-			if (board.state[row][col] === "🟨") {
-				wordData.contained.add(board.words[row][col]);
-				wordData.letters[col].not.add(board.words[row][col]);
-			} else if (board.state[row][col] === "🟩") {
-				wordData.contained.delete(board.words[row][col]);
-				wordData.letters[col].val = board.words[row][col];
-			} else {
-				wordData.not.push(board.words[row][col]);
+		const occured = new Set<string>();
+		for (let col = 0; col < COLS; ++col) {
+			const state = board.state[row][col];
+			const char = board.words[row][col];
+			if (state === "⬛") {
+				wd.confirmCount(char);
+				// if char isn't in the global not list add it to the not list for that position
+				if (!wd.inGlobalNotList(char)) {
+					wd.word[col].not(char);
+				}
+				continue;
 			}
+			// If this isn't the first time this letter has occured in this row
+			if (occured.has(char)) {
+				wd.incrementCount(char);
+			} else if (!wd.countConfirmed(char)) {
+				occured.add(char);
+				wd.setCount(char, 1);
+			}
+			if (state === "🟩") {
+				wd.word[col].value = char;
+			}
+			else {	// if (state === "🟨")
+				wd.word[col].not(char);
+			}
+		}
 	}
+
 	let exp = "";
-	for (let i = 0; i < COLS; ++i) {
-		exp += wordData.letters[i].val
-			? wordData.letters[i].val
-			: `[^${[...wordData.not, ...wordData.letters[i].not].join(" ")}]`;
+	for (let pos = 0; pos < wd.word.length; ++pos) {
+		exp += wd.word[pos].value ? wd.word[pos].value : `[^${[...wd.lettersNotAt(pos)].join(" ")}]`;
 	}
+	console.log(wd.letterCounts);
+	console.log(exp);
+
 	return (word: string) => {
 		if (new RegExp(exp).test(word)) {
-			for (const char of wordData.contained) {
-				if (!word.includes(char)) return false;
+			const chars = word.split("");
+			for (const e of wd.letterCounts) {
+				const occurences = countOccurences(chars, e[0]);
+				if (!occurences || (e[1][1] && occurences !== e[1][0])) return false;
 			}
+			console.log(word);
 			return true;
 		}
 		return false;
 	};
+}
+
+function countOccurences<T>(arr: T[], val: T) {
+	return arr.reduce((count, v) => v === val ? count + 1 : count, 0);
 }
 
 export function getState(word: string, guess: string): LetterState[] {
@@ -72,7 +148,14 @@ export function getState(word: string, guess: string): LetterState[] {
 			charArr[i] = "$";
 		}
 	}
-	return result.map((e, i) => charArr.includes(guess[i]) && e !== "🟩" ? "🟨" : e);
+	for (let i = 0; i < word.length; ++i) {
+		const pos = charArr.indexOf(guess[i]);
+		if (result[i] !== "🟩" && pos >= 0) {
+			charArr[pos] = "$";
+			result[i] = "🟨";
+		}
+	}
+	return result;
 }
 
 export function contractNum(n: number) {
