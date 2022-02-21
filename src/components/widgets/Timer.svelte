@@ -56,12 +56,9 @@
 	.container {
 		height: 45px;
 		min-width: 70%;
-		position: relative;
 	}
 	.timer {
-		position: absolute;
-		inset: 0;
-		font-size: var(--fs-large);
+		font-size: clamp(25px, 8vw, var(--fs-large));
 		text-align: center;
 	}
 	.button {
