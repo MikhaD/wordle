@@ -64,7 +64,12 @@
 		const letters = createLetterStates();
 		for (let row = 0; row < ROWS; ++row) {
 			for (let col = 0; col < state.board.words[row].length; ++col) {
-				letters[state.board.words[row][col]] = state.board.state[row][col];
+				if (
+					letters[state.board.words[row][col]] === "🔳" ||
+					state.board.state[row][col] === "🟩"
+				) {
+					letters[state.board.words[row][col]] = state.board.state[row][col];
+				}
 			}
 		}
 		letterStates.set(letters);
