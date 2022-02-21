@@ -29,15 +29,6 @@
 
 
 <style lang="scss">
-	@mixin modal-outer() {
-		transition: all 0.2s ease;
-		font-size: var(--fs-small);
-		visibility: hidden;
-		position: absolute;
-		z-index: 1;
-		opacity: 0;
-		inset: 0;
-	}
 	.overlay.visible,
 	.visible .modal {
 		top: 0;
@@ -51,9 +42,20 @@
 	}
 	/* regular modal */
 	.overlay {
-		@include modal-outer();
-		background: #0008;
-        overflow-y: hidden;
+		transition: all 0.2s ease;
+		font-size: var(--fs-small);
+		visibility: hidden;
+		position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+		z-index: 1;
+		opacity: 0;
+        background: #0008;
+        overflow-y: hidden;        
+        justify-content: center;
+        align-items: center;
 	}
 	.modal {
 		--modal-padding: 16px;
@@ -66,10 +68,9 @@
 		border: 1px solid var(--bg-secondary);
 		padding: var(--modal-padding);
 		padding-top: calc(2 * var(--modal-padding));
-		position: absolute;
+		position: relative;
 		width: 100%;
-		inset: 20vh 0 0;
-		margin: auto;
+		margin: 8vh auto;
 		transition: all 0.3s ease;
 		> :global(*:not(h3)) {
 			margin-bottom: 15px;
