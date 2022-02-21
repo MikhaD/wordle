@@ -60,7 +60,7 @@
 	.board {
 		display: grid;
 		grid-template-rows: repeat(var(--rows), 1fr);
-		gap: 5.5px;
+		grid-gap: 5.5px;
 		flex-grow: 1;
 		padding: 5px;
 		position: relative;
