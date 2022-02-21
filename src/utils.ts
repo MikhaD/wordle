@@ -118,9 +118,6 @@ export function getRowData(n: number, board: GameBoard) {
 	for (let pos = 0; pos < wd.word.length; ++pos) {
 		exp += wd.word[pos].value ? wd.word[pos].value : `[^${[...wd.lettersNotAt(pos)].join(" ")}]`;
 	}
-	console.log(wd.letterCounts);
-	console.log(exp);
-
 	return (word: string) => {
 		if (new RegExp(exp).test(word)) {
 			const chars = word.split("");
@@ -128,7 +125,6 @@ export function getRowData(n: number, board: GameBoard) {
 				const occurences = countOccurences(chars, e[0]);
 				if (!occurences || (e[1][1] && occurences !== e[1][0])) return false;
 			}
-			console.log(word);
 			return true;
 		}
 		return false;
