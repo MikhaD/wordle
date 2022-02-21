@@ -13,7 +13,10 @@
 <div>
 	<a href="https://twitter.com/rbrignall/status/1483940627335233545" target="_blank">Past BYRDLEs explained here</a>
 </div>
+<div>
+<a href="https://www.buymeacoffee.com/rbrignall" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-green.png" alt="Buy Me A Coffee" class="coffee" ></a>
 
+</div>
 <style>
 	div {
 		color: var(--fg-secondary);
@@ -23,4 +26,9 @@
 		align-items: center;
 		gap: 10px 0px;
 	}
+    .coffee {
+        height: 40px !important;
+        width: 144px !important; 
+        margin: 5px;
+    }
 </style>
