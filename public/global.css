@@ -3,6 +3,7 @@
 	padding: 0;
 	box-sizing: border-box;
 	transition: background-color 0.2s ease;
+	touch-action: manipulation;
 }
 
 :root {
