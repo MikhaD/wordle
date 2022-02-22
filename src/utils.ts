@@ -169,7 +169,7 @@ export function newSeed(mode: GameMode) {
 	const today = new Date();
 	switch (mode) {
 		case GameMode.daily:
-			return new Date(today.getFullYear(), today.getMonth(), today.getDate()).valueOf();
+			return new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())).valueOf();
 		case GameMode.hourly:
 			return new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours()).valueOf();
 		case GameMode.infinite:
