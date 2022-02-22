@@ -3,7 +3,6 @@
 	padding: 0;
 	box-sizing: border-box;
 	transition: background-color 0.2s ease;
-	touch-action: manipulation;
 }
 
 :root {
@@ -32,6 +31,7 @@
 	--bg-secondary: #1a1a1b;
 	--bg-primary: #121213;
 	
+	--red: #9C2323;
 	--color-present: #b59f3b;
 	--color-correct: #538d4e;
 	--color-absent: var(--border-primary);
@@ -50,6 +50,7 @@ body { height: 100% }
 	--bg-secondary: #e0e0e0;
 	--bg-primary: #ffffff;
 
+	--red: #C42C2C;
 	--color-present: #c9b458;
 	--color-correct: #6aaa64;
 	--color-absent: var(--fg-secondary);

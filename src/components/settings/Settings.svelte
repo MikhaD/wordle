@@ -70,7 +70,7 @@
 			<div>v1.1.2</div>
 			<div
 				class="word"
-				on:contextmenu|preventDefault={() => {
+				on:dblclick={() => {
 					localStorage.clear();
 					toaster.pop("localStorage cleared");
 				}}
