@@ -9,7 +9,6 @@
 //  export let boardState: string[];
     export let evaluations: LetterState[][];
 	export let guesses: number;
-	export let icon: string;
 	export function shake(row: number) {
 		rows[row].shake();
 	}

@@ -188,7 +188,6 @@
 		bind:value={game.boardState}
 		evaluations={game.evaluations}
 		guesses={game.guesses}
-		icon={modeData.modes[$mode].icon}
 	/>
     </div>
 	<Keyboard
