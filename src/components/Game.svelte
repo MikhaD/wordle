@@ -32,6 +32,7 @@
 		words,
 	} from "../utils";
 	import { letterStates, settings, mode } from "../stores";
+	// import Concede from "./widgets/Concede.svelte";
 
 	export let word: string;
 	export let stats: Stats;
@@ -94,14 +95,17 @@
 	function win() {
 		board.bounce(game.guesses - 1);
 		game.active = false;
-		setTimeout(() => toaster.pop(PRAISE[game.guesses - 1]), DELAY_INCREMENT * ROWS);
+		setTimeout(
+			() => toaster.pop(PRAISE[game.guesses - 1]),
+			DELAY_INCREMENT * COLS + DELAY_INCREMENT
+		);
 		setTimeout(() => (showStats = true), delay * 1.4);
 		if (!modeData.modes[$mode].historical) {
 			++stats.guesses[game.guesses];
 			++stats.played;
 			if ("streak" in stats) {
 				stats.streak =
-					modeData.modes[$mode].seed - stats.lastGame >= modeData.modes[$mode].unit
+					modeData.modes[$mode].seed - stats.lastGame > modeData.modes[$mode].unit
 						? 1
 						: stats.streak + 1;
 				if (stats.streak > stats.maxStreak) stats.maxStreak = stats.streak;
@@ -203,6 +207,8 @@
 	<ShareGame wordNumber={game.wordNumber} />
 	{#if !game.active}
 		<Definition {word} alternates={2} />
+		<!-- {:else}
+		<Concede state={game} /> -->
 	{/if}
 </Modal>
 
