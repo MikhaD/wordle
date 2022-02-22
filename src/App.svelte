@@ -14,6 +14,10 @@
 	import { letterStates, settings, mode } from "./stores";
 	import { GameMode } from "./enums";
 	import { Toaster } from "./components/widgets";
+	import { setContext } from "svelte";
+
+	export let version: string;
+	setContext("version", version);
 
 	let stats: Stats;
 	let word: string;
