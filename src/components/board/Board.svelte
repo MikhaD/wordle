@@ -3,11 +3,14 @@
 
 	import Row from "./Row.svelte";
 	import ContextMenu from "../widgets/ContextMenu.svelte";
+	import { createEventDispatcher } from "svelte";
+	import { scale } from "svelte/transition";
 
 	export let value: string[];
 	export let board: GameBoard;
 	export let guesses: number;
 	export let icon: string;
+	export let tutorial: boolean;
 	export function shake(row: number) {
 		rows[row].shake();
 	}
@@ -17,6 +20,8 @@
 	export function hideCtx(e?: MouseEvent) {
 		if (!e || !e.defaultPrevented) showCtx = false;
 	}
+	const dispatch = createEventDispatcher();
+
 	let rows: Row[] = [];
 	let showCtx = false;
 	let pAns = 0;
@@ -59,6 +64,13 @@
 			<path d={icon} stroke-width="14" />
 		</svg>
 	{/if}
+	{#if tutorial}
+		<div transition:scale class="tutorial" on:click={() => dispatch("closeTutPopUp")}>
+			double tap (right click) a row to see a word's definition, or how many words could be
+			played there
+			<span class="ok">OK</span>
+		</div>
+	{/if}
 </div>
 
 <style>
@@ -82,5 +94,8 @@
 	}
 	path {
 		stroke: var(--bg-secondary);
+	}
+	.tutorial {
+		top: calc(100 / var(--rows) * 1%);
 	}
 </style>

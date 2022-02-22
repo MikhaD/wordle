@@ -35,7 +35,7 @@ type Settings = {
 	hard: boolean[],
 	dark: boolean,
 	colorblind: boolean,
-	tutorial: 0 | 1 | 2,
+	tutorial: 0 | 1 | 2 | 3,
 };
 
 type SettingType = "switch" | "dropdown";

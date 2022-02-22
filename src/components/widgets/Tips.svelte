@@ -12,6 +12,7 @@
 		"There are more valid guesses than possible words, ie. not all 5 letter words can be selected as an answer by the game.",
 		"Historical games don't count towards your stats. Historical games are when you follow a link to a specific game number.",
 	];
+	export const length = tips.length;
 </script>
 
 <div class="outer">
@@ -37,7 +38,7 @@
 
 <style lang="scss">
 	.outer {
-		margin: 20px auto;
+		margin: 15px auto;
 		padding: 10px 20px;
 		max-width: calc(0.6 * var(--game-width));
 		border: solid 1px var(--border-secondary);

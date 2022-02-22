@@ -35,7 +35,7 @@
 <style lang="scss">
 	.ctx-menu {
 		position: fixed;
-		z-index: 1;
+		z-index: 2;
 		font-size: var(--fs-small);
 		background-color: var(--bg-secondary);
 		border: solid 1px var(--border-primary);

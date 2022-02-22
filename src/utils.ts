@@ -258,7 +258,7 @@ export function createDefaultSettings(): Settings {
 		hard: new Array(modeData.modes.length).map(() => false),
 		dark: true,
 		colorblind: false,
-		tutorial: 2,
+		tutorial: 3,
 	};
 }
 

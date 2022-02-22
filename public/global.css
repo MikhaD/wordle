@@ -77,3 +77,42 @@ a:link,
 a:visited {
 	color: inherit;
 }
+
+.tutorial {
+	--arrow-size: 10px;
+	--padding: 10px;
+	font-size: var(--fs-small);
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: initial;
+	position: absolute;
+	top: calc(var(--arrow-size) + var(--height));
+	left: 50%;
+	transform: translateX(-50%);
+	width: max-content;
+	max-width: min(var(--game-width), 95vw);
+	display: flex;
+	align-items: center;
+	padding: var(--padding);
+	border-radius: 4px;
+	color: var(--bg-primary);
+	background: var(--fg-primary);
+	z-index: 1;
+}
+.tutorial::before {
+	content: "";
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%);
+	top: calc(-2 * var(--arrow-size));
+	border: var(--arrow-size) solid transparent;
+	border-bottom: var(--arrow-size) solid var(--fg-primary);
+}
+.ok {
+	padding: 10px;
+	margin-left: var(--padding);
+	border-radius: 4px;
+	color: white;
+	background: var(--color-correct);
+	cursor: pointer;
+}

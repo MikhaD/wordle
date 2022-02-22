@@ -18,6 +18,7 @@
 
 	export let version: string;
 	setContext("version", version);
+	localStorage.setItem("version", version);
 
 	let stats: Stats;
 	let word: string;

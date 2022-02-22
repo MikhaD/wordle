@@ -23,7 +23,10 @@
 				/>
 			</GameIcon>
 		</div>
-		<slot />
+		<div>
+			<slot />
+		</div>
+		<slot name="footer" />
 	</div>
 {:else}
 	<div class:visible class="overlay" on:click|self={close}>
@@ -96,9 +99,20 @@
 		max-width: var(--game-width);
 		margin: auto;
 		padding: 10px 16px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		overflow-y: auto;
 		.exit {
 			top: 10px;
 			right: 10px;
 		}
+	}
+	:global([slot="footer"]) {
+		color: var(--fg-secondary);
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+		text-align: end;
 	}
 </style>
