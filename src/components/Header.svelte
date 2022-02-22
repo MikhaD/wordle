@@ -92,11 +92,13 @@
 		font-size: var(--fs-small);
 		letter-spacing: initial;
 		position: absolute;
-		inset: calc(var(--arrow-size) + var(--height)) 0 0 0;
-		width: fit-content;
-		height: fit-content;
-		padding: 14px var(--padding);
-		margin: 0 auto;
+		top: calc(var(--arrow-size) + var(--height));
+		left: 50%;
+		transform: translateX(-50%);
+		width: max-content;
+		display: flex;
+		align-items: center;
+		padding: var(--padding);
 		border-radius: 4px;
 		color: var(--bg-primary);
 		background: var(--fg-primary);
