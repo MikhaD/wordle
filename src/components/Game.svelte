@@ -7,7 +7,7 @@
 	import Settings from "./settings";
 	import {
 		Share,
-		Seperator,
+		Separator,
 //		Definition,
 		Tutorial,
 		Statistics,
@@ -216,7 +216,7 @@
 <Modal bind:visible={showStats}>
 		<Statistics data={stats} />
 		<Distribution distribution={stats.guesses} guesses={game.guesses} active={game.gameStatus==="IN_PROGRESS"} />
-	<Seperator visible={!(game.gameStatus === "IN_PROGRESS")}>
+	<Separator visible={!(game.gameStatus === "IN_PROGRESS")}>
 		<Timer
 			slot="1"
 			bind:this={timer}
@@ -224,7 +224,7 @@
 			on:reload={reload}
 		/>
 		<Share slot="2" state={game} />
-	</Seperator>
+	</Separator>
 	<ShareGame />
 </Modal>
 
