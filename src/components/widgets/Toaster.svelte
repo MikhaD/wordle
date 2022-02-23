@@ -20,7 +20,7 @@
 		left: 50%;
 		transform: translateX(-50%);
 		position: absolute;
-		z-index: 10;
+		z-index: 20;
 		font-weight: bold;
 	}
 	.slice {
