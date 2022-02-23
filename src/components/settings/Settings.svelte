@@ -3,7 +3,7 @@
 
 	import { mode, darkTheme, fancyFont, colorBlindTheme, hardMode } from "../../stores";
 	import { modeData } from "../../utils";
-	import { Tips, Toaster } from "../widgets";
+	import { Toaster } from "../widgets";
 	import Setting from "./Setting.svelte";
 
 	export let validHard: boolean;

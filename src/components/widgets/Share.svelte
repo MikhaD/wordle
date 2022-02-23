@@ -4,8 +4,7 @@
 	import { mode } from "../../stores";
 	import { modeData, ROWS } from "../../utils";
 	import { getContext } from "svelte";
-    import { default as WhatsApp } from "./WhatsApp.svelte";
-    import { default as Twitter } from "./Twitter.svelte";
+    import { WhatsApp, Twitter } from "./sharebuttons";
 
 	export let state: GameState;
 	const toaster = getContext<Toaster>("toaster");
