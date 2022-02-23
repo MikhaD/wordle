@@ -11,7 +11,7 @@
     const url ="https://www.byrdle.net";
 
 	$: stats = `Byrdle ${state.wordNumber+1} ${
-		state.guesses <= ROWS ? state.guesses : "X"
+		(state.gameStatus === 'WIN') ? state.guesses : "X"
 	}/${state.boardState.length}\n\n${state.evaluations
 		.slice(0, state.guesses)
 		.map((r) => r.map((l) => l === "absent" ? "⚪" : (l === "correct" ? "🟢" : "🟡")).join(""))
