@@ -12,7 +12,7 @@
 		if (state.guesses === 0) {
 			return false;
 		}
-		if (state.board.state[state.guesses - 1].join() === "🟩".repeat(COLS)) {
+		if (state.board.state[state.guesses - 1].join("") === "🟩".repeat(COLS)) {
 			return true;
 		}
 		return false;
