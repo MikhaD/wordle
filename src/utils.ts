@@ -159,7 +159,7 @@ export function contractNum(n: number) {
 		case 1: return `${n}st`;
 		case 2: return `${n}nd`;
 		case 3: return `${n}rd`;
-		default: return `${n}rd`;
+		default: return `${n}th`;
 	}
 }
 
