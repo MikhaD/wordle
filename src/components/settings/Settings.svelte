@@ -3,7 +3,7 @@
 
 	import { mode, darkTheme, fancyFont, colorBlindTheme, hardMode } from "../../stores";
 	import { modeData } from "../../utils";
-	import { Tips, Toaster } from "../widgets";
+	import { Toaster } from "../widgets";
 	import Setting from "./Setting.svelte";
 
 	export let validHard: boolean;
@@ -101,7 +101,7 @@
         </div>
 	</div>
     <div class="footer">
-        <div>Version: Byrd 5</div>
+        <div>Version: Byrd 5.0.2</div>
         <div class="word">
             Game #{wordNumber+1}
         </div>
