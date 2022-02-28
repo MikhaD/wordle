@@ -116,26 +116,24 @@ export const modeData: ModeData = {
 			seed: newSeed(),
 			historical: false,
 			streak: true,
-		}
-	]
+		},
+		{
+			name: "Historical",
+			unit: 86400000,
+			start: 1642370400000,	// 17/01/2022
+			seed: newSeed(),
+			historical: true,
+			streak: false,
+		},	
+    ]
 };
 
 export function getWordNumber() {
     const numbleOneDate = new Date(2022,0,12,0,0,0,0).setHours(0,0,0,0)
     const now = new Date().setHours(0,0,0,0)
     const msInDay = 86400000
-    return Math.floor((now - numbleOneDate) / msInDay) //% WORDS.length
-//	return Math.round((modeData.modes[mode].seed - modeData.modes[mode].start) / modeData.modes[mode].unit) + 1;
+    return Math.floor((now - numbleOneDate) / msInDay)
 }
-
-//export function seededRandomInt() { //min: number, max: number, seed: number) {
-	//const rng = seedrandom(`${seed}`);
-	//return Math.floor(min + (max - min) * rng());
-//    const numbleOneDate = new Date(2022,0,12,0,0,0,0).setHours(0,0,0,0)
-//    const now = new Date().setHours(0,0,0,0)
-//    const msInDay = 86400000
-//    return Math.floor((now - numbleOneDate) / msInDay) //% WORDS.length
-//}
 
 export const DELAY_INCREMENT = 150;
 
@@ -183,7 +181,7 @@ export function createNewGame(mode: GameMode): GameState {
         gameStatus: "IN_PROGRESS",
 		guesses: 0,
 		time: modeData.modes[mode].seed,
-		wordNumber: getWordNumber(),
+		wordNumber: (modeData.modes[mode].historical ? getWordNumber() - 1 : getWordNumber()),
 		validHard: true,
         boardState: Array(ROWS).fill(""),
         evaluations: Array.from({ length: ROWS }, () => (Array(COLS).fill("nil"))),

@@ -2,13 +2,13 @@
 	import { createEventDispatcher, getContext } from "svelte";
 	import { scale, fade } from "svelte/transition";
 	import { mode } from "../stores";
-	import { modeData } from "../utils";
+	import { modeData, getWordNumber } from "../utils";
 	import GameIcon from "./GameIcon.svelte";
 	import type { Toaster } from "./widgets";
 
 	export let showStats: boolean;
-//	export let tutorial: boolean;
 	export let showRefresh: boolean;
+    export let gameNumber: number;
 
 //	export let toaster = getContext<Toaster>("toaster");
 
@@ -34,12 +34,37 @@
 					d="M4.609 12c0-4.082 3.309-7.391 7.391-7.391a7.39 7.39 0 0 1 6.523 3.912l-1.653 1.567H22v-5.13l-1.572 1.659C18.652 3.841 15.542 2 12 2 6.477 2 2 6.477 2 12s4.477 10 10 10c4.589 0 8.453-3.09 9.631-7.301l-2.512-.703c-.871 3.113-3.73 5.395-7.119 5.395-4.082 0-7.391-3.309-7.391-7.391z"
 				/>
 			</GameIcon>
-		{/if}
+        {:else}
+			<GameIcon onClick={() => $mode = ($mode + 1) % modeData.modes.length}> <!-- clock -->
+                <path class:hist={modeData.modes[$mode].historical}
+                    d="M12.9 5.5h-1.8v7.2l6.24 3.84.96-1.56-5.4-3.24zM12 2C6.48 2 2 6.48 2 12S6.48 22 12 22 22 17.52 22 12 17.52 2 12 2zM12 20c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8S16.41 20 12 20z"
+                />
+			</GameIcon>
+        {/if}
+        {#if modeData.modes[$mode].historical && gameNumber > 0} <!-- left arrow -->
+			<GameIcon onClick={() => dispatch("prevhistgame")}>
+                <path 
+                    transition:fade={{ duration: 200 }}  
+                    d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645z"
+                />
+			</GameIcon>
+		{/if}        
 	</div>
 	<h1>
 		byrdle
+        {#if modeData.modes[$mode].historical}
+            {gameNumber + 1}
+        {/if}
 	</h1>
 	<div class="icons">
+        {#if modeData.modes[$mode].historical && gameNumber < getWordNumber() - 1}
+			<GameIcon onClick={() => dispatch("nexthistgame")}> <!-- right arrow -->
+                <path 
+                    transition:fade={{ duration: 200 }}  
+                    d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886z"
+                />
+			</GameIcon>
+		{/if}        
 		{#if showStats}
 			<GameIcon onClick={() => dispatch("stats")}>
 				<path
@@ -83,4 +108,7 @@
 		text-align: center;
         font-family: 'Uncial Antiqua', 'Helvetica Neue', Arial, sans-serif;
 	}
+    .hist {
+        fill: #ff0000;
+    }
 </style>

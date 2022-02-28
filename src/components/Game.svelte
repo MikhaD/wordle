@@ -111,8 +111,8 @@
 		board.bounce(game.guesses - 1);
         game.gameStatus = "WIN";
 		setTimeout(() => toaster.pop(sampleArray(PRAISE[game.guesses - 1])), DELAY_INCREMENT * ROWS);
-		setTimeout(() => (showStats = true), delay * 1.4);
 		if (!modeData.modes[$mode].historical) {
+		    setTimeout(() => (showStats = true), delay * 1.4);
 			++stats.guesses[game.guesses];
 			++stats.gamesPlayed;
 			if ("currentStreak" in stats) {
@@ -131,8 +131,8 @@
 //		++game.guesses;
         game.gameStatus = "FAIL";
         setTimeout(() => toaster.pop(word.toUpperCase()), DELAY_INCREMENT * ROWS);
-		setTimeout(() => (showStats = true), delay);
 		if (!modeData.modes[$mode].historical) {
+		    setTimeout(() => (showStats = true), delay);
 			++stats.guesses.fail;
 			++stats.gamesPlayed;
 			if ("currentStreak" in stats) stats.currentStreak = 0;
@@ -145,14 +145,38 @@
 //		modeData.modes[$mode].historical = false;
 		modeData.modes[$mode].seed = newSeed();
 		game = createNewGame($mode);
-//		word = words.words[seededRandomInt(0, words.words.length, modeData.modes[$mode].seed)];
-        word = words.words[getWordNumber() % words.words.length]
+        word = words.words[getWordNumber() % words.words.length];
         $letterStates = createLetterStates();
 		showStats = false;
 		showRefresh = false;
 		timer.reset($mode);
         if (SIXLETTERDAY<=getWordNumber() && COLS===5) location.reload();
 	}
+
+    function toggleHistMode() {
+        $mode = ($mode + 1) % modeData.modes.length;
+    }
+    
+    function prevHistGame() {
+        let tempNumber = game.wordNumber;
+        game=createNewGame($mode);
+        game.wordNumber = Math.max(tempNumber - 1, 0);
+        word = words.words[game.wordNumber % words.words.length];
+        $letterStates = createLetterStates();
+		showStats = false;
+		showRefresh = false;
+    }
+
+    function nextHistGame() {
+        let tempNumber = game.wordNumber;
+        game=createNewGame($mode);
+        game.wordNumber = Math.min(tempNumber + 1, getWordNumber() - 1);
+        word = words.words[game.wordNumber % words.words.length];
+        $letterStates = createLetterStates();
+		showStats = false;
+		showRefresh = false;
+    }
+    
 
 	onMount(() => {
 		if (!(game.gameStatus === "IN_PROGRESS")) setTimeout(() => (showStats = true), delay);
@@ -177,10 +201,14 @@
 	<Header
 		bind:showRefresh
 		showStats={stats.gamesPlayed > 0 || (modeData.modes[$mode].historical && !(game.gameStatus === "IN_PROGRESS"))}
+        gameNumber={game.wordNumber}
 		on:stats={() => (showStats = true)}
 		on:tutorial={() => (showTutorial = true)}
 		on:settings={() => (showSettings = true)}
 		on:reload={reload}
+        on:histmode={toggleHistMode}
+        on:prevhistgame={prevHistGame}
+        on:nexthistgame={nextHistGame}
 	/>
     <div>
 	<Board
