@@ -6,11 +6,11 @@ export const SIXLETTERDAY = 110;
 
 export const ROWS = 6;
 
-export const COLS = ((getWordNumber() < SIXLETTERDAY) ? 5 : 6);
+export const COLS = ((storedWordNumber() < SIXLETTERDAY) ? 5 : 6);
 
 export const words = {
 	words: wordLists.words,
-    valid: ((getWordNumber() < SIXLETTERDAY) ? wordLists.validFive : wordLists.validSix),
+    valid: ((storedWordNumber() < SIXLETTERDAY) ? wordLists.validFive : wordLists.validSix),
 	contains: (word: string) => {
 		return words.words.includes(word) || words.valid.includes(word);
 	},
@@ -127,6 +127,18 @@ export const modeData: ModeData = {
 		},	
     ]
 };
+
+export function storedWordNumber() {
+    // Utility to capture stored word number before Svelte loads
+    const currMode = (JSON.parse(localStorage.getItem("mode")) as GameMode || 0)
+    let currGameState: GameState 
+    
+    if (currMode === 0)
+        currGameState = JSON.parse(localStorage.getItem("gameState")) || createNewGame(currMode)
+    else
+        currGameState = JSON.parse(localStorage.getItem("histState")) || createNewGame(currMode)
+    return currGameState.wordNumber
+}
 
 export function getWordNumber() {
     const numbleOneDate = new Date(2022,0,12,0,0,0,0).setHours(0,0,0,0)

@@ -155,6 +155,7 @@
 
     function toggleHistMode() {
         $mode = ($mode + 1) % modeData.modes.length;
+        if (COLS === 6 && game.wordNumber < SIXLETTERDAY) location.reload();
     }
     
     function prevHistGame() {
@@ -165,6 +166,7 @@
         $letterStates = createLetterStates();
 		showStats = false;
 		showRefresh = false;
+        if (COLS === 6 && game.wordNumber < SIXLETTERDAY) location.reload();
     }
 
     function nextHistGame() {
@@ -175,6 +177,7 @@
         $letterStates = createLetterStates();
 		showStats = false;
 		showRefresh = false;
+        if (COLS === 5 && game.wordNumber >= SIXLETTERDAY) location.reload();
     }
     
 

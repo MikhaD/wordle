@@ -5,6 +5,7 @@
 		createNewGame,
 		createLetterStates,
 		ROWS,
+        COLS,
 		getWordNumber,
 		words,
 	} from "./utils";
@@ -34,7 +35,7 @@
     hardMode.subscribe(s => localStorage.setItem("hardMode",s));
     
 	const modeVal: GameMode = modeData.default;
-	mode.set(modeVal);
+	mode.set(JSON.parse(localStorage.getItem("mode")) as GameMode || modeVal);
     
 
 	mode.subscribe((m) => {
@@ -64,7 +65,8 @@
                 state = temp;
         }
         word = words.words[state.wordNumber % words.words.length];
-
+        // reload page
+        if (!(word.length === COLS)) location.reload();
 		// Set the letter states when data for a new game mode is loaded so the keyboard is correct
 		const letters = createLetterStates();
 		for (let row = 0; row < ROWS; ++row) {
