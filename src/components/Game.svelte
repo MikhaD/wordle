@@ -184,6 +184,16 @@
         if (COLS === 5 && game.wordNumber >= SIXLETTERDAY) location.reload();
     }
     
+    function randomHistGame() {
+        let tempNumber = game.wordNumber;
+        game=createNewGame($mode);
+        game.wordNumber = Math.floor(Math.random() * getWordNumber());
+        word = words.words[game.wordNumber % words.words.length];
+        $letterStates = createLetterStates();
+		showStats = false;
+		showRefresh = false;
+        if (COLS === 6 && game.wordNumber < SIXLETTERDAY) location.reload();
+    }
 
 	onMount(() => {
 		if (!(game.gameStatus === "IN_PROGRESS")) setTimeout(() => (showStats = true), delay);
@@ -216,6 +226,7 @@
         on:histmode={toggleHistMode}
         on:prevhistgame={prevHistGame}
         on:nexthistgame={nextHistGame}
+        on:randhistgame={randomHistGame}
 	/>
     <div>
 	<Board

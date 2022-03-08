@@ -65,8 +65,14 @@
                     d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886z"
                 />
 			</GameIcon>
-		{/if}        
-		{#if showStats}
+		{/if}
+        {#if modeData.modes[$mode].historical}
+			<GameIcon onClick={() => dispatch("randhistgame")} Tooltip="Random">
+                <path 
+                    d="M14.945 7.055a2 2 0 1 1 4 0a2 2 0 0 1-4 0Zm2 7.837a2 2 0 1 0 0 4a2 2 0 0 0 0-4Zm-11.89 2a2 2 0 1 1 4 0a2 2 0 0 1-4 0Zm2-11.837a2 2 0 1 0 0 4a2 2 0 0 0 0-4ZM10 12a2 2 0 1 1 4 0a2 2 0 0 1-4 0Z"/>
+                <path fill-rule="evenodd" d="M1 4a3 3 0 0 1 3-3h16a3 3 0 0 1 3 3v16a3 3 0 0 1-3 3H4a3 3 0 0 1-3-3V4Zm3-1h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" clip-rule="evenodd"/>
+			</GameIcon>        
+		{:else if showStats}
 			<GameIcon onClick={() => dispatch("stats")}>
 				<path
 					transition:fade={{ duration: 200 }}
