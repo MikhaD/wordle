@@ -1,5 +1,5 @@
 // Increase the v number when the app is updated
-const staticCacheName = "byrdle-v5.0.3";
+const staticCacheName = "byrdle-v5.1.0";
 
 const filesToCache = [
 	"./",
@@ -69,16 +69,6 @@ self.addEventListener('activate', event => {
   );
 });
 
-// app-based solution
-let refreshing = false;
-
-// detect controller change and refresh the page
-self.addEventListener('controllerchange', () => {
-    if (!refreshing) {
-        window.location.reload()
-        refreshing = true
-    }
-})
 
 function log(text) {
 	console.log("%cService Worker", "color: purple; font-weight: 600; background: white; padding: 0 5px; border-radius: 2px", text);
