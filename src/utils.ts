@@ -130,13 +130,19 @@ export const modeData: ModeData = {
 
 export function storedWordNumber() {
     // Utility to capture stored word number before Svelte loads
+    // Must default to getWordNumber() if nothing in store
     const currMode = (JSON.parse(localStorage.getItem("mode")) as GameMode || 0)
     let currGameState: GameState 
     
-    if (currMode === 0)
-        currGameState = JSON.parse(localStorage.getItem("gameState")) || createNewGame(currMode)
+    if (currMode === 0) {
+        currGameState = JSON.parse(localStorage.getItem("gameState"))
+        if(!currGameState)
+            currGameState = {wordNumber: getWordNumber()}
+    }
     else
-        currGameState = JSON.parse(localStorage.getItem("histState")) || createNewGame(currMode)
+        currGameState = JSON.parse(localStorage.getItem("histState"))
+        if(!currGameState)
+            currGameState = {wordNumber: getWordNumber() - 1}
     return currGameState.wordNumber
 }
 
