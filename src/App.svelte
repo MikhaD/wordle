@@ -46,7 +46,7 @@
         word = words.words[getWordNumber() % words.words.length];
 		let temp: GameState;
         temp = JSON.parse(localStorage.getItem("gameState"));
-        if (!temp || modeData.modes[m].seed - temp.time >= modeData.modes[m].unit) {
+        if (!temp || getWordNumber() > temp.wordNumber) {
             state = createNewGame(m);
         } else {
             // This is for backwards compatibility, can be removed in a day
