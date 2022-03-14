@@ -150,30 +150,33 @@ export const PRAISE = [
         "Magnificat!",
         "Jubilate!",
         "My spirit sang all day",
-        "Jauchzet, frohlocket!"
+        "Jauchzet, frohlocket!",
+        "O fortuna!"
     ],
     [
         "And all the people rejoiced!",
         "O Lord make haste to help us",
         "A great and mighty wonder",
-        "O clap your hands"
+        "O clap your hands",
+        "Comfort ye, my people"
     ],
     [
         "Here endeth the lesson",
         "One guess for each voice part, eh?",
         "We'll treat that as the warm-up",
-        "Dies irae"
+        "Dies irae",
+        "Once more, from the top!"
     ],
     [
-        "Were you nodding off during the sermon?",
+        "Kyrie eleison",
         "A Byrdle 5-part mess",
         "Bit more breath control next time",
-        "Helps to watch the conductor",
+        "Expectans expectavi",
         "Tripped over your cassock"
     ],[
         "This took you almost as long as Psalm 119!",
         "Tristis est anima mea",
-        "You're flat!",
+        "Miserere mei",
         "Requiem aeternam"
     ]   
 ];
