@@ -124,7 +124,7 @@ export function getWordNumber() {
     const numbleOneDate = new Date(2022,0,12,0,0,0,0).setHours(0,0,0,0)
     const now = new Date().setHours(0,0,0,0)
     const msInDay = 86400000
-    return Math.floor((now - numbleOneDate) / msInDay) //% WORDS.length
+    return Math.round((now - numbleOneDate) / msInDay) //% WORDS.length
 //	return Math.round((modeData.modes[mode].seed - modeData.modes[mode].start) / modeData.modes[mode].unit) + 1;
 }
 
