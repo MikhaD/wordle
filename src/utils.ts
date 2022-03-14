@@ -30,43 +30,6 @@ export function checkHardMode(boardState: string[], evaluations: LetterState[][]
 	return { pos: -1, char: "", type: "absent" };
 }
 
-export function getRowData(n: number, boardState: string[], evaluations: LetterState[][]) {
-	const wordData = {
-		// letters not contained
-		not: [],
-		// for letters contained in the word that are not the same as any that are in the correct place
-		contained: new Set<string>(),
-		letters: Array.from({ length: COLS }, () => ({ val: null, not: new Set<string>() })),
-	};
-	for (let row = 0; row < n; ++row) {
-		for (let col = 0; col < COLS; ++col)
-			if (evaluations[row][col] === "present") {
-				wordData.contained.add(boardState[row][col]);
-				wordData.letters[col].not.add(boardState[row][col]);
-			} else if (evaluations[row][col] === "correct") {
-				wordData.contained.delete(boardState[row][col]);
-				wordData.letters[col].val = boardState[row][col];
-			} else {
-				wordData.not.push(boardState[row][col]);
-			}
-	}
-	let exp = "";
-	for (let i = 0; i < COLS; ++i) {
-		exp += wordData.letters[i].val
-			? wordData.letters[i].val
-			: `[^${[...wordData.not, ...wordData.letters[i].not].join(" ")}]`;
-	}
-	return (word: string) => {
-		if (new RegExp(exp).test(word)) {
-			for (const char of wordData.contained) {
-				if (!word.includes(char)) return false;
-			}
-			return true;
-		}
-		return false;
-	};
-}
-
 export function getState(word: string, guess: string): LetterState[] {
 	const charArr = word.split("");
 	const result = Array<LetterState>(COLS).fill("absent");

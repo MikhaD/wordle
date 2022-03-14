@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getRowData, words, ROWS, COLS } from "../../utils";
+	import { words, ROWS, COLS } from "../../utils";
 
 	import Row from "./Row.svelte";
 //	import ContextMenu from "../widgets/ContextMenu.svelte";
@@ -27,18 +27,6 @@
 	let word = "";
     let innerHeight;
 
-	function context(cx: number, cy: number, num: number, val: string) {
-		if (guesses >= num) {
-			x = cx;
-			y = cy;
-			showCtx = true;
-			word = guesses > num ? val : "";
-
-			const match = getRowData(num, boardState, evaluations);
-			pAns = words.words.filter((w) => match(w)).length;
-			pSols = pAns + words.valid.filter((w) => match(w)).length;
-		}
-	}
 </script>
 <svelte:window bind:innerHeight={innerHeight} />
 
@@ -50,7 +38,6 @@
 			bind:this={rows[i]}
 			bind:value={value[i]}
 			evaluation={evaluations[i]}
-			on:ctx={(e) => context(e.detail.x, e.detail.y, i, value[i])}
 		/>
 	{/each}
 </div>
