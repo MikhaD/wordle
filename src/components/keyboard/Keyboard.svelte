@@ -90,18 +90,20 @@
 <style>
 	.keyboard {
 		width: 100%;
+        height: var(--keyboard-height);
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		margin-bottom: 2px;
+		margin-bottom: 0px;
 	}
 	.row {
 		width: 100%;
 		display: flex;
+        flex-grow: 1;
 		margin: 0 auto 4px;
 		padding: 0 4px;
         touch-action: manipulation;
-	}
+	}    
 	.row:nth-of-type(2) {
 		padding: 0 30px;
 	}

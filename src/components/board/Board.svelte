@@ -29,8 +29,7 @@
 
 </script>
 <svelte:window bind:innerHeight={innerHeight} />
-
-<div class="board" id="boardid" style="width: {COLS * Math.floor(Math.min(Math.floor(innerHeight*(4/7)),420)/ROWS)}px; height: {Math.min(Math.floor(innerHeight*(4/7)),420)}px;">
+<div class="board" id="boardid" style="max-width: {Math.floor(460 * COLS / ROWS)}px; width: calc(({innerHeight}px - var(--header-height) - var(--keyboard-height)) * {COLS /ROWS}); height: calc({innerHeight}px - var(--header-height) - var(--keyboard-height));">
 	{#each value as _, i}
 		<Row
 			num={i}
@@ -48,6 +47,7 @@
 		grid-template-rows: repeat(var(--rows), 1fr);
 		grid-gap: 5.5px;
 		flex-grow: 1;
+        max-height: 460px;
 		padding: 5px;
 		position: relative;
 	}
