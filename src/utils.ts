@@ -197,7 +197,8 @@ export function createDefaultStats(mode: GameMode): Stats {
 	const stats = {
 		gamesPlayed: parseInt(urlStats.get("p")) || 0,
 		lastGame: parseInt(urlStats.get("l")) || 0,
-		guesses: {
+        lastGameNumber: 0,
+        guesses: {
 			fail: parseInt(urlStats.get("fail")) || 0,
 			1: parseInt(urlStats.get("g1")) || 0,
 			2: parseInt(urlStats.get("g2")) || 0,

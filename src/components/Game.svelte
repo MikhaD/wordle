@@ -120,14 +120,22 @@
 			++stats.guesses[game.guesses];
 			++stats.gamesPlayed;
 			if ("currentStreak" in stats) {
-				stats.currentStreak =
-					modeData.modes[$mode].seed - stats.lastGame > modeData.modes[$mode].unit
-						? 1
-						: stats.currentStreak + 1;
+                if ("lastGameNumber" in stats) {
+                    stats.currentStreak =
+					   game.wordNumber - stats.lastGameNumber > 1
+						  ? 1
+						  : stats.currentStreak + 1;                
+                } else { // Legacy version, for users not on this current version.
+                    stats.currentStreak =
+					   modeData.modes[$mode].seed - stats.lastGame > modeData.modes[$mode].unit
+						  ? 1
+						  : stats.currentStreak + 1;
+                }
 				if (stats.currentStreak > stats.maxStreak) stats.maxStreak = stats.currentStreak;
 			}
 			stats.lastGame = modeData.modes[$mode].seed;
-			localStorage.setItem(`statistics`, JSON.stringify(stats));
+            stats.lastGameNumber = game.wordNumber;
+            localStorage.setItem(`statistics`, JSON.stringify(stats));
 		}
 	}
 
