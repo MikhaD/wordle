@@ -149,6 +149,7 @@
 			++stats.gamesPlayed;
 			if ("currentStreak" in stats) stats.currentStreak = 0;
 			stats.lastGame = modeData.modes[$mode].seed;
+            stats.lastGameNumber = game.wordNumber;
 			localStorage.setItem(`statistics`, JSON.stringify(stats));
 		}
 	}
