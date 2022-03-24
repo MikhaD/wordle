@@ -69,6 +69,7 @@ type Stats = {
 	currentStreak?: number;
 	maxStreak?: number;
 	lastGame: number;
+    lastGameNumber: number;
 	guesses: Guesses;
     imported: boolean;
 };

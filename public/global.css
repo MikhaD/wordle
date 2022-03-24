@@ -18,6 +18,8 @@
 	--fs-large: 36px;
 
 	--game-width: 500px;
+    --header-height: 51px;
+    --keyboard-height: 186px;
 
 	--fg-primary: #d7dadc;
 	--fg-secondary: #818384;
@@ -94,3 +96,8 @@ a:visited {
     text-align: center;
     vertical-align: middle;
 }
+@media (max-height: 600px) {
+    :root {
+        --keyboard-height: 126px;
+    }
+} 

@@ -90,7 +90,6 @@
 
 <style lang="scss">
 	header {
-		--height: 51px;
 		position: relative;
 		font-weight: 700;
 		text-transform: uppercase;
@@ -100,7 +99,7 @@
 		align-items: center;
 		border-bottom: 1px solid var(--border-primary);
 		width: 100%;
-		height: var(--height);
+		height: var(--header-height);
 		position: relative;
 	}
 	.icons {

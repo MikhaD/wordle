@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getRowData, words, ROWS, COLS } from "../../utils";
+	import { words, ROWS, COLS } from "../../utils";
 
 	import Row from "./Row.svelte";
 //	import ContextMenu from "../widgets/ContextMenu.svelte";
@@ -27,22 +27,9 @@
 	let word = "";
     let innerHeight;
 
-	function context(cx: number, cy: number, num: number, val: string) {
-		if (guesses >= num) {
-			x = cx;
-			y = cy;
-			showCtx = true;
-			word = guesses > num ? val : "";
-
-			const match = getRowData(num, boardState, evaluations);
-			pAns = words.words.filter((w) => match(w)).length;
-			pSols = pAns + words.valid.filter((w) => match(w)).length;
-		}
-	}
 </script>
 <svelte:window bind:innerHeight={innerHeight} />
-
-<div class="board" id="boardid" style="width: {COLS * Math.floor(Math.min(Math.floor(innerHeight*(4/7)),420)/ROWS)}px; height: {Math.min(Math.floor(innerHeight*(4/7)),420)}px;">
+<div class="board" id="boardid" style="max-width: {Math.floor(460 * COLS / ROWS)}px; width: calc(({innerHeight}px - var(--header-height) - var(--keyboard-height)) * {COLS /ROWS}); height: calc({innerHeight}px - var(--header-height) - var(--keyboard-height));">
 	{#each value as _, i}
 		<Row
 			num={i}
@@ -50,7 +37,6 @@
 			bind:this={rows[i]}
 			bind:value={value[i]}
 			evaluation={evaluations[i]}
-			on:ctx={(e) => context(e.detail.x, e.detail.y, i, value[i])}
 		/>
 	{/each}
 </div>
@@ -61,6 +47,7 @@
 		grid-template-rows: repeat(var(--rows), 1fr);
 		grid-gap: 5.5px;
 		flex-grow: 1;
+        max-height: 460px;
 		padding: 5px;
 		position: relative;
 	}

@@ -30,43 +30,6 @@ export function checkHardMode(boardState: string[], evaluations: LetterState[][]
 	return { pos: -1, char: "", type: "absent" };
 }
 
-export function getRowData(n: number, boardState: string[], evaluations: LetterState[][]) {
-	const wordData = {
-		// letters not contained
-		not: [],
-		// for letters contained in the word that are not the same as any that are in the correct place
-		contained: new Set<string>(),
-		letters: Array.from({ length: COLS }, () => ({ val: null, not: new Set<string>() })),
-	};
-	for (let row = 0; row < n; ++row) {
-		for (let col = 0; col < COLS; ++col)
-			if (evaluations[row][col] === "present") {
-				wordData.contained.add(boardState[row][col]);
-				wordData.letters[col].not.add(boardState[row][col]);
-			} else if (evaluations[row][col] === "correct") {
-				wordData.contained.delete(boardState[row][col]);
-				wordData.letters[col].val = boardState[row][col];
-			} else {
-				wordData.not.push(boardState[row][col]);
-			}
-	}
-	let exp = "";
-	for (let i = 0; i < COLS; ++i) {
-		exp += wordData.letters[i].val
-			? wordData.letters[i].val
-			: `[^${[...wordData.not, ...wordData.letters[i].not].join(" ")}]`;
-	}
-	return (word: string) => {
-		if (new RegExp(exp).test(word)) {
-			for (const char of wordData.contained) {
-				if (!word.includes(char)) return false;
-			}
-			return true;
-		}
-		return false;
-	};
-}
-
 export function getState(word: string, guess: string): LetterState[] {
 	const charArr = word.split("");
 	const result = Array<LetterState>(COLS).fill("absent");
@@ -150,7 +113,7 @@ export function getWordNumber() {
     const numbleOneDate = new Date(2022,0,12,0,0,0,0).setHours(0,0,0,0)
     const now = new Date().setHours(0,0,0,0)
     const msInDay = 86400000
-    return Math.floor((now - numbleOneDate) / msInDay)
+    return Math.round((now - numbleOneDate) / msInDay) 
 }
 
 export const DELAY_INCREMENT = 150;
@@ -166,30 +129,33 @@ export const PRAISE = [
         "Magnificat!",
         "Jubilate!",
         "My spirit sang all day",
-        "Jauchzet, frohlocket!"
+        "Jauchzet, frohlocket!",
+        "O fortuna!"
     ],
     [
         "And all the people rejoiced!",
         "O Lord make haste to help us",
         "A great and mighty wonder",
-        "O clap your hands"
+        "O clap your hands",
+        "Comfort ye, my people"
     ],
     [
         "Here endeth the lesson",
         "One guess for each voice part, eh?",
         "We'll treat that as the warm-up",
-        "Dies irae"
+        "Dies irae",
+        "Once more, from the top!"
     ],
     [
-        "Were you nodding off during the sermon?",
+        "Kyrie eleison",
         "A Byrdle 5-part mess",
         "Bit more breath control next time",
-        "Helps to watch the conductor",
+        "Expectans expectavi",
         "Tripped over your cassock"
     ],[
         "This took you almost as long as Psalm 119!",
         "Tristis est anima mea",
-        "You're flat!",
+        "Miserere mei",
         "Requiem aeternam"
     ]   
 ];
@@ -213,7 +179,8 @@ export function createDefaultStats(mode: GameMode): Stats {
 	const stats = {
 		gamesPlayed: parseInt(urlStats.get("p")) || 0,
 		lastGame: parseInt(urlStats.get("l")) || 0,
-		guesses: {
+        lastGameNumber: 0,
+        guesses: {
 			fail: parseInt(urlStats.get("fail")) || 0,
 			1: parseInt(urlStats.get("g1")) || 0,
 			2: parseInt(urlStats.get("g2")) || 0,
