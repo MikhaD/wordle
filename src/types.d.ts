@@ -95,7 +95,6 @@ type Mode = {
 	start: number,
 	seed: number,
 	historical: boolean,
-	icon?: string,
 	streak?: boolean,
 };
 

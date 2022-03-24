@@ -5,6 +5,7 @@
 		createNewGame,
 		createLetterStates,
 		ROWS,
+        COLS,
 		getWordNumber,
 		words,
 	} from "./utils";
@@ -34,7 +35,7 @@
     hardMode.subscribe(s => localStorage.setItem("hardMode",s));
     
 	const modeVal: GameMode = modeData.default;
-	mode.set(modeVal);
+	mode.set(JSON.parse(localStorage.getItem("mode")) as GameMode || modeVal);
     
 
 	mode.subscribe((m) => {
@@ -43,19 +44,30 @@
         // Grab statistics. CreateDefaultStats looks for URL data
 		stats = (JSON.parse(localStorage.getItem("statistics")) as Stats) || createDefaultStats(m);
 
-        word = words.words[getWordNumber() % words.words.length];
 		let temp: GameState;
+    if (!(modeData.modes[m].historical)) {
         temp = JSON.parse(localStorage.getItem("gameState"));
-        if (!temp || getWordNumber() > temp.wordNumber) {
+        if (!temp || temp.wordNumber < getWordNumber()) { //modeData.modes[m].seed - temp.time >= modeData.modes[m].unit) {
             state = createNewGame(m);
         } else {
             // This is for backwards compatibility, can be removed in a day
             if (!temp.wordNumber) {
-				temp.wordNumber = getWordNumber();
+                temp.wordNumber = getWordNumber();
             }
             // TODO: Add checks for missing items in temp (e.g. evaluation being null)
             state = temp;
-		}
+		    }
+    } else { // Historical mode
+        temp = JSON.parse(localStorage.getItem("histState"));
+        if (!temp) {
+            state = createNewGame(m);
+        } else
+            state = temp;
+    }
+    word = words.words[state.wordNumber % words.words.length];
+    // reload page
+    if (!(word.length === COLS)) location.reload();
+
 		// Set the letter states when data for a new game mode is loaded so the keyboard is correct
 		const letters = createLetterStates();
 		for (let row = 0; row < ROWS; ++row) {
@@ -68,7 +80,10 @@
 
 	$: saveState(state);
 	function saveState(state: GameState) {
-        localStorage.setItem("gameState", JSON.stringify(state));
+        if (!(modeData.modes[$mode].historical))
+            localStorage.setItem("gameState", JSON.stringify(state));
+        else
+            localStorage.setItem("histState", JSON.stringify(state));        
 	}
 	let toaster: Toaster;
 </script>

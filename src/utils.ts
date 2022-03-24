@@ -6,11 +6,11 @@ export const SIXLETTERDAY = 110;
 
 export const ROWS = 6;
 
-export const COLS = ((getWordNumber() < SIXLETTERDAY) ? 5 : 6);
+export const COLS = ((storedWordNumber() < SIXLETTERDAY) ? 5 : 6);
 
 export const words = {
 	words: wordLists.words,
-    valid: ((getWordNumber() < SIXLETTERDAY) ? wordLists.validFive : wordLists.validSix),
+    valid: ((storedWordNumber() < SIXLETTERDAY) ? wordLists.validFive : wordLists.validSix),
 	contains: (word: string) => {
 		return words.words.includes(word) || words.valid.includes(word);
 	},
@@ -79,26 +79,42 @@ export const modeData: ModeData = {
 			seed: newSeed(),
 			historical: false,
 			streak: true,
-		}
-	]
+		},
+		{
+			name: "Historical",
+			unit: 86400000,
+			start: 1642370400000,	// 17/01/2022
+			seed: newSeed(),
+			historical: true,
+			streak: false,
+		},	
+    ]
 };
+
+export function storedWordNumber() {
+    // Utility to capture stored word number before Svelte loads
+    // Must default to getWordNumber() if nothing in store
+    const currMode = (JSON.parse(localStorage.getItem("mode")) as GameMode || 0)
+    let currGameState: GameState 
+    
+    if (currMode === 0) {
+        currGameState = JSON.parse(localStorage.getItem("gameState"))
+        if(!currGameState)
+            currGameState = {wordNumber: getWordNumber()}
+    }
+    else
+        currGameState = JSON.parse(localStorage.getItem("histState"))
+        if(!currGameState)
+            currGameState = {wordNumber: getWordNumber() - 1}
+    return currGameState.wordNumber
+}
 
 export function getWordNumber() {
     const numbleOneDate = new Date(2022,0,12,0,0,0,0).setHours(0,0,0,0)
     const now = new Date().setHours(0,0,0,0)
     const msInDay = 86400000
-    return Math.round((now - numbleOneDate) / msInDay) //% WORDS.length
-//	return Math.round((modeData.modes[mode].seed - modeData.modes[mode].start) / modeData.modes[mode].unit) + 1;
+    return Math.round((now - numbleOneDate) / msInDay) 
 }
-
-//export function seededRandomInt() { //min: number, max: number, seed: number) {
-	//const rng = seedrandom(`${seed}`);
-	//return Math.floor(min + (max - min) * rng());
-//    const numbleOneDate = new Date(2022,0,12,0,0,0,0).setHours(0,0,0,0)
-//    const now = new Date().setHours(0,0,0,0)
-//    const msInDay = 86400000
-//    return Math.floor((now - numbleOneDate) / msInDay) //% WORDS.length
-//}
 
 export const DELAY_INCREMENT = 150;
 
@@ -149,7 +165,7 @@ export function createNewGame(mode: GameMode): GameState {
         gameStatus: "IN_PROGRESS",
 		guesses: 0,
 		time: modeData.modes[mode].seed,
-		wordNumber: getWordNumber(),
+		wordNumber: (modeData.modes[mode].historical ? getWordNumber() - 1 : getWordNumber()),
 		validHard: true,
         boardState: Array(ROWS).fill(""),
         evaluations: Array.from({ length: ROWS }, () => (Array(COLS).fill("nil"))),
