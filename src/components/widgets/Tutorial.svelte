@@ -7,7 +7,6 @@
     
     let rowWidth = 44*COLS-4;
 </script>
-<!--
 {#if imported}
     <h3>welcome to new byrdle!</h3>
     Have you played before? You can fetch your statistics from the old web page:
@@ -19,7 +18,6 @@
         Fetch my statistics
     </div>
 {/if}
--->
 <h3>how to play</h3>
 
 
