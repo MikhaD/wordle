@@ -8,6 +8,7 @@
 	export let showStats: boolean;
 	export let showRefresh: boolean;
     export let gameNumber: number;
+    export let tutorial: boolean;
 
 //	export let toaster = getContext<Toaster>("toaster");
 
@@ -86,6 +87,12 @@
 			/>
 		</GameIcon>
 	</div>
+       {#if tutorial}
+		<div transition:scale class="tutorial" on:click={() => dispatch("closeTutPopUp")}>
+			Press the clock to play historical Byrdles!
+			<span class="ok">OK</span>
+		</div>
+	{/if}
 </header>
 
 <style lang="scss">

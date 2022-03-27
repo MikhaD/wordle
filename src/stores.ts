@@ -10,3 +10,4 @@ export const darkTheme = writable(false);
 export const colorBlindTheme = writable(false);
 export const fancyFont = writable(false);
 export const hardMode = writable(false);
+export const seenPopUp = writable(false);

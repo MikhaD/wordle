@@ -33,7 +33,7 @@
 		createLetterStates,
 		words,
 	} from "../utils";
-	import { letterStates, hardMode, mode } from "../stores";
+	import { letterStates, hardMode, mode, seenPopUp } from "../stores";
 
 	export let word: string;
 	export let stats: Stats;
@@ -236,7 +236,8 @@
         on:prevhistgame={prevHistGame}
         on:nexthistgame={nextHistGame}
         on:randhistgame={randomHistGame}
-	/>
+		tutorial={$seenPopUp === false}
+		on:closeTutPopUp|once={() => ($seenPopUp = true)}	/>
     <div>
 	<Board
 		bind:this={board}
