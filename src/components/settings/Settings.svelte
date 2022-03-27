@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { getContext, onMount } from "svelte";
 
-	import { mode, darkTheme, fancyFont, colorBlindTheme, hardMode } from "../../stores";
+	import { mode, darkTheme, fancyFont, colorBlindTheme, hardMode, showHistMode } from "../../stores";
 	import { modeData } from "../../utils";
 	import { Toaster } from "../widgets";
 	import Setting from "./Setting.svelte";
@@ -29,6 +29,7 @@
             localStorage.setItem("darkTheme",$darkTheme)
             localStorage.setItem("colorBlindTheme",$colorBlindTheme)
             localStorage.setItem("fancyFont",$fancyFont)
+            localStorage.setItem("showHistMode",$showHistMode)
             // Old storage (to be removed):
             //localStorage.setItem("settings", JSON.stringify($settings));
 		}
@@ -62,6 +63,10 @@
 		<Setting type="switch" bind:value={$fancyFont}>
 			<span slot="title">Fancy font mode</span>
 			<span slot="desc">For the full choral experience</span>
+		</Setting>
+		<Setting type="switch" bind:value={$showHistMode}>
+			<span slot="title">Show historical mode</span>
+			<span slot="desc">Turn off to hide the clock icon</span>
 		</Setting>
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <div>

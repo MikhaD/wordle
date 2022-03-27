@@ -33,7 +33,7 @@
 		createLetterStates,
 		words,
 	} from "../utils";
-	import { letterStates, hardMode, mode } from "../stores";
+	import { letterStates, hardMode, mode, seenPopUp } from "../stores";
 
 	export let word: string;
 	export let stats: Stats;
@@ -202,6 +202,7 @@
 		showStats = false;
 		showRefresh = false;
         if (COLS === 6 && game.wordNumber < SIXLETTERDAY) location.reload();
+        if (COLS === 5 && game.wordNumber >= SIXLETTERDAY) location.reload();
     }
 
 	onMount(() => {
@@ -236,7 +237,8 @@
         on:prevhistgame={prevHistGame}
         on:nexthistgame={nextHistGame}
         on:randhistgame={randomHistGame}
-	/>
+		on:closeTutPopUp|once={() => ($seenPopUp = 1)}
+		on:closeHistTutPopUp|once={() => ($seenPopUp = 0)}	/>
     <div>
 	<Board
 		bind:this={board}

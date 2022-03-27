@@ -99,14 +99,18 @@ export function storedWordNumber() {
     
     if (currMode === 0) {
         currGameState = JSON.parse(localStorage.getItem("gameState"))
-        if(!currGameState)
-            currGameState = {wordNumber: getWordNumber()}
+        if(!currGameState || !currGameState.wordNumber)
+            return getWordNumber()
+        else
+            return currGameState.wordNumber
     }
-    else
+    else {
         currGameState = JSON.parse(localStorage.getItem("histState"))
-        if(!currGameState)
-            currGameState = {wordNumber: getWordNumber() - 1}
-    return currGameState.wordNumber
+        if(!currGameState || !currGameState.wordNumber)
+            return getWordNumber() - 1
+        else
+            return currGameState.wordNumber
+    }
 }
 
 export function getWordNumber() {
