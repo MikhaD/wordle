@@ -202,6 +202,7 @@
 		showStats = false;
 		showRefresh = false;
         if (COLS === 6 && game.wordNumber < SIXLETTERDAY) location.reload();
+        if (COLS === 5 && game.wordNumber >= SIXLETTERDAY) location.reload();
     }
 
 	onMount(() => {

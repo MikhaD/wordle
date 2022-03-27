@@ -93,7 +93,7 @@
 		</div>
     {:else if modeData.modes[$mode].historical && $seenPopUp === 1 }
 		<div transition:scale class="tutorial" on:click={() => dispatch("closeHistTutPopUp")}>
-			Press the clock to return to normal mode.
+			Press the clock to return to normal mode. Use the arrow keys to change game. Roll the die for a random game.
 			<span class="ok">OK</span>
 		</div>
 	{/if}
