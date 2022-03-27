@@ -101,12 +101,12 @@ a:visited {
 	--padding: 10px;
 	font-size: var(--fs-small);
 	font-weight: 700;
-	text-transform: uppercase;
+	text-transform: none;
 	letter-spacing: initial;
 	position: absolute;
-	top: calc(var(--arrow-size) + var(--header-height));
-	left: 50%;
-	transform: translateX(-50%);
+	top: var(--header-height);
+	left: 8px;
+	/*transform: translateX(-50%);*/
 	width: max-content;
 	max-width: min(var(--game-width), 95vw);
 	display: flex;
@@ -120,7 +120,7 @@ a:visited {
 .tutorial::before {
 	content: "";
 	position: absolute;
-	left: 10%;
+	left: 40px;
 	transform: translate(-50%);
 	top: calc(-2 * var(--arrow-size));
 	border: var(--arrow-size) solid transparent;

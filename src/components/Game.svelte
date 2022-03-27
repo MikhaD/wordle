@@ -236,8 +236,8 @@
         on:prevhistgame={prevHistGame}
         on:nexthistgame={nextHistGame}
         on:randhistgame={randomHistGame}
-		tutorial={$seenPopUp === false}
-		on:closeTutPopUp|once={() => ($seenPopUp = true)}	/>
+		on:closeTutPopUp|once={() => ($seenPopUp = 1)}
+		on:closeHistTutPopUp|once={() => ($seenPopUp = 0)}	/>
     <div>
 	<Board
 		bind:this={board}

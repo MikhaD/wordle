@@ -29,7 +29,7 @@
     colorBlindTheme.set(JSON.parse(localStorage.getItem("colorBlindTheme")) as boolean || false);
     fancyFont.set(JSON.parse(localStorage.getItem("fancyFont")) as boolean || false);
     hardMode.set(JSON.parse(localStorage.getItem("hardMode")) as boolean || false);
-    seenPopUp.set(JSON.parse(localStorage.getItem("seenPopUp")) as boolean || false);
+    seenPopUp.set(JSON.parse(localStorage.getItem("seenPopUp")) as number || 2);
     
     darkTheme.subscribe(s => localStorage.setItem("darkTheme",s));
     colorBlindTheme.subscribe(s => localStorage.setItem("colorBlindTheme",s));

@@ -1,14 +1,13 @@
 <script lang="ts">
 	import { createEventDispatcher, getContext } from "svelte";
 	import { scale, fade } from "svelte/transition";
-	import { mode } from "../stores";
+	import { mode, seenPopUp } from "../stores";
 	import { modeData, getWordNumber } from "../utils";
 	import GameIcon from "./GameIcon.svelte";
 	import type { Toaster } from "./widgets";
 	export let showStats: boolean;
 	export let showRefresh: boolean;
     export let gameNumber: number;
-    export let tutorial: boolean;
 
 //	export let toaster = getContext<Toaster>("toaster");
 
@@ -87,9 +86,14 @@
 			/>
 		</GameIcon>
 	</div>
-       {#if tutorial}
+       {#if $seenPopUp === 2}
 		<div transition:scale class="tutorial" on:click={() => dispatch("closeTutPopUp")}>
 			Press the clock to play historical Byrdles!
+			<span class="ok">OK</span>
+		</div>
+    {:else if modeData.modes[$mode].historical && $seenPopUp === 1 }
+		<div transition:scale class="tutorial" on:click={() => dispatch("closeHistTutPopUp")}>
+			Press the clock to return to normal mode.
 			<span class="ok">OK</span>
 		</div>
 	{/if}
