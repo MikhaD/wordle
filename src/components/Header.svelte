@@ -34,7 +34,7 @@
 				/>
 			</GameIcon>
         {:else if $showHistMode || modeData.modes[$mode].historical}
-			 <GameIcon onClick={() => $mode = ($mode + 1) % modeData.modes.length} Tooltip="Play historical games"> <!-- clock -->
+			 <GameIcon onClick={() => $mode = ($mode + 1) % modeData.modes.length} Tooltip="Toggle historical mode"> <!-- clock -->
                 <path class:hist={modeData.modes[$mode].historical}
                     d="M12.9 5.5h-1.8v7.2l6.24 3.84.96-1.56-5.4-3.24zM12 2C6.48 2 2 6.48 2 12S6.48 22 12 22 22 17.52 22 12 17.52 2 12 2zM12 20c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8S16.41 20 12 20z"
                 />
@@ -93,7 +93,7 @@
 		</div>
     {:else if modeData.modes[$mode].historical && $seenPopUp === 1 }
 		<div transition:scale class="tutorial" on:click={() => dispatch("closeHistTutPopUp")}>
-			Press the clock to return to normal mode. Use the arrow keys to change game. Roll the die for a random game.
+			Tap the clock to return to normal mode. Use the arrows to change game, or roll the die for a random game.
 			<span class="ok">OK</span>
 		</div>
 	{/if}
