@@ -26,10 +26,18 @@
 	let y = 0;
 	let word = "";
     let innerHeight;
+    let innerWidth;
+
+    function getMaxWidth(w,h) {
+        return Math.floor(Math.min(w,h * COLS / ROWS,460 * COLS / ROWS));
+    }
+    function getMaxHeight(w,h) {
+        return Math.floor(Math.min(w * ROWS / COLS,h,460));
+    }
 
 </script>
-<svelte:window bind:innerHeight={innerHeight} />
-<div class="board" id="boardid" style="max-width: {Math.floor(440 * COLS / ROWS)}px; width: calc(({innerHeight}px - var(--header-height) - var(--keyboard-height)) * {COLS /ROWS}); height: calc({innerHeight}px - var(--header-height) - var(--keyboard-height));">
+<svelte:window bind:innerHeight={innerHeight} bind:innerWidth={innerWidth} />
+<div class="board" id="boardid" style="max-width: {getMaxWidth(innerWidth,innerHeight)}px; width: calc(({innerHeight}px - var(--header-height) - var(--keyboard-height)) * {COLS /ROWS}); max-height: {getMaxHeight(innerWidth,innerHeight)}px; height: calc({innerHeight}px - var(--header-height) - var(--keyboard-height));">
 	{#each value as _, i}
 		<Row
 			num={i}
@@ -47,7 +55,6 @@
 		grid-template-rows: repeat(var(--rows), 1fr);
 		grid-gap: 5.5px;
 		flex-grow: 1;
-        max-height: 440px;
 		padding: 5px;
 		position: relative;
 	}
