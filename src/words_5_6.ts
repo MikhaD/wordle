@@ -8,7 +8,7 @@ const answers = [
         "creed","swell","mezzo","lobet","third","molto","canon","stops","pedal","nonet",
         "faure","stall","pitch","vocal","mater","shake","widor","chord","kings","tones",
         "songs","dolce","duets","fugue","arias","lyric","trios","missa","score","voice",
-        "locus","abbey","robes","lotti","vigil","arise","round","fugal","fixer","sings",
+        "aural","abbey","robes","lotti","vigil","arise","round","fugal","fixer","sings",
         "hodie","piano","locus","mundy","ficta","staff","nobis","maria","aston","amens",
         "singer","handel","anthem","matins","gloria","choral","treble","rhythm","vierne","second",
         "timbre","rubato","walton","shanty","unison","mozart","custos","tenors","softly","larynx",
