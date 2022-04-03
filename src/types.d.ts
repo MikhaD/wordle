@@ -39,31 +39,6 @@ type Word = {
 	getState: (char: string, index: number, mode: GameMode) => LetterState,
 };
 
-type DictionaryEntry = {
-	word: string;
-	phonetic: string;
-	phonetics: Phonetic[];
-	origin: string;
-	meanings: Meaning[];
-};
-
-type Meaning = {
-	partOfSpeech: string;
-	definitions: Definition[];
-};
-
-type Definition = {
-	definition: string;
-	synonyms: string[];
-	antonyms: any[];
-	example?: string;
-};
-
-type Phonetic = {
-	text: string;
-	audio: string;
-};
-
 type Stats = {
 	gamesPlayed: number;
 	currentStreak?: number;

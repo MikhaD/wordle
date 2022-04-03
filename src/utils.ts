@@ -233,5 +233,3 @@ export function createLetterStates(): { [key: string]: LetterState; } {
 		z: "nil",
 	};
 }
-
-export const definitions = new Map<string, Promise<DictionaryEntry>>();
