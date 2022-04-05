@@ -31,6 +31,12 @@ Hosted on GitHub pages [here](https://mikhad.github.io/wordle/).
 This is written with Svelte in Typescript. This is my first Svelte project, and is intended as an exercise to help me learn and become proficient in Svelte.
 This is still in development. My goal is to make it as close to the original wordle as possible while also adding additional features. I will continue to make it more similar to the original.
 
+# Forking this project
+Anybody is welcome to fork this repository and do what they like with it, provided they follow the accompanying licence (GPL-3.0).
+I would also appreciate if you could remove my google analytics script from the head of the page and include a link back to this repository somewhere.
+
+Have fun :)
+
 <details>
 <summary>To do</summary>
 
