@@ -42,6 +42,6 @@ Have fun :)
 
 # To Do
 - Fix nonsense with timings & delay variable
-- Tidy up animation code and make animation mechanism consistant (if possible)
+- Tidy up animation code and make animation mechanism consistent (if possible)
 - Look into improving the performance
 </details>
