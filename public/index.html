@@ -6,8 +6,10 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 
 	<meta name="author" content="MikhaD">
-	<meta name="description" content="Guess the word in 6 tries. Play daily, hourly and infinite modes.">
-	<meta name="keywords" content="wordle, wordle+, puzzle">
+	<meta name="description"
+		content="Wordle with infinite, hourly and daily modes. Double tap words to learn their definition.">
+	<meta name="keywords"
+		content="wordle, infinite wordle, wordle infinite, infinate wordle, infinte wordle, unlimited, daily wordle, wordle+, word game, puzzle, game">
 
 	<meta name="theme-color" content="#6aaa64" />
 	<link rel="manifest" href="manifest.json">
@@ -34,13 +36,12 @@
 		gtag('config', 'G-RHN319RJ6V');
 
 		// PWA Service worker 
-		if ("serviceWorker" in navigator) {
-			navigator.serviceWorker.register("./sw.js");
-		}
+		if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js");
 	</script>
 
 	<script defer src="build/bundle.js"></script>
-	<title>Wordle+ - A word guessing game</title>
+	<!-- changed to something more suited to being the title of a tab in App.svelte. This title is for SEO -->
+	<title>Infinite wordle - Play unlimited wordles | Wordle+</title>
 </head>
 
 <body>
