@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createEventDispatcher, onDestroy, onMount } from "svelte/internal";
+	import { createEventDispatcher, onDestroy } from "svelte/internal";
 	import { letterStates, mode } from "../../stores";
 	import { COLS, keys } from "../../utils";
 	import Key from "./Key.svelte";

@@ -1,7 +1,8 @@
 <script lang="ts">
-	export let guesses = 0;
+	import { failed } from "../../../utils";
+
+	export let game: GameState;
 	export let distribution: Guesses;
-	export let active: boolean;
 
 	$: max = Math.max(...Object.values(distribution));
 </script>
@@ -9,12 +10,13 @@
 <h3>guess distribution</h3>
 <div class="container">
 	{#each Object.entries(distribution) as guess, i (guess[0])}
-		{#if !isNaN(parseInt(guess[0]))}
+		{@const g = parseInt(guess[0])}
+		{#if !isNaN(g)}
 			<div class="graph">
 				<span class="guess">{guess[0]}</span>
 				<div
 					class="bar"
-					class:this={parseInt(guess[0]) === guesses && !active}
+					class:this={g === game.guesses && !game.active && !failed(game)}
 					style="width: {(guess[1] / max) * 100}%;"
 				>
 					{guess[1]}

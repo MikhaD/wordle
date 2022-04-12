@@ -324,3 +324,7 @@ export function timeRemaining(m: Mode) {
 	}
 	return m.unit - (Date.now() - m.seed);
 }
+
+export function failed(s: GameState) {
+	return !(s.active || (s.guesses > 0 && s.board.state[s.guesses - 1].join("") === "🟩".repeat(COLS)));
+}

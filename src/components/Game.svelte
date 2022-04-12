@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { fade } from "svelte/transition";
 	import Header from "./Header.svelte";
 	import { Board } from "./board";
 	import Keyboard from "./keyboard";
@@ -104,7 +105,7 @@
 			() => toaster.pop(PRAISE[game.guesses - 1]),
 			DELAY_INCREMENT * COLS + DELAY_INCREMENT
 		);
-		setTimeout(() => (showStats = true), delay * 1.4);
+		setTimeout(setShowStatsTrue, delay * 1.4);
 		if (!modeData.modes[$mode].historical) {
 			++stats.guesses[game.guesses];
 			++stats.played;
@@ -122,7 +123,7 @@
 
 	function lose() {
 		game.active = false;
-		setTimeout(() => (showStats = true), delay);
+		setTimeout(setShowStatsTrue, delay);
 		if (!modeData.modes[$mode].historical) {
 			++stats.guesses.fail;
 			++stats.played;
@@ -134,7 +135,7 @@
 
 	function concede() {
 		showSettings = false;
-		setTimeout(() => (showStats = true), DELAY_INCREMENT);
+		setTimeout(setShowStatsTrue, DELAY_INCREMENT);
 		lose();
 	}
 
@@ -149,8 +150,12 @@
 		timer.reset($mode);
 	}
 
+	function setShowStatsTrue() {
+		if (!game.active) showStats = true;
+	}
+
 	onMount(() => {
-		if (!game.active) setTimeout(() => (showStats = true), delay);
+		if (!game.active) setTimeout(setShowStatsTrue, delay);
 	});
 	// $: toaster.pop(word);
 </script>
@@ -206,7 +211,7 @@
 		<h2 class="historical">Statistics not available for historical games</h2>
 	{:else}
 		<Statistics data={stats} />
-		<Distribution distribution={stats.guesses} guesses={game.guesses} active={game.active} />
+		<Distribution distribution={stats.guesses} {game} />
 	{/if}
 	<Seperator visible={!game.active}>
 		<Timer
@@ -220,6 +225,9 @@
 	<ShareGame wordNumber={game.wordNumber} />
 	{#if !game.active}
 		<Definition {word} alternates={2} />
+	{:else}
+		<!-- Fade with delay is to prevent a bright red button from appearing as soon as refresh is pressed -->
+		<div in:fade={{ delay: 300 }} class="concede" on:click={concede}>give up</div>
 	{/if}
 </Modal>
 
