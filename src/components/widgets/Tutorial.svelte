@@ -41,7 +41,7 @@
 </div>
 <div>
 	This is a recreation of the original <a
-		href="https://www.powerlanguage.co.uk/wordle/"
+		href="https://www.nytimes.com/games/wordle/"
 		target="_blank">Wordle</a
 	>
 	by Josh Wardle with additional modes and features. Written with Svelte, in Typescript by

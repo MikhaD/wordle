@@ -1,10 +1,11 @@
 //! IF ANYTHING IN THIS FILE IS CHANGED MAKE SURE setVersion.js HAS ALSO BEEN UPDATED
 // Increase the v number when the app is updated
-const cacheName = "wordle+-v1.2.3";
+const cacheName = "wordle+-v1.3.0";
 
 const assetsToCache = [
 	"./",
 	"./index.html",
+	"./global.css",
 	"./build/bundle.css",
 	"./build/bundle.js"
 ];

@@ -2,7 +2,7 @@
 	import { createEventDispatcher, getContext } from "svelte";
 	import { scale, fade } from "svelte/transition";
 	import { mode } from "../stores";
-	import { modeData } from "../utils";
+	import { modeData, timeRemaining } from "../utils";
 	import GameIcon from "./GameIcon.svelte";
 	import type { Toaster } from "./widgets";
 
@@ -14,7 +14,7 @@
 
 	const dispatch = createEventDispatcher();
 	mode.subscribe((m) => {
-		if (modeData.modes[m].unit - (new Date().valueOf() - modeData.modes[m].seed) > 0) {
+		if (timeRemaining(modeData.modes[m]) > 0) {
 			showRefresh = false;
 		}
 	});
@@ -93,7 +93,9 @@
 	}
 	h1 {
 		position: absolute;
-		width: 100%;
+		width: max-content;
+		left: 50%;
+		transform: translateX(-50%);
 		font-size: var(--fs-large);
 		cursor: pointer;
 		text-align: center;

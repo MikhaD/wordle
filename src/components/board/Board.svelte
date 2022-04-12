@@ -91,6 +91,7 @@
 		left: 50%;
 		transform: translate(-50%, -50%);
 		width: min(130%, 100vw);
+		max-height: 100%;
 	}
 	path {
 		stroke: var(--bg-secondary);

@@ -1,5 +1,8 @@
+<script context="module" lang="ts">
+	const cache = new Map<string, Promise<DictionaryEntry>>();
+</script>
+
 <script lang="ts">
-	import { definitions as cache } from "../../utils";
 	export let word: string;
 	/** The maximum number of alternate definitions to provide*/
 	export let alternates = 9;

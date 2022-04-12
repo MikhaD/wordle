@@ -1,5 +1,5 @@
 import seedrandom from "seedrandom";
-import { GameMode } from "./enums";
+import { GameMode, ms } from "./enums";
 import wordList from "./words_5";
 
 export const ROWS = 6;
@@ -166,16 +166,18 @@ export function contractNum(n: number) {
 export const keys = ["qwertyuiop", "asdfghjkl", "zxcvbnm"];
 
 export function newSeed(mode: GameMode) {
-	const today = new Date();
+	const now = Date.now();
 	switch (mode) {
 		case GameMode.daily:
-			return new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())).valueOf();
+			// Adds time zome offset to UTC time, calculates how many days that falls after 1/1/1970
+			// and returns the unix time for the beginning of that day.
+			return Date.UTC(1970, 0, 1 + Math.floor((now - (new Date().getTimezoneOffset() * ms.MINUTE)) / ms.DAY));
 		case GameMode.hourly:
-			return new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours()).valueOf();
+			return now - (now % ms.HOUR);
 		// case GameMode.minutely:
-		// 	return new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours(), today.getMinutes()).valueOf();
+		// 	return now - (now % ms.MINUTE);
 		case GameMode.infinite:
-			return new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours(), today.getMinutes(), today.getSeconds()).valueOf();
+			return now - (now % ms.SECOND);
 	}
 }
 
@@ -184,16 +186,17 @@ export const modeData: ModeData = {
 	modes: [
 		{
 			name: "Daily",
-			unit: 86400000,
-			start: 1642370400000,	// 17/01/2022
+			unit: ms.DAY,
+			start: 1642370400000,	// 17/01/2022 UTC+2
 			seed: newSeed(GameMode.daily),
 			historical: false,
 			streak: true,
+			useTimeZone: true,
 		},
 		{
 			name: "Hourly",
-			unit: 3600000,
-			start: 1642528800000,	// 18/01/2022 8:00pm
+			unit: ms.HOUR,
+			start: 1642528800000,	// 18/01/2022 8:00pm UTC+2
 			seed: newSeed(GameMode.hourly),
 			historical: false,
 			icon: "m50,7h100v33c0,40 -35,40 -35,60c0,20 35,20 35,60v33h-100v-33c0,-40 35,-40 35,-60c0,-20 -35,-20 -35,-60z",
@@ -201,15 +204,15 @@ export const modeData: ModeData = {
 		},
 		{
 			name: "Infinite",
-			unit: 1000,
-			start: 1642428600000,	// 17/01/2022 4:10:00pm
+			unit: ms.SECOND,
+			start: 1642428600000,	// 17/01/2022 4:10:00pm UTC+2
 			seed: newSeed(GameMode.infinite),
 			historical: false,
 			icon: "m7,100c0,-50 68,-50 93,0c25,50 93,50 93,0c0,-50 -68,-50 -93,0c-25,50 -93,50 -93,0z",
 		},
 		// {
 		// 	name: "Minutely",
-		// 	unit: 60000,
+		// 	unit: ms.MINUTE,
 		// 	start: 1642528800000,	// 18/01/2022 8:00pm
 		// 	seed: newSeed(GameMode.minutely),
 		// 	historical: false,
@@ -315,4 +318,9 @@ export function createLetterStates(): { [key: string]: LetterState; } {
 	};
 }
 
-export const definitions = new Map<string, Promise<DictionaryEntry>>();
+export function timeRemaining(m: Mode) {
+	if (m.useTimeZone) {
+		return m.unit - (Date.now() - (m.seed + new Date().getTimezoneOffset() * ms.MINUTE));
+	}
+	return m.unit - (Date.now() - m.seed);
+}

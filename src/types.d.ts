@@ -102,6 +102,7 @@ type Mode = {
 	historical: boolean,
 	icon?: string,
 	streak?: boolean,
+	useTimeZone?: boolean,
 };
 
 type HardModeData = {

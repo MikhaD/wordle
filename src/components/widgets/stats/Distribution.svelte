@@ -51,7 +51,7 @@
 		display: flex;
 		justify-content: end;
 		align-items: center;
-		padding-right: 8px;
+		padding-right: min(0.8rem, 1vw);
 	}
 	.bar.this {
 		background: var(--color-correct);

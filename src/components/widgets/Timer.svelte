@@ -1,36 +1,28 @@
 <script lang="ts">
-	import { createEventDispatcher, onDestroy } from "svelte";
+	import { createEventDispatcher } from "svelte";
 
 	import type { GameMode } from "../../enums";
+	import { ms as MS } from "../../enums";
 	import { mode } from "../../stores";
-	import { modeData } from "../../utils";
+	import { modeData, timeRemaining } from "../../utils";
 
 	const dispatch = createEventDispatcher();
 
-	const HOUR = 3600000;
-	const MINUTE = 60000;
-	const SECOND = 1000;
 	let ms = 1000;
 
 	let countDown: number;
 
 	export function reset(m: GameMode) {
 		clearInterval(countDown);
-		ms =
-			modeData.modes[m].unit -
-			(new Date().valueOf() - modeData.modes[m].seed) +
-			new Date().getTimezoneOffset() * 60000;
+		ms = timeRemaining(modeData.modes[m]);
 		if (ms < 0) dispatch("timeup");
 		countDown = setInterval(() => {
-			ms =
-				modeData.modes[m].unit -
-				(new Date().valueOf() - modeData.modes[m].seed) +
-				new Date().getTimezoneOffset() * 60000;
+			ms = timeRemaining(modeData.modes[m]);
 			if (ms < 0) {
 				clearInterval(countDown);
 				dispatch("timeup");
 			}
-		}, SECOND);
+		}, MS.SECOND);
 	}
 	$: reset($mode);
 </script>
@@ -39,9 +31,9 @@
 <div class="container">
 	{#if ms > 0}
 		<div class="timer">
-			{`${Math.floor(ms / HOUR)}`.padStart(2, "0")}:{`${Math.floor(
-				(ms % HOUR) / MINUTE
-			)}`.padStart(2, "0")}:{`${Math.floor((ms % MINUTE) / SECOND)}`.padStart(2, "0")}
+			{`${Math.floor(ms / MS.HOUR)}`.padStart(2, "0")}:{`${Math.floor(
+				(ms % MS.HOUR) / MS.MINUTE
+			)}`.padStart(2, "0")}:{`${Math.floor((ms % MS.MINUTE) / MS.SECOND)}`.padStart(2, "0")}
 		</div>
 	{:else}
 		<div class="button" on:click={() => dispatch("reload")}>

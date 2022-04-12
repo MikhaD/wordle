@@ -5,7 +5,7 @@
 </div>
 
 ---
-A recreation of the popular game [Wordle](https://www.powerlanguage.co.uk/wordle/) by Josh Wardle, with additional modes and features.
+A recreation of the popular game [Wordle](https://www.nytimes.com/games/wordle/) by Josh Wardle (now purchased by the New York Times), with additional modes and features.
 Hosted on GitHub pages [here](https://mikhad.github.io/wordle/).
 
 ## Additional Features
@@ -19,6 +19,7 @@ Hosted on GitHub pages [here](https://mikhad.github.io/wordle/).
 - Right clicking a submitted word on the board will tell you how many possible words could have been played there, taking all previous information into account.
 - Right clicking the row below the last submitted word will tell you how many possibilities there are taking all previous information into account.
 - The game mode is reflected in the url, allowing you to share a game mode directly.
+- You can share a link to a specific game number, allowing you to play historical games, and share specific rounds of the faster changing modes with your friends.
 - Service worker which allows the game to be easily downloaded as a progressive web app and run offline.
 - Give Up button.
 
@@ -38,10 +39,9 @@ I would also appreciate if you could remove my google analytics script from the 
 Have fun :)
 
 <details>
-<summary>To do</summary>
+<summary>How to create a new mode</summary>
 
-# To Do
-- Fix nonsense with timings & delay variable
-- Tidy up animation code and make animation mechanism consistent (if possible)
-- Look into improving the performance
+- Add the mode name to the **end** of the GameMode enum in `enums.ts`
+- Add a case for that mode in the newSeed function in `utils.ts`
+- Add a ModeData object to the modeData modes array in `utils.ts` 
 </details>
