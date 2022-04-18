@@ -4,13 +4,16 @@
 	export let game: GameState;
 	export let distribution: Guesses;
 
-	$: max = Math.max(...Object.values(distribution));
+	$: max = Object.entries(distribution).reduce((p, c) => {
+		if (!isNaN(Number(c[0]))) return Math.max(c[1], p);
+		return p;
+	}, 1);
 </script>
 
 <h3>guess distribution</h3>
 <div class="container">
 	{#each Object.entries(distribution) as guess, i (guess[0])}
-		{@const g = parseInt(guess[0])}
+		{@const g = Number(guess[0])}
 		{#if !isNaN(g)}
 			<div class="graph">
 				<span class="guess">{guess[0]}</span>
