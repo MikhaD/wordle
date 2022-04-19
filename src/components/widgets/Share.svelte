@@ -47,6 +47,7 @@
         grid-gap: 10px;
         justify-content: center;
         width: 100%;
+        padding-bottom: 15px;
     }
 	.copybutton {
         color: white;
@@ -66,6 +67,7 @@
 	}
     @media (max-width: 500px) {
         .sharecontainer {
+            grid-template-columns: 37.5px 37.5px 70px;
             grid-gap: 5px;
         }
         .copybutton {
@@ -73,7 +75,7 @@
         }
 
     }
-	div:hover {
+	.copybutton:hover {
 		opacity: 0.9;
 	}
 </style>

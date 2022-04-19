@@ -15,6 +15,7 @@
 		Timer,
 		Toaster,
 		ShareGame,
+        Support,
 	} from "./widgets";
 	import {
 		contractNum,
@@ -274,15 +275,16 @@
 		<Statistics data={stats} />
 		<Distribution distribution={stats.guesses} guesses={game.guesses} active={game.gameStatus==="IN_PROGRESS"} />
 	<Separator visible={!(game.gameStatus === "IN_PROGRESS")}>
+		<ShareGame slot="1" {word} />
+		<Share slot="2" state={game} />
 		<Timer
-			slot="1"
+			slot="3"
 			bind:this={timer}
 			on:timeup={() => (showRefresh = true)}
 			on:reload={reload}
 		/>
-		<Share slot="2" state={game} />
+		<Support slot="4" />
 	</Separator>
-	<ShareGame />
 </Modal>
 
 <Modal bind:visible={showSettings}>
