@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <title>Byrdle - Past word explainer</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <!-- FB Meta Tags -->
+    <meta property="og:url" content="https://www.byrdle.net/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Byrdle - the choral word guessing game">
+    <meta property="og:description" content="Guess the choral-themed word in 6 tries. A new puzzle is available each day.">
+    <meta property="og:image" content="https://www.byrdle.net/img/byrdle_og_1200x630.png">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="www.byrdle.net">
+
+    <meta name="theme-color" content="#6aaa64" />
+    <link href="../img/byrdle_logo_32x32.png" rel="icon shortcut" sizes="3232" />
+    <link href="../img/byrdle_logo_192x192.png" rel="apple-touch-icon" />
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link href='https://fonts.googleapis.com/css?family=Uncial+Antiqua' rel='stylesheet' />
+
+    <style>
+        :root {
+	       font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+	       font-size: 16px;
+        }
+        body {
+            width: 100%;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            /* Prevent scrollbar appearing on page transition */
+            overflow-x: hidden;
+        }
+        h1 {
+            font-family: "Uncial Antiqua", "Helvetica Neue", Arial, sans-serif;
+            font-size: 36px; 
+            text-transform: uppercase;
+            text-align: center;
+        }
+        h3 {
+            text-align: center;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0px auto;
+        }
+        @media (max-width: 500px) {
+            .container {
+                width: 90%;
+            }
+        } 
+    </style>
+
+    <script>
+
+    var tweetMapping = ["1483940627335233545",
+                        "1483940629545730051","1483940635069620226","1483940638739607554","1483940640715120649","1483940643080708097",
+                        "1483940645551198210","1483940647711219717","1484139681520537602","1484498267031408640","1484858390635495432",
+                        "1485220776991027205","1485583161014816769","1485945551501856768","1486307936418869248","1486670321679843329",
+                        "1487032722216284161","1487395106839842823","1487767808641572865","1488119873913991173","1488482272500060164",
+                        "1488844657706483713","1489226199146668033","1489575514545262596","1489940570168774656","1490312200434638849",
+                        "1490656591317803010","1491018980022263812","1491381366558113794","1491749829692825609","1492110770661990414",
+                        "1492478369744752643","1492830917659746307","1493193307010314241","1493555700336783361","1493918089393721345",
+                        "1494280476365705218","1494642857721925677","1495017138259648517","1495367633398644736","1495730023197601794",
+                        "1496132412744609796","1496454796206817285","1496817191731310601","1497184488878710817","1497541960151797762",
+                        "1497908721544044545","1498272321508974602","1498629127674474504","1498991512771829761","1499353899228037122",
+                        "1499716286045118465","1500078672174325763","1500446039391846403","1500803448698142720","1501167957371621377",
+                        "1501528225440174082","1501890611581837327","1502257072125136904","1502616090316312578","1502977776151764999",
+                        "1503338690545954818","1503702551878725634","1504064945251504129","1504427339312214017","1504789720957661234",
+                        "1505188615055462404","1505514498056105985","1505885120070406153","1506239279697068034","1506601654103252996",
+                        "1506975574266462208","1507345385060282369","1507779632371843077","1508045975151075336","1508398504120627207",
+                        "1508760882909655043","1509121738013089792","1509536904366206984","1509846382189989894","1510210433822593029",
+                        "1510587025480720387","1510975407721533447","1511301423476228100","1511697327035236357","1512022381392371716",
+                        "1512384763985813504","1512824763919613958","1513182151495270411","1513476411243249668","1513843755907956736",
+                        "1514199913621594112","1514709261665902602","1514921480588599298","1515283865765568517","1515646262367952900",
+                        "1516013032694075392","1516531020291612678","1516733419203350530"
+                       ];
+    
+    function makeBlockQuote(tweetid) {
+        return '<blockquote class="twitter-tweet" data-conversation="none" data-theme="light"><a href="https://twitter.com/rbrignall/status/' + tweetid + '?ref_src=twsrc%5Etfw"></a></blockquote>';
+    }
+        
+    window.onload = function() {
+        const byrdleOneDate = new Date(2022,0,12,0,0,0,0).setHours(0,0,0,0);
+        const msInDay = 86400000;
+        
+        var select = document.createElement("select");
+        select.name = "Day";
+        select.id = "daypicker";
+ 
+        for (var i=1; i<tweetMapping.length; i++) {
+            var idate = new Date(2022,0,11+i,0,0,0,0).toLocaleDateString('en-gb', { day:"numeric", month:"short", year:"numeric"});
+            var option = document.createElement("option");
+            option.value = i;
+            option.text = i + " (" + idate  + ")";
+            select.appendChild(option);
+        }
+ 
+        var label = document.createElement("label");
+        label.innerHTML = "Choose your Byrdle day: "
+        label.htmlFor = "choose";
+        document.getElementById("atweet").innerHTML = makeBlockQuote(tweetMapping[0]);
+        twttr.widgets.load(
+            document.getElementById("atweet")
+        );
+        document.getElementById("dropdownholder").appendChild(label).appendChild(select);
+        $("#daypicker").change(function() {
+            document.getElementById("atweet").innerHTML = makeBlockQuote(tweetMapping[this.value]);
+            twttr.widgets.load(
+                document.getElementById("atweet")
+            );
+        })
+
+    };
+    </script>
+  </head>
+<body>
+<div class="container">
+    <h1>byrdle</h1>
+    <h3>Past words explained</h3>
+
+    <p>The Twitter thread that explains all the past Byrdles has become quite difficult to navigate. Here is an easier way to find the tweet for each BYRDLE: simply use the drop-down to select the day you want.</p> 
+    
+    <p><strong>Note:</strong> This page is updated manually every few days. This means that it may take a few days for the most recent Byrdles to be included in the dropdown list.</p>
+
+    <div id="dropdownholder">
+        
+    </div>
+    
+    
+<div id="atweet">
+</div>
+</div>
+    
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</body></html>
