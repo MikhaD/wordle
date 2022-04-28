@@ -4,7 +4,7 @@ import wordLists from "./words_5_6";
 
 export const SIXLETTERDAY = 110;
 
-export const ROWS = 6;
+export const ROWS = ((storedWordNumber() < SIXLETTERDAY) ? 6 : 7);
 
 export const COLS = ((storedWordNumber() < SIXLETTERDAY) ? 5 : 6);
 
@@ -161,7 +161,12 @@ export const PRAISE = [
         "Tristis est anima mea",
         "Miserere mei",
         "Requiem aeternam"
-    ]   
+    ],[
+        "This took you longer than Psalm 119!",
+        "As Slow As Possible",
+        "Molto lento",
+        "De profundis"
+    ]      
 ];
 
 export function createNewGame(mode: GameMode): GameState {
@@ -192,6 +197,7 @@ export function createDefaultStats(mode: GameMode): Stats {
 			4: parseInt(urlStats.get("g4")) || 0,
 			5: parseInt(urlStats.get("g5")) || 0,
 			6: parseInt(urlStats.get("g6")) || 0,
+            7: 0,
 		},
 		currentStreak: parseInt(urlStats.get("cs")) || 0,
 		maxStreak: parseInt(urlStats.get("ms")) || 0,

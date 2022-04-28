@@ -56,6 +56,7 @@ type Guesses = {
 	"4": number;
 	"5": number;
 	"6": number;
+    "7": number;
 	"fail": number;
 };
 

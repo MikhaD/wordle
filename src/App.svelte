@@ -55,7 +55,7 @@
         
         // Grab statistics. CreateDefaultStats looks for URL data
 		stats = (JSON.parse(localStorage.getItem("statistics")) as Stats) || createDefaultStats(m);
-
+        if (stats.guesses[ROWS] === undefined || !stats.guesses[ROWS]) stats.guesses[ROWS] = 0;
 		let temp: GameState;
     if (!(modeData.modes[m].historical)) {
         temp = JSON.parse(localStorage.getItem("gameState"));
@@ -79,11 +79,23 @@
     word = words.words[state.wordNumber % words.words.length];
     // reload page
     if (!(word.length === COLS)) location.reload();
+    // Check arrays are of right length and fix if not
+    if (state.evaluations.length < ROWS)
+        state.evaluations.push(...Array.from({ length: ROWS - state.evaluations.length }, () => (Array(COLS).fill("nil"))));
+    else if (state.evaluations.length > ROWS)
+        state.evaluations.splice(ROWS - state.evaluations.length);
+        
+    if (state.boardState.length < ROWS) 
+        state.boardState.push(...Array(ROWS - state.boardState.length).fill(""));
+    else if (state.boardState.length > ROWS)
+        state.boardState.splice(ROWS - state.boardState.length);
+
+    
 
 		// Set the letter states when data for a new game mode is loaded so the keyboard is correct
 		const letters = createLetterStates();
 		for (let row = 0; row < ROWS; ++row) {
-			for (let col = 0; col < state.boardState[row].length; ++col) {
+            for (let col = 0; col < state.boardState[row].length; ++col) {
 				letters[state.boardState[row][col]] = state.evaluations[row][col];
 			}
 		}
