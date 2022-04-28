@@ -1,6 +1,6 @@
 // Increase the v number when the app is updated
 
-const staticCacheName = "byrdle-v5.1.2";
+const staticCacheName = "byrdle-v5.2.0";
 
 const filesToCache = [
 	"./global.css",
@@ -41,7 +41,7 @@ self.addEventListener('fetch', event => {
         }
         //console.log('Network request for ', event.request.url);
         return fetch(event.request)
-        .then(response => { 
+        .then(response => {
             return caches.open(staticCacheName).then(cache => {
                 cache.put(event.request.url, response.clone());
                 return response;
