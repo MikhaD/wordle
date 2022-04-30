@@ -16,7 +16,11 @@
 		<div class="title"><slot name="title" /></div>
 		<div class="desc"><slot name="desc" /></div>
 	</div>
-	<svelte:component this={types[type]} bind:value {options} {disabled} />
+	{#if type === "custom"}
+		<slot name="custom" />
+	{:else}
+		<svelte:component this={types[type]} bind:value {options} {disabled} />
+	{/if}
 </div>
 
 <style>

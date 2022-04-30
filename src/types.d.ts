@@ -38,7 +38,7 @@ type Settings = {
 	tutorial: 0 | 1 | 2 | 3,
 };
 
-type SettingType = "switch" | "dropdown";
+type SettingType = "switch" | "dropdown" | "custom";
 
 type Word = {
 	daily: string,
