@@ -53,10 +53,6 @@
 
 	let board: Board;
 	let timer: Timer;
-	let tips: Tips;
-
-	let tip = 0;
-	$: if (showSettings && tips) tip = Math.floor(tips.length * Math.random());
 
 	function submitWord() {
 		if (game.board.words[game.guesses].length !== COLS) {
@@ -236,9 +232,9 @@
 	{#if game.active}
 		<div class="concede" on:click={concede}>give up</div>
 	{/if}
-	<Tips bind:this={tips} index={tip} />
+	<Tips change={showSettings} />
 
-	<div slot="footer">
+	<svelte:fragment slot="footer">
 		<a href="https://www.nytimes.com/games/wordle/" target="_blank">Original Wordle</a>
 		<div>
 			<div>v{version}</div>
@@ -253,7 +249,7 @@
 				{modeData.modes[$mode].name} word #{game.wordNumber}
 			</div>
 		</div>
-	</div>
+	</svelte:fragment>
 </Modal>
 
 <style lang="scss">

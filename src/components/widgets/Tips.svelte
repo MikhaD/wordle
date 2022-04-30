@@ -1,5 +1,4 @@
-<script lang="ts">
-	export let index = 0;
+<script context="module" lang="ts">
 	const tips = [
 		"You can change the gamemode by clicking wordle+.",
 		"Hard mode is game mode specific. Turning it on in one game mode won't change it on the others.",
@@ -12,7 +11,12 @@
 		"There are more valid guesses than possible words, ie. not all 5 letter words can be selected as an answer by the game.",
 		"Historical games don't count towards your stats. Historical games are when you follow a link to a specific game number.",
 	];
-	export const length = tips.length;
+</script>
+
+<script lang="ts">
+	export let change: boolean;
+	let index = Math.floor(tips.length * Math.random());
+	$: if (change) index = Math.floor(tips.length * Math.random());
 </script>
 
 <div class="outer">
