@@ -96,18 +96,12 @@ a:visited {
     text-align: center;
     vertical-align: middle;
 }
-.tutorial {
-	--arrow-size: 10px;
+.notice, .tutorial {
 	--padding: 10px;
 	font-size: var(--fs-small);
-	font-weight: 700;
 	text-transform: none;
 	letter-spacing: initial;
-	position: absolute;
-	top: var(--header-height);
-	left: 8px;
-	/*transform: translateX(-50%);*/
-	width: max-content;
+    width: max-content;
 	max-width: min(var(--game-width), 95vw);
 	display: flex;
 	align-items: center;
@@ -116,6 +110,24 @@ a:visited {
 	color: var(--bg-primary);
 	background: var(--fg-primary);
 	z-index: 1;
+}
+.notice {
+  position: fixed;
+  top: var(--header-height);
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, 50%);
+  font-weight: 500;
+}
+.notice div p {
+    margin: 5px 0px;
+}
+.tutorial {
+	position: absolute;
+	top: var(--header-height);
+	left: 8px;
+	--arrow-size: 10px;    
+	font-weight: 700;
 }
 .tutorial::before {
 	content: "";
@@ -129,6 +141,7 @@ a:visited {
 .ok {
 	padding: 10px;
 	margin-left: var(--padding);
+    margin-top: auto;
 	border-radius: 4px;
 	color: white;
 	background: var(--color-correct);

@@ -33,8 +33,11 @@
         getWordNumber,
 		createLetterStates,
 		words,
+        NOTICES,
+        currentNoticeNum,
+        fillNotice,
 	} from "../utils";
-	import { letterStates, hardMode, mode, seenPopUp } from "../stores";
+	import { letterStates, hardMode, mode, seenPopUp, noticeNum } from "../stores";
 
 	export let word: string;
 	export let stats: Stats;
@@ -262,6 +265,13 @@
 		disabled={!(game.gameStatus === "IN_PROGRESS")}
 	/>
 </main>
+
+{#if $noticeNum < currentNoticeNum()}
+    <div class="notice" on:click={() => noticeNum.set(currentNoticeNum())}>
+        <div use:fillNotice></div>
+        <span class="ok">OK</span>
+    </div>
+{/if}
 
 <Modal
 	bind:visible={showTutorial}
