@@ -266,7 +266,7 @@
 	/>
 </main>
 
-{#if $noticeNum < currentNoticeNum()}
+{#if $noticeNum < currentNoticeNum() && stats.gamesPlayed > 0 && game.gameStatus === "IN_PROGRESS"}
     <div class="notice" on:click={() => noticeNum.set(currentNoticeNum())}>
         <div use:fillNotice></div>
         <span class="ok">OK</span>
