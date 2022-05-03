@@ -207,7 +207,7 @@
     }
 
 	onMount(() => {
-		if (!(game.gameStatus === "IN_PROGRESS")) setTimeout(() => (showStats = true), delay);
+		if (!(game.gameStatus === "IN_PROGRESS") && $mode === 0) setTimeout(() => (showStats = true), delay);
         if (stats.gamesPlayed === 0) {
             showImport = true;
             setTimeout(() => (showTutorial = true), delay);
