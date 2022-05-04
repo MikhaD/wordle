@@ -283,7 +283,7 @@
 
 <Modal bind:visible={showStats}>
 		<Statistics data={stats} />
-		<Distribution distribution={stats.guesses} guesses={game.guesses} active={game.gameStatus==="IN_PROGRESS"} />
+		<Distribution distribution={stats.guesses} guesses={game.guesses} gameWon={game.gameStatus==="WIN"} />
 	<Separator visible={!(game.gameStatus === "IN_PROGRESS")}>
 		<ShareGame slot="1" {word} />
 		<Share slot="2" state={game} />
