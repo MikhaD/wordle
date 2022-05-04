@@ -12,3 +12,4 @@ export const fancyFont = writable(false);
 export const hardMode = writable(false);
 export const showHistMode = writable(true);
 export const seenPopUp = writable(2);
+export const noticeNum = writable(-1);

@@ -169,6 +169,26 @@ export const PRAISE = [
     ]      
 ];
 
+export const NOTICES = [
+    {
+        message: "<p>Dear players,</p><p>Sorry if the switch to 6 letters was a surprise! Future changes will be announced via these notices.</p><p>Byrdle will now use 6 letter words (and 7 guesses) until at least early August 2022. I'm still deciding what will happen then...</p><p>Thanks for playing, and I hope you enjoy Byrdle 6!</p>", 
+        showfrom: new Date(2022,4,4,0,0,0,0),
+    },
+    {
+        message: "<p>Byrdle tip!</p><p>No 6-letter answer is the plural of a 5-letter answer. So, TENORS will not appear (but BASSES could).</p>", 
+        showfrom: new Date(2022,4,14,0,0,0,0),
+    }
+];
+
+export function currentNoticeNum() {
+    let today = new Date();
+    return (NOTICES.length - NOTICES.slice().reverse().findIndex(msg => (msg["showfrom"] <= today)) - 1);
+}
+
+export function fillNotice(node) {
+    node.innerHTML = NOTICES[currentNoticeNum()]["message"];
+}
+
 export function createNewGame(mode: GameMode): GameState {
 	return {
         gameStatus: "IN_PROGRESS",

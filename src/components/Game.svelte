@@ -33,8 +33,11 @@
         getWordNumber,
 		createLetterStates,
 		words,
+        NOTICES,
+        currentNoticeNum,
+        fillNotice,
 	} from "../utils";
-	import { letterStates, hardMode, mode, seenPopUp } from "../stores";
+	import { letterStates, hardMode, mode, seenPopUp, noticeNum } from "../stores";
 
 	export let word: string;
 	export let stats: Stats;
@@ -207,7 +210,7 @@
     }
 
 	onMount(() => {
-		if (!(game.gameStatus === "IN_PROGRESS")) setTimeout(() => (showStats = true), delay);
+		if (!(game.gameStatus === "IN_PROGRESS") && $mode === 0) setTimeout(() => (showStats = true), delay);
         if (stats.gamesPlayed === 0) {
             showImport = true;
             setTimeout(() => (showTutorial = true), delay);
@@ -262,6 +265,13 @@
 		disabled={!(game.gameStatus === "IN_PROGRESS")}
 	/>
 </main>
+
+{#if $noticeNum < currentNoticeNum() && stats.gamesPlayed > 0 && game.gameStatus === "IN_PROGRESS"}
+    <div class="notice" on:click={() => noticeNum.set(currentNoticeNum())}>
+        <div use:fillNotice></div>
+        <span class="ok">OK</span>
+    </div>
+{/if}
 
 <Modal
 	bind:visible={showTutorial}
