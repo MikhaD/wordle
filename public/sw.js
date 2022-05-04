@@ -1,6 +1,6 @@
 // Increase the v number when the app is updated
 
-const staticCacheName = "byrdle-v5.2.0";
+const staticCacheName = "byrdle-v5.3.0";
 
 const filesToCache = [
 	"./global.css",
