@@ -20,38 +20,38 @@
 {/if}
 <h3>how to play</h3>
 
-
-<div><strong>Note:</strong> Are you looking for <a href="https://www.powerlanguage.co.uk/wordle/">WORDLE</a> (the guessing game created by <a href="https://twitter.com/powerlanguish">Josh Wardle</a>)? This is not it.</div>
-
-<div>Guess the <strong>BYRDLE</strong> in {ROWS} tries. The word is related to choral music, and answers include proper nouns, plurals and musical terms in other languages. You might like to look at a <a href="https://twitter.com/rbrignall/status/1483940627335233545" target="_blank">Twitter thread of past BYRDLEs</a>.</div>
+<div>Guess the <strong>BYRDLE</strong> in {ROWS} tries. The word is related to choral music, and answers include proper nouns, plurals and musical terms in other languages. You might like to look at a <a href="/history/" target="_blank">Twitter thread of past BYRDLEs</a>.</div>
 <div>Each guess must be a valid {COLS} letter word. Press enter to submit a guess. The colour of the tiles will then change as follows.
 </div>
 <div class:complete={visible} class="examples" style="--tutorial-row-width: {rowWidth}px; --cols: {COLS}">
 	<div><strong>Examples</strong></div>
 	<div class="row">
-		<Tile value="q" state="correct" />
-		<Tile value="u" state="nil" />
-		<Tile value="i" state="nil" />
-		<Tile value="r" state="nil" />
-		<Tile value="e" state="nil" />
-	</div>
-	<div>The letter <strong>Q</strong> is in the word and in the correct spot.</div>
-	<div class="row">
-		<Tile value="m" state="nil" />
-		<Tile value="e" state="present" />
-		<Tile value="m" state="nil" />
-		<Tile value="e" state="nil" />
-		<Tile value="s" state="nil" />
-	</div>
-	<div>The letter <strong>E</strong> is in the word but in the wrong spot.</div>
-	<div class="row">
-		<Tile value="p" state="nil" />
-		<Tile value="s" state="nil" />
+		<Tile value="h" state="correct" />
 		<Tile value="a" state="nil" />
-		<Tile value="l" state="absent" />
+		<Tile value="n" state="nil" />
+		<Tile value="d" state="nil" />
+		<Tile value="e" state="nil" />
+		<Tile value="l" state="nil" />
+	</div>
+	<div>The letter <strong>H</strong> is in the word and in the correct spot.</div>
+	<div class="row">
+		<Tile value="a" state="nil" />
+		<Tile value="n" state="nil" />
+		<Tile value="t" state="present" />
+		<Tile value="h" state="nil" />
+		<Tile value="e" state="nil" />
 		<Tile value="m" state="nil" />
 	</div>
-	<div>The letter <strong>L</strong> is not in the word in any spot.</div>
+	<div>The letter <strong>T</strong> is in the word but in the wrong spot.</div>
+	<div class="row">
+		<Tile value="s" state="nil" />
+		<Tile value="i" state="nil" />
+		<Tile value="n" state="nil" />
+		<Tile value="g" state="absent" />
+		<Tile value="e" state="nil" />
+		<Tile value="r" state="nil" />
+	</div>
+	<div>The letter <strong>G</strong> is not in the word in any spot.</div>
 </div>
 <div>A new BYRDLE will be available at midnight each day!</div>
 
