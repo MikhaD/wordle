@@ -35,14 +35,14 @@
 	</div>
 	<div>The letter <strong>H</strong> is in the word and in the correct spot.</div>
 	<div class="row">
-		<Tile value="a" state="nil" />
-		<Tile value="n" state="nil" />
-		<Tile value="t" state="present" />
-		<Tile value="h" state="nil" />
-		<Tile value="e" state="nil" />
 		<Tile value="m" state="nil" />
+		<Tile value="e" state="nil" />
+		<Tile value="l" state="present" />
+		<Tile value="o" state="nil" />
+		<Tile value="d" state="nil" />
+		<Tile value="y" state="nil" />
 	</div>
-	<div>The letter <strong>T</strong> is in the word but in the wrong spot.</div>
+	<div>The letter <strong>L</strong> is in the word but in the wrong spot.</div>
 	<div class="row">
 		<Tile value="s" state="nil" />
 		<Tile value="i" state="nil" />
