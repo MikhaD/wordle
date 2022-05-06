@@ -15,6 +15,7 @@
 	import { GameMode } from "./enums";
 	import { Toaster } from "./components/widgets";
 	import { setContext } from "svelte";
+	import type {GameState, Settings, Stats} from "./types";
 
 	export let version: string;
 	setContext("version", version);
@@ -90,7 +91,7 @@
 	}
 	let toaster: Toaster;
 
-	document.title = "Wordle+ | An infinite word guessing game";
+	document.title = "Bibl | A word guessing game with a Scriptural twist";
 </script>
 
 <Toaster bind:this={toaster} />

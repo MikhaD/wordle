@@ -34,6 +34,7 @@
 		words,
 	} from "../utils";
 	import { letterStates, settings, mode } from "../stores";
+	import type {GameState, Stats} from "../types";
 
 	export let word: string;
 	export let stats: Stats;
@@ -239,9 +240,7 @@
 	<Tips bind:this={tips} index={tip} />
 
 	<div slot="footer">
-		<a href="https://www.nytimes.com/games/wordle/" target="_blank">Original Wordle</a>
 		<div>
-			<div>v{version}</div>
 			<div
 				title="double click to reset your stats"
 				class="word"

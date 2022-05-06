@@ -4,16 +4,17 @@
 	import { mode } from "../../stores";
 	import { failed, modeData } from "../../utils";
 	import { getContext } from "svelte";
+	import type {GameState} from "../../types";
 
 	export let state: GameState;
 	const toaster = getContext<Toaster>("toaster");
 
-	$: stats = `${modeData.modes[$mode].name} Wordle+ #${state.wordNumber} ${
+	$: stats = `${modeData.modes[$mode].name} Bibl #${state.wordNumber} ${
 		failed(state) ? "X" : state.guesses
 	}/${state.board.words.length}\n\n    ${state.board.state
 		.slice(0, state.guesses)
 		.map((r) => r.join(""))
-		.join("\n    ")}\nmikhad.github.io/wordle`;
+		.join("\n    ")}`;
 </script>
 
 <div

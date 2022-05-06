@@ -4,6 +4,7 @@
 	import { mode } from "../../stores";
 
 	import { DELAY_INCREMENT, ROWS } from "../../utils";
+	import type {LetterState} from "../../types";
 
 	export let value = "";
 	export let state: LetterState;

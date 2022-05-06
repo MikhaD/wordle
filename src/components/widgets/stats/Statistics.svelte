@@ -3,6 +3,7 @@
 	import { modeData } from "../../../utils";
 
 	import Stat from "./Stat.svelte";
+	import type {Stats} from "../../../types";
 	export let data: Stats;
 
 	let stats: [string, string | number][];

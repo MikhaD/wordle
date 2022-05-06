@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { failed } from "../../../utils";
+	import type {GameState, Guesses} from "../../../types";
 
 	export let game: GameState;
 	export let distribution: Guesses;
