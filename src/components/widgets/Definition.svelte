@@ -47,7 +47,7 @@
             {/each}
         </ul>
     {:catch}
-        <div>Your word was <strong>{word}</strong>. (failed to fetch definition)</div>
+        <div>Your word was <strong>{word}</strong>. This is not a word in our Bible words list.</div>
     {/await}
 </div>
 

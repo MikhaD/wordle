@@ -91,7 +91,7 @@
 	}
 	let toaster: Toaster;
 
-	document.title = "Bibl | A word guessing game with a Scriptural twist";
+	document.title = "Bībl | A word guessing game with a Scriptural twist";
 </script>
 
 <Toaster bind:this={toaster} />
