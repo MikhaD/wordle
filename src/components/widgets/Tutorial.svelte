@@ -6,7 +6,7 @@
 </script>
 
 <h3>how to play</h3>
-<div>Guess the <strong>WORDLE</strong> in {ROWS} tries.</div>
+<div>Guess the word in {ROWS} tries.</div>
 <div>Each guess must be a valid {COLS} letter word. Hit the enter button to submit.</div>
 <div>
 	After each guess, the color of the tiles will change to show how close your guess was to the
@@ -15,42 +15,36 @@
 <div class:complete={visible} class="examples">
 	<div><strong>Examples</strong></div>
 	<div class="row">
-		<Tile value="w" state="🟩" />
+		<Tile value="j" state="🟩" />
 		<Tile value="e" state="🔳" />
-		<Tile value="a" state="🔳" />
-		<Tile value="r" state="🔳" />
-		<Tile value="y" state="🔳" />
-	</div>
-	<div>The letter <strong>W</strong> is in the word and in the correct spot.</div>
-	<div class="row">
-		<Tile value="p" state="🔳" />
-		<Tile value="i" state="🟨" />
-		<Tile value="l" state="🔳" />
-		<Tile value="l" state="🔳" />
+		<Tile value="s" state="🔳" />
+		<Tile value="u" state="🔳" />
 		<Tile value="s" state="🔳" />
 	</div>
-	<div>The letter <strong>I</strong> is in the word but in the wrong spot.</div>
+	<div>The letter <strong>J</strong> is in the word and in the correct spot.</div>
 	<div class="row">
-		<Tile value="v" state="🔳" />
-		<Tile value="a" state="🔳" />
-		<Tile value="g" state="🔳" />
-		<Tile value="u" state="⬛" />
+		<Tile value="o" state="🔳" />
+		<Tile value="m" state="🟨" />
 		<Tile value="e" state="🔳" />
+		<Tile value="g" state="🔳" />
+		<Tile value="a" state="🔳" />
 	</div>
-	<div>The letter <strong>U</strong> is not in the word in any spot.</div>
+	<div>The letter <strong>M</strong> is in the word but in the wrong spot.</div>
+	<div class="row">
+		<Tile value="o" state="🔳" />
+		<Tile value="r" state="🔳" />
+		<Tile value="p" state="🔳" />
+		<Tile value="a" state="⬛" />
+		<Tile value="h" state="🔳" />
+	</div>
+	<div>The letter <strong>A</strong> is not in the word in any spot.</div>
 </div>
 <div>
 	This is a recreation of the original <a
 		href="https://www.nytimes.com/games/wordle/"
 		target="_blank">Wordle</a
 	>
-	by Josh Wardle with additional modes and features, allowing you to play infinite wordles. Switch
-	to infinite mode to play an unlimited number of times.
-	<br /><br />
-	Open the settings menu to see some of the additional features.
-	<br />
-	Written with Svelte, in Typescript by
-	<a href="https://github.com/MikhaD" target="_blank">MikhaD</a>.
+	by Josh Wardle with a word list from the Bible.
 </div>
 
 <style lang="scss">

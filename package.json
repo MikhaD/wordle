@@ -1,6 +1,6 @@
 {
-  "name": "wordle+",
-  "description": "A remake of the popular game Wordle with additional modes and features.",
+  "name": "bibl",
+  "description": "A guess-the-word-clone (you know the game), but with all the 5 letter words from the Bible",
   "version": "1.3.2",
   "private": "true",
   "scripts": {
@@ -9,21 +9,13 @@
     "start": "sirv public --no-clear --host",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/MikhaD/wordle.git"
-  },
   "keywords": [],
-  "author": "MikhaD",
-  "bugs": {
-    "url": "https://github.com/MikhaD/wordle/issues"
-  },
-  "homepage": "https://github.com/MikhaD/wordle#readme",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^13.1.3",
     "@rollup/plugin-typescript": "^8.3.0",
     "@tsconfig/svelte": "^3.0.0",
+    "@types/seedrandom": "^3.0.2",
     "rollup": "^2.64.0",
     "rollup-plugin-css-only": "^3.1.0",
     "rollup-plugin-livereload": "^2.0.5",

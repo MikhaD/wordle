@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from "svelte";
+	import type {LetterState} from "../../types";
 
 	export let letter: string;
 	export let state: LetterState = "🔳";

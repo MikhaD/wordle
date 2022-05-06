@@ -5,6 +5,7 @@
 	import ContextMenu from "../widgets/ContextMenu.svelte";
 	import { createEventDispatcher } from "svelte";
 	import { scale } from "svelte/transition";
+	import type {GameBoard} from "../../types";
 
 	export let value: string[];
 	export let board: GameBoard;

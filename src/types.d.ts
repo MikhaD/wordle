@@ -1,4 +1,6 @@
 /** A list of words of the same length */
+import {GameMode} from "./enums";
+
 type Words = WordData & {
 	contains: (word: string) => boolean;
 };
@@ -46,30 +48,22 @@ type Word = {
 	getState: (char: string, index: number, mode: GameMode) => LetterState,
 };
 
-type DictionaryEntry = {
-	word: string;
-	phonetic: string;
-	phonetics: Phonetic[];
-	origin: string;
-	meanings: Meaning[];
+type VerseReference = {
+	book: string;
+	chapter: number;
+	verse: number;
 };
 
-type Meaning = {
-	partOfSpeech: string;
-	definitions: Definition[];
-};
-
-type Definition = {
-	definition: string;
-	synonyms: string[];
-	antonyms: any[];
-	example?: string;
-};
-
-type Phonetic = {
+type Verse = {
+	reference: VerseReference;
 	text: string;
-	audio: string;
-};
+}
+
+type WordVerseMatches = {
+	word: string;
+	selectedVerses: Verse[];
+	allVerseReferences: VerseReference[];
+}
 
 type Stats = {
 	played: number;

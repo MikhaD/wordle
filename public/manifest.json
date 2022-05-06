@@ -1,10 +1,10 @@
 {
-	"short_name": "Wordle+",
-	"name": "Wordle+",
-	"start_url": "https://mikhad.github.io/wordle/",
+	"short_name": "Bibl",
+	"name": "Bibl",
+	"start_url": "<>",
 	"background_color": "#6aaa64",
 	"theme_color": "#6aaa64",
-	"description": "A daily, hourly, INFINITE word game",
+	"description": "A word guessing game with a Scriptural twist",
 	"display": "standalone",
 	"icons": [
 		{

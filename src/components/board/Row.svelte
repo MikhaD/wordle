@@ -3,6 +3,7 @@
 	import { COLS } from "../../utils";
 
 	import Tile from "./Tile.svelte";
+	import type {LetterState} from "../../types";
 	export let guesses: number;
 	export let num: number;
 	export let value = "";

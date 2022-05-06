@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Switch from "./Switch.svelte";
 	import DropDown from "./DropDown.svelte";
+	import type {SettingType} from "../../types";
 	export let value: any;
 	export let type: SettingType;
 	export let options: (string | number)[] = [];
