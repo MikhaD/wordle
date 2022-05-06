@@ -65,18 +65,12 @@
     function updateKey(e,i) {
         var temp = $letterStates[game.boardState[game.guesses][i]] 
         switch(temp) {
-            // Always update key if currently "nil" or "absent" 
+            case "present":
+                if(!(e === "correct")) break;
             case "nil":
             case "absent":
                 $letterStates[game.boardState[game.guesses][i]] = e;
                 break;
-            // Only update key when currently "present" if upgraded to "correct" 
-            case "present":
-                $letterStates[game.boardState[game.guesses][i]] = (e === "correct" ? e : temp);
-                break;
-            // Letter was correct: leave alone
-            default:
-                $letterStates[game.boardState[game.guesses][i]] = temp;
         }
     }
     

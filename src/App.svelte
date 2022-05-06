@@ -102,8 +102,15 @@
 		const letters = createLetterStates();
 		for (let row = 0; row < ROWS; ++row) {
             for (let col = 0; col < state.boardState[row].length; ++col) {
-				letters[state.boardState[row][col]] = state.evaluations[row][col];
-			}
+                switch(letters[state.boardState[row][col]]) {
+                    case "present":
+                        if(!(state.evaluations[row][col] === "correct")) break;
+                    case "nil":
+                    case "absent":
+                        letters[state.boardState[row][col]] = state.evaluations[row][col];
+                        break;
+                }
+            }
 		}
 		letterStates.set(letters);
 	});
