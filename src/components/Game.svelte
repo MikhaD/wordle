@@ -223,7 +223,6 @@
 		/>
 		<Share slot="2" state={game} />
 	</Seperator>
-	<ShareGame wordNumber={game.wordNumber} />
 	{#if !game.active}
 		<Definition {word} alternates={2} />
 	{:else}
