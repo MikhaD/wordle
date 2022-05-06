@@ -35,7 +35,7 @@
         <h3>Selected Verses for "{word}"</h3>
         <ul>
             {#each data.selectedVerses as verse}
-                <li>{verse.reference.book} {verse.reference.chapter}:{verse.reference.verse} - {verse.text}</li>
+                <li><a href="https://www.biblegateway.com/passage/?search={formatReferenceToQueryParam(verse.reference)}&version=ESV" target="_blank">{verse.reference.book} {verse.reference.chapter}:{verse.reference.verse}</a> - {verse.text}</li>
             {/each}
         </ul>
         <h3>All References</h3>
