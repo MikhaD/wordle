@@ -52,16 +52,6 @@
 </div>
 
 <style>
-    h2 {
-        display: inline-block;
-        margin-right: 1rem;
-        margin-bottom: 0.8rem;
-    }
-
-    ol {
-        padding-left: 1.5rem;
-    }
-
     li {
         margin-bottom: 0.5rem;
     }

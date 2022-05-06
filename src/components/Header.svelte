@@ -9,8 +9,6 @@
     export let showStats: boolean;
     export let showRefresh: boolean;
 
-    export let toaster = getContext<Toaster>("toaster");
-
     const dispatch = createEventDispatcher();
     mode.subscribe((m) => {
         if (timeRemaining(modeData.modes[m]) > 0) {
