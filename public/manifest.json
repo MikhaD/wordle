@@ -1,7 +1,7 @@
 {
   "short_name": "Bībl",
   "name": "Bībl",
-  "start_url": "<>",
+  "start_url": "https://biblgame.com",
   "background_color": "#6aaa64",
   "theme_color": "#6aaa64",
   "description": "A word guessing game with a Scriptural twist",
