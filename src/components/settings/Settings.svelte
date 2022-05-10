@@ -97,7 +97,7 @@
 		</div>
         <h3 style="margin-top: 10px;">Credits</h3>
         <div>
-            <p>This game is inspired by <a href="https://www.powerlanguage.co.uk/wordle/" target="_blank">Wordle</a>, and is an implementation of an idea of <a href="https://twitter.com/QuireMemes">QuireMemes</a>.</p>
+            <p>This game is inspired by <a href="https://www.nytimes.com/games/wordle/index.html" target="_blank">Wordle</a>, and is an implementation of an idea of <a href="https://twitter.com/QuireMemes">QuireMemes</a>.</p>
             <p>The <a href="https://github.com/rbrignall/open-byrdle">code</a> is open source, written with Svelte in Typescript by <a href="https://github.com/rbrignall" target="_blank">rbrignall</a> on a base by <a href="https://github.com/MikhaD" target="_blank">MikhaD</a>.</p>
         </div>
         
@@ -106,7 +106,7 @@
         </div>
 	</div>
     <div class="footer">
-        <div>Version: Byrd 5.3.0</div>
+        <div>Version: Byrd 5.4.0</div>
         <div class="word">
             Game #{wordNumber+1}
         </div>
