@@ -4,12 +4,8 @@ type Words = WordData & {
 };
 
 type WordData = {
-	/** A list of possible words to guess */
-	words: string[];
-	/** A list of words that are valid when input by the user but will never get chosen as the word to guess */
-	validFive: string[];
-	validSix: string[];
-    valid: string [];
+	words: string[],
+    valid: string [],
 };
 
 type RowData = {
