@@ -9,12 +9,12 @@
     export let state: GameState;
     const toaster = getContext<Toaster>("toaster");
 
-    $: stats = `$Daily Bībl #${state.wordNumber} ${
+    $: stats = `Daily Bībl #${state.wordNumber} ${
         failed(state) ? "X" : state.guesses
     }/${state.board.words.length}\n\n    ${state.board.state
         .slice(0, state.guesses)
         .map((r) => r.join(""))
-        .join("\n    ")}\n\n    https://biblgame.com`;
+        .join("\n    ")}\n\nhttps://biblgame.com`;
 </script>
 
 <div on:click={() => {
