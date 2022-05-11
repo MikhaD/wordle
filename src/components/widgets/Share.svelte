@@ -9,17 +9,17 @@
     export let state: GameState;
     const toaster = getContext<Toaster>("toaster");
 
-    $: stats = `${modeData.modes[$mode].name} Bībl #${state.wordNumber} ${
+    $: stats = `$Daily Bībl #${state.wordNumber} ${
         failed(state) ? "X" : state.guesses
     }/${state.board.words.length}\n\n    ${state.board.state
         .slice(0, state.guesses)
         .map((r) => r.join(""))
-        .join("\n    ")}`;
+        .join("\n    ")}\n\n    https://biblgame.com`;
 </script>
 
 <div on:click={() => {
 		navigator.clipboard.writeText(stats).then(() => {
-		    toaster.pop("Copied");
+		    toaster.pop("Copied to clipboard");
 		});
 	}}
 >
