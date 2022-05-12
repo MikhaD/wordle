@@ -20,6 +20,7 @@
 <div on:click={() => {
         if(`canShare` in navigator) {
             const sharedData = {
+                title: `Daily Bībl #${state.wordNumber}`,
                 text: stats
             };
             if(navigator.canShare(sharedData)) {
