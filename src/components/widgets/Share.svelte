@@ -19,7 +19,7 @@
 
 <div on:click={() => {
         if(`canShare` in navigator) {
-            const sharedData: ShareData = {
+            const sharedData = {
                 text: stats
             };
             if(navigator.canShare(sharedData)) {
