@@ -91,8 +91,7 @@ type ModeData = {
 type Mode = {
 	name: string,
 	unit: number,
-	start: number,
-	seed: number,
+	wordNumber: number;
 	historical: boolean,
 	icon?: string,
 	streak?: boolean,

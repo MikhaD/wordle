@@ -18,23 +18,29 @@
 </script>
 
 <div on:click={() => {
-        if(`canShare` in navigator) {
-            const sharedData = {
-                title: `Daily Bībl #${state.wordNumber}`,
-                text: stats
-            };
-            if(navigator.canShare(sharedData)) {
-               navigator.share(sharedData)
-                .catch(() => {
-                    navigator.clipboard.writeText(stats).then(() => {
-                        toaster.pop("We are sorry but this content could not be shared. It has been copied to the clipboard instead");
+        try {
+            if(`canShare` in navigator) {
+                const sharedData = {
+                    title: `Daily Bībl #${state.wordNumber}`,
+                    text: stats
+                };
+                if(navigator.canShare(sharedData)) {
+                   navigator.share(sharedData)
+                    .catch(() => {
+                        navigator.clipboard.writeText(stats)
+                            .then(() => {
+                                toaster.pop("We are sorry but this content could not be shared. It has been copied to the clipboard instead.");
+                            });
                     });
+                }
+            } else {
+                navigator.clipboard.writeText(stats).then(() => {
+                    toaster.pop("Copied to clipboard");
                 });
             }
-        } else {
-            navigator.clipboard.writeText(stats).then(() => {
-                toaster.pop("Copied to clipboard");
-            });
+        }
+        catch {
+            toaster.pop("We are sorry but this content could neither be shared nor copied to the clipboard.")
         }
 	}}
 >

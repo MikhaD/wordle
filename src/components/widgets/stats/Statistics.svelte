@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { mode } from "../../../stores";
-	import { modeData } from "../../../utils";
+	import {modeData, numberIsZero} from "../../../utils";
 
 	import Stat from "./Stat.svelte";
 	import type {Stats} from "../../../types";
@@ -33,7 +33,7 @@
 	}
 </script>
 
-<h3>Statistics ({modeData.modes[$mode].name})</h3>
+<h3>Statistics ({modeData.modes[$mode].name}, word {modeData.modes[$mode].wordNumber + numberIsZero})</h3>
 <div>
 	{#each stats as stat}
 		<Stat name={stat[0]} stat={stat[1]} />

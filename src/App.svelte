@@ -1,18 +1,16 @@
 <script lang="ts">
     import {
         modeData,
-        seededRandomInt,
         createDefaultStats,
         createNewGame,
         createDefaultSettings,
         createLetterStates,
         ROWS,
-        getWordNumber,
-        words,
+        words, getTodaysWordNumber, getTodayUTCWhichUsedToBeASeed, numberIsZero,
     } from "./utils";
     import Game from "./components/Game.svelte";
     import {letterStates, settings, mode} from "./stores";
-    import {GameMode} from "./enums";
+    import {GameMode, ms} from "./enums";
     import {Toaster} from "./components/widgets";
     import {setContext} from "svelte";
     import type {GameState, Settings, Stats} from "./types";
@@ -37,33 +35,38 @@
     mode.set(modeVal);
 
     // If this is a link to a specific word make sure that that is the word
-    const specificWordNumber = parseInt(hash[1], 10);
-    if (!isNaN(specificWordNumber) && specificWordNumber <= getWordNumber(modeVal)) {
-        modeData.modes[modeVal].seed =
-            (parseInt(hash[1]) - 1) * modeData.modes[modeVal].unit + modeData.modes[modeVal].start;
+    const specificWordNumber = parseInt(hash[1], 10) - numberIsZero;
+    const actualSpecificWordNumber = specificWordNumber < 0
+        ? words.words.length - 1 + (specificWordNumber % words.words.length)
+        : specificWordNumber > words.words.length - 1
+            ? specificWordNumber % words.words.length
+            : specificWordNumber;
+
+    if (!isNaN(specificWordNumber) && specificWordNumber <= getTodaysWordNumber()) {
+        modeData.modes[modeVal].wordNumber = actualSpecificWordNumber;
         modeData.modes[modeVal].historical = true;
     }
     mode.subscribe((m) => {
         localStorage.setItem("mode", `${m}`);
         window.location.hash = GameMode[m];
         stats = (JSON.parse(localStorage.getItem(`stats-${m}`)) as Stats) || createDefaultStats(m);
-        word = words.words[seededRandomInt(0, words.words.length, modeData.modes[m].seed)];
+        word = words.words[modeData.modes[m].wordNumber];
         let temp: GameState;
         if (modeData.modes[m].historical === true) {
             temp = JSON.parse(localStorage.getItem(`state-${m}-h`));
-            if (!temp || temp.wordNumber !== getWordNumber(m)) {
+            if (!temp || temp.wordNumber !== modeData.modes[m].wordNumber) {
                 state = createNewGame(m);
             } else {
                 state = temp;
             }
         } else {
             temp = JSON.parse(localStorage.getItem(`state-${m}`));
-            if (!temp || modeData.modes[m].seed - temp.time >= modeData.modes[m].unit) {
+            if (!temp || getTodayUTCWhichUsedToBeASeed() - temp.time >= modeData.modes[m].unit) {
                 state = createNewGame(m);
             } else {
                 // This is for backwards compatibility, can be removed in a day
                 if (!temp.wordNumber) {
-                    temp.wordNumber = getWordNumber(m);
+                    temp.wordNumber = getTodaysWordNumber();
                 }
                 state = temp;
             }

@@ -1,4 +1,3 @@
-import seedrandom from "seedrandom";
 import {GameMode, ms} from "./enums";
 import wordList from "./words_5";
 import type {GameBoard, GameState, HardModeData, LetterState, Mode, ModeData, Settings, Stats} from "./types";
@@ -179,14 +178,15 @@ export function contractNum(n: number) {
 
 export const keys = ["qwertyuiop", "asdfghjkl", "zxcvbnm"];
 
-export function newSeed(mode: GameMode) {
-    const now = Date.now();
-    switch (mode) {
-        case GameMode.daily:
-            // Adds time zome offset to UTC time, calculates how many days that falls after 1/1/1970
-            // and returns the unix time for the beginning of that day.
-            return Date.UTC(1970, 0, 1 + Math.floor((now - (new Date().getTimezoneOffset() * ms.MINUTE)) / ms.DAY));
-    }
+export const numberIsZero = 118;
+const zeroDayUTC = Date.UTC(2022, 4, 14);
+
+export function getTodayUTCWhichUsedToBeASeed() {
+    return Date.UTC(1970, 0, 1 + Math.floor((Date.now() - (new Date().getTimezoneOffset() * ms.MINUTE)) / ms.DAY));
+}
+
+export function getTodaysWordNumber() {
+    return getTodayUTCWhichUsedToBeASeed() - zeroDayUTC;
 }
 
 export const modeData: ModeData = {
@@ -195,23 +195,13 @@ export const modeData: ModeData = {
         {
             name: "Daily",
             unit: ms.DAY,
-            start: 1642370400000,	// 17/01/2022 UTC+2
-            seed: newSeed(GameMode.daily),
+            wordNumber: getTodaysWordNumber(),
             historical: false,
             streak: true,
             useTimeZone: true,
         },
     ]
 };
-
-export function getWordNumber(mode: GameMode) {
-    return Math.round((modeData.modes[mode].seed - modeData.modes[mode].start) / modeData.modes[mode].unit) + 1;
-}
-
-export function seededRandomInt(min: number, max: number, seed: number) {
-    const rng = seedrandom(`${seed}`);
-    return Math.floor(min + (max - min) * rng());
-}
 
 export const DELAY_INCREMENT = 200;
 
@@ -228,8 +218,8 @@ export function createNewGame(mode: GameMode): GameState {
     return {
         active: true,
         guesses: 0,
-        time: modeData.modes[mode].seed,
-        wordNumber: getWordNumber(mode),
+        time: getTodayUTCWhichUsedToBeASeed(),
+        wordNumber: getTodaysWordNumber(),
         validHard: true,
         board: {
             words: Array(ROWS).fill(""),
@@ -302,9 +292,9 @@ export function createLetterStates(): { [key: string]: LetterState; } {
 
 export function timeRemaining(m: Mode) {
     if (m.useTimeZone) {
-        return m.unit - (Date.now() - (m.seed + new Date().getTimezoneOffset() * ms.MINUTE));
+        return m.unit - (Date.now() - (getTodayUTCWhichUsedToBeASeed() + new Date().getTimezoneOffset() * ms.MINUTE));
     }
-    return m.unit - (Date.now() - m.seed);
+    return m.unit - (Date.now() - getTodayUTCWhichUsedToBeASeed());
 }
 
 export function failed(s: GameState) {
