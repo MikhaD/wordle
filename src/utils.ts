@@ -105,7 +105,7 @@ export function storedWordNumber() {
     }
     else {
         currGameState = JSON.parse(localStorage.getItem("histState"))
-        if(!currGameState || !currGameState.wordNumber)
+        if(!currGameState)
             return getWordNumber() - 1
         else
             return currGameState.wordNumber
