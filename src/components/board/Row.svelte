@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from "svelte";
-	import { COLS } from "../../utils";
+	import { words, COLS } from "../../utils";
 
 	import Tile from "./Tile.svelte";
 	export let guesses: number;
@@ -14,7 +14,10 @@
 	export function bounce() {
 		tiles.forEach((e) => e.bounce());
 	}
-	const dispatch = createEventDispatcher();
+
+    $: wordOK = (value.length < COLS) || words.contains(value);
+
+    const dispatch = createEventDispatcher();
 	let animation = "";
 	let tiles: Tile[] = [];
 </script>
@@ -24,6 +27,7 @@
 	on:animationend={() => (animation = "")}
 	data-animation={animation}
 	class:complete={guesses > num}
+    class:invalid={!wordOK}
 >
 	{#each Array(COLS) as _, i}
 		<Tile bind:this={tiles[i]} state={evaluation[i]} value={value.charAt(i)} position={i+num} />
@@ -54,7 +58,9 @@
         }
     }
     
-    
+    .invalid {
+        color: #cc0000;
+    }
     
     
 	@keyframes shake {
