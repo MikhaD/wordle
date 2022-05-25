@@ -5,7 +5,6 @@
 	export let visible: boolean;
     export let imported: boolean;
     
-    let rowWidth = 44*COLS-4;
 </script>
 {#if imported}
     <h3>welcome to new byrdle!</h3>
@@ -23,7 +22,7 @@
 <div>Guess the <strong>BYRDLE</strong> in {ROWS} tries. The word is related to choral music, and answers include proper nouns, plurals and musical terms in other languages. You might like to look at a <a href="/history/" target="_blank">Twitter thread of past BYRDLEs</a>.</div>
 <div>Each guess must be a valid {COLS} letter word. Press enter to submit a guess. The colour of the tiles will then change as follows.
 </div>
-<div class:complete={visible} class="examples" style="--tutorial-row-width: {rowWidth}px; --cols: {COLS}">
+<div class:complete={visible} class="examples" style="--tutorial-row-width: 260px; --cols: 6">
 	<div><strong>Examples</strong></div>
 	<div class="row">
 		<Tile value="h" state="correct" />
