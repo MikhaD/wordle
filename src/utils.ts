@@ -176,6 +176,10 @@ export const NOTICES = [
     {
         message: "<p>Byrdle tip!</p><p>No 6-letter answer is the plural of a 5-letter answer. So, TENORS will not appear (but BASSES could).</p>", 
         showfrom: new Date(2022,4,14,0,0,0,0),
+    },
+    {
+        message: "<h3>(One-off) shameless plug</h3><p>Are you interested in a new daily word game?</p><p>Composer Ben Ponniah and I developed a game that combines logical and linguistic deduction, called <a href=\"https://susie.rbrignall.org.uk/\" target=\"_blank\">SUSIE</a>. I hope you like it!</p>", 
+        showfrom: new Date(2022,4,28,0,0,0,0),
     }
 ];
 
