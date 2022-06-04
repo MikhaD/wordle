@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { getContext, onMount } from "svelte";
 
-	import { mode, darkTheme, fancyFont, colorBlindTheme, hardMode, showHistMode } from "../../stores";
+	import { mode, darkTheme, fancyFont, colorBlindTheme, hardMode, noRed, showHistMode } from "../../stores";
 	import { modeData } from "../../utils";
 	import { Toaster } from "../widgets";
 	import Setting from "./Setting.svelte";
@@ -68,9 +68,14 @@
 			<span slot="title">Show historical mode</span>
 			<span slot="desc">Turn off to hide the clock icon</span>
 		</Setting>
+		<Setting type="switch" bind:value={$noRed}>
+			<span slot="title">No red letters</span>
+			<span slot="desc">Disable highlighting if not in dictionary</span>
+		</Setting>
+<!--
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <div>
-			<div style="font-size: var(--fs-medium); font-weight: 500;">
+            <div style="font-size: var(--fs-medium); font-weight: 500;">
                 Clear all game data
             </div>
 			<div style="font-size: var(--fs-tiny); color: var(--fg-secondary);">Resets all data, including game statistics</div>   
@@ -91,6 +96,7 @@
             Delete
         </span></div>
     </div>
+-->
         <div class="links">
 			Feedback
 			<a href="https://twitter.com/intent/tweet?screen_name=rbrignall" target="_blank">Twitter</a>

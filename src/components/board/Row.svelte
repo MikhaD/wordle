@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher } from "svelte";
 	import { words, COLS } from "../../utils";
+	import { noRed } from "../../stores";
 
 	import Tile from "./Tile.svelte";
 	export let guesses: number;
@@ -15,7 +16,7 @@
 		tiles.forEach((e) => e.bounce());
 	}
 
-    $: wordOK = (value.length < COLS) || words.contains(value);
+    $: wordOK = $noRed || (value.length < COLS) || words.contains(value);
 
     const dispatch = createEventDispatcher();
 	let animation = "";

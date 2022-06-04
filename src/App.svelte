@@ -12,7 +12,7 @@
 	import Game from "./components/Game.svelte";
 	import { letterStates, hardMode, mode, 
             darkTheme, colorBlindTheme, fancyFont,
-            showHistMode, seenPopUp, noticeNum
+            showHistMode, seenPopUp, noticeNum, noRed
     } from "./stores";
 	import { GameMode } from "./enums";
 	import { Toaster } from "./components/widgets";
@@ -29,6 +29,7 @@
     colorBlindTheme.set(JSON.parse(localStorage.getItem("colorBlindTheme")) as boolean || false);
     fancyFont.set(JSON.parse(localStorage.getItem("fancyFont")) as boolean || false);
     hardMode.set(JSON.parse(localStorage.getItem("hardMode")) as boolean || false);
+    noRed.set(JSON.parse(localStorage.getItem("noRed")) as boolean || false);
 
     if (!localStorage.getItem("showHistMode")) 
         showHistMode.set(true)
@@ -49,6 +50,7 @@
     colorBlindTheme.subscribe(s => localStorage.setItem("colorBlindTheme",s));
     fancyFont.subscribe(s => localStorage.setItem("fancyFont",s));
     hardMode.subscribe(s => localStorage.setItem("hardMode",s));
+    noRed.subscribe(s => localStorage.setItem("noRed",s));
     seenPopUp.subscribe(s => localStorage.setItem("seenPopUp",s));
     noticeNum.subscribe(s => localStorage.setItem("noticeNum",s));
     
