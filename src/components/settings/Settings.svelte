@@ -108,7 +108,7 @@
         </div>
         
         <div>
-	       Byrdle is free to play and ad-free, but you can <a href="https://www.buymeacoffee.com/rbrignall" target="_blank">buy me a coffee</a>!
+	       Byrdle is free to play and ad-free, but you can <a href="https://www.buymeacoffee.com/rbrignall" target="_blank">buy me a coffee</a>! You can also check out another word game I developed: <a href="https://susie.rbrignall.org.uk/" target="_blank">Susie</a>.
         </div>
 	</div>
     <div class="footer">
