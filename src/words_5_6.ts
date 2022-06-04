@@ -22,9 +22,9 @@ const answers = [
         "loudly","regina","nodule","church","kodaly","legato","cantor","plagal","brahms","maxima",
         "degree","lieder","stabat","upbeat","harris","subito","intone","firmus","mealor","triste",
         "fourth","hymnal","accent","rubbra","repeat","breath","minima","morley","libera","troppo",
-        "dvorak","dotted","gospel","corona","system","phonic","gruber","ottava","elijah","franck",
-        "ledger","niente","simile","tempus","naylor","attack","tierce","tuplet","greene","masses",
-        "byrdle","samson","theory","finale","encore"
+        "dvorak","dotted","clucas","gospel","corona","system","gounod","phonic","gruber","ottava",
+        "elijah","franck","gargle","regina","ledger","niente","simile","tempus","naylor","attack",
+        "tierce","poston","tuplet","greene","masses","byrdle","samson","theory","finale","encore"
     ];
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
