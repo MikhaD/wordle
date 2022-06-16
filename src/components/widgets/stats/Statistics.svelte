@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { mode } from "../../../stores";
-	import { modeData } from "../../../utils";
+	import { modeData, Stats } from "../../../utils";
 
 	import Stat from "./Stat.svelte";
 	export let data: Stats;
@@ -25,7 +25,7 @@
 		if (data.guesses.fail > 0) {
 			stats.push(["Lost", data.guesses.fail]);
 		}
-		if ("streak" in data) {
+		if (data.hasStreak) {
 			stats.push(["Current Streak", data.streak]);
 			stats.push(["Max Streak", data.maxStreak]);
 		}

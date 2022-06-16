@@ -2,7 +2,7 @@
 	import { getContext, onMount } from "svelte";
 
 	import { mode, settings } from "../../stores";
-	import { modeData } from "../../utils";
+	import { modeData, GameState } from "../../utils";
 	import type { Toaster } from "../widgets";
 	import Setting from "./Setting.svelte";
 
@@ -20,7 +20,7 @@
 			$settings.colorblind
 				? root.classList.add("colorblind")
 				: root.classList.remove("colorblind");
-			localStorage.setItem("settings", JSON.stringify($settings));
+			localStorage.setItem("settings", $settings.toString());
 		}
 	}
 </script>

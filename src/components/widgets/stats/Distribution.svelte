@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { failed } from "../../../utils";
+	import { failed, GameState } from "../../../utils";
 
 	export let game: GameState;
 	export let distribution: Guesses;

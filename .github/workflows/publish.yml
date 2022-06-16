@@ -3,7 +3,7 @@ name: Publish
 on:
   push:
     branches: [main]
-  
+
 jobs:
   deploy:
     runs-on: ubuntu-20.04
@@ -13,7 +13,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 16
-      - name: install dependancies
+      - name: install dependencies
         run: npm i
       - name: compile
         run: npm run build

@@ -1,6 +1,7 @@
 {
   "extends": "@tsconfig/svelte/tsconfig.json",
   "compilerOptions": {
+    "noImplicitOverride": true,
     "types": [
       "svelte"
     ]

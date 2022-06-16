@@ -3,6 +3,7 @@
   "description": "A remake of the popular game Wordle with additional modes and features.",
   "version": "1.4.0",
   "private": "true",
+  "license": "GPL-3.0",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",

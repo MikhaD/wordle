@@ -23,7 +23,7 @@
 				/>
 			</GameIcon>
 		</div>
-		<div>
+		<div class="content">
 			<slot />
 		</div>
 		<div class="footer">
@@ -65,9 +65,9 @@
 		padding: var(--modal-padding);
 		padding-top: calc(2 * var(--modal-padding));
 		width: 90%;
-		> :global(*:not(h3)) {
-			margin-bottom: 15px;
-		}
+	}
+	.content > :global(div) {
+		margin-bottom: 14px;
 	}
 	.fullscreen .modal {
 		height: 100%;

@@ -17,34 +17,12 @@ type RowData = {
 
 type LetterState = "🔳" | "⬛" | "🟨" | "🟩";
 
-type GameState = {
-	active: boolean,
-	guesses: number,
-	time: number,
-	wordNumber: number,
-	validHard: boolean,
-	board: GameBoard,
-};
-
 type GameBoard = {
 	words: string[],
 	state: LetterState[][],
 };
 
-type Settings = {
-	hard: boolean[],
-	dark: boolean,
-	colorblind: boolean,
-	tutorial: 0 | 1 | 2 | 3,
-};
-
 type SettingType = "switch" | "dropdown" | "custom";
-
-type Word = {
-	daily: string,
-	infinite: string,
-	getState: (char: string, index: number, mode: GameMode) => LetterState,
-};
 
 type DictionaryEntry = {
 	word: string;
@@ -69,14 +47,6 @@ type Definition = {
 type Phonetic = {
 	text: string;
 	audio: string;
-};
-
-type Stats = {
-	played: number;
-	streak?: number;
-	maxStreak?: number;
-	lastGame: number;
-	guesses: Guesses;
 };
 
 type Guesses = {

@@ -8,7 +8,7 @@
 	import Settings from "./settings";
 	import {
 		Share,
-		Seperator,
+		Separator,
 		Definition,
 		Tutorial,
 		Statistics,
@@ -22,16 +22,15 @@
 		contractNum,
 		DELAY_INCREMENT,
 		PRAISE,
-		getState,
 		modeData,
-		checkHardMode,
 		ROWS,
 		COLS,
 		newSeed,
-		createNewGame,
+		GameState,
 		seededRandomInt,
-		createLetterStates,
+		LetterStates,
 		words,
+		Stats,
 	} from "../utils";
 	import { letterStates, settings, mode } from "../stores";
 
@@ -55,12 +54,12 @@
 	let timer: Timer;
 
 	function submitWord() {
-		if (game.board.words[game.guesses].length !== COLS) {
+		if (game.latestWord.length !== COLS) {
 			toaster.pop("Not enough letters");
 			board.shake(game.guesses);
-		} else if (words.contains(game.board.words[game.guesses])) {
+		} else if (words.contains(game.latestWord)) {
 			if (game.guesses > 0) {
-				const hm = checkHardMode(game.board, game.guesses);
+				const hm = game.checkHardMode();
 				if ($settings.hard[$mode]) {
 					if (hm.type === "🟩") {
 						toaster.pop(
@@ -77,16 +76,11 @@
 					game.validHard = false;
 				}
 			}
-			const state = getState(word, game.board.words[game.guesses]);
-			game.board.state[game.guesses] = state;
-			state.forEach((e, i) => {
-				const ls = $letterStates[game.board.words[game.guesses][i]];
-				if (ls === "🔳" || e === "🟩") {
-					$letterStates[game.board.words[game.guesses][i]] = e;
-				}
-			});
+			game.board.state[game.guesses] = game.guess(word);
 			++game.guesses;
-			if (game.board.words[game.guesses - 1] === word) win();
+			$letterStates.update(game.lastState, game.lastWord);
+			$letterStates = $letterStates;
+			if (game.lastWord === word) win();
 			else if (game.guesses === ROWS) lose();
 		} else {
 			toaster.pop("Not in word list");
@@ -103,17 +97,9 @@
 		);
 		setTimeout(setShowStatsTrue, delay * 1.4);
 		if (!modeData.modes[$mode].historical) {
-			++stats.guesses[game.guesses];
-			++stats.played;
-			if ("streak" in stats) {
-				stats.streak =
-					modeData.modes[$mode].seed - stats.lastGame > modeData.modes[$mode].unit
-						? 1
-						: stats.streak + 1;
-				if (stats.streak > stats.maxStreak) stats.maxStreak = stats.streak;
-			}
-			stats.lastGame = modeData.modes[$mode].seed;
-			localStorage.setItem(`stats-${$mode}`, JSON.stringify(stats));
+			stats.addWin(game.guesses, modeData.modes[$mode]);
+			stats = stats;
+			localStorage.setItem(`stats-${$mode}`, stats.toString());
 		}
 	}
 
@@ -121,11 +107,9 @@
 		game.active = false;
 		setTimeout(setShowStatsTrue, delay);
 		if (!modeData.modes[$mode].historical) {
-			++stats.guesses.fail;
-			++stats.played;
-			if ("streak" in stats) stats.streak = 0;
-			stats.lastGame = modeData.modes[$mode].seed;
-			localStorage.setItem(`stats-${$mode}`, JSON.stringify(stats));
+			stats.addLoss(modeData.modes[$mode]);
+			stats = stats;
+			localStorage.setItem(`stats-${$mode}`, stats.toString());
 		}
 	}
 
@@ -138,9 +122,9 @@
 	function reload() {
 		modeData.modes[$mode].historical = false;
 		modeData.modes[$mode].seed = newSeed($mode);
-		game = createNewGame($mode);
+		game = new GameState($mode);
 		word = words.words[seededRandomInt(0, words.words.length, modeData.modes[$mode].seed)];
-		$letterStates = createLetterStates();
+		$letterStates = new LetterStates();
 		showStats = false;
 		showRefresh = false;
 		timer.reset($mode);
@@ -209,7 +193,7 @@
 		<Statistics data={stats} />
 		<Distribution distribution={stats.guesses} {game} />
 	{/if}
-	<Seperator visible={!game.active}>
+	<Separator visible={!game.active}>
 		<Timer
 			slot="1"
 			bind:this={timer}
@@ -217,7 +201,7 @@
 			on:reload={reload}
 		/>
 		<Share slot="2" state={game} />
-	</Seperator>
+	</Separator>
 	<ShareGame wordNumber={game.wordNumber} />
 	{#if !game.active}
 		<Definition {word} alternates={2} />

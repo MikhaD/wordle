@@ -2,7 +2,7 @@
 	import type Toaster from "./Toaster.svelte";
 
 	import { mode } from "../../stores";
-	import { failed, modeData } from "../../utils";
+	import { failed, modeData, GameState } from "../../utils";
 	import { getContext } from "svelte";
 
 	export let state: GameState;

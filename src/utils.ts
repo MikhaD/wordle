@@ -1,4 +1,4 @@
-import seedrandom from "seedrandom";
+import seedRandom from "seedrandom";
 import { GameMode, ms } from "./enums";
 import wordList from "./words_5";
 
@@ -11,20 +11,6 @@ export const words = {
 		return wordList.words.includes(word) || wordList.valid.includes(word);
 	},
 };
-
-export function checkHardMode(board: GameBoard, row: number): HardModeData {
-	for (let i = 0; i < COLS; ++i) {
-		if (board.state[row - 1][i] === "🟩" && board.words[row - 1][i] !== board.words[row][i]) {
-			return { pos: i, char: board.words[row - 1][i], type: "🟩" };
-		}
-	}
-	for (let i = 0; i < COLS; ++i) {
-		if (board.state[row - 1][i] === "🟨" && !board.words[row].includes(board.words[row - 1][i])) {
-			return { pos: i, char: board.words[row - 1][i], type: "🟨" };
-		}
-	}
-	return { pos: -1, char: "", type: "⬛" };
-}
 
 class Tile {
 	public value: string;
@@ -86,7 +72,7 @@ class WordData {
 export function getRowData(n: number, board: GameBoard) {
 	const wd = new WordData();
 	for (let row = 0; row < n; ++row) {
-		const occured = new Set<string>();
+		const occurred = new Set<string>();
 		for (let col = 0; col < COLS; ++col) {
 			const state = board.state[row][col];
 			const char = board.words[row][col];
@@ -98,11 +84,11 @@ export function getRowData(n: number, board: GameBoard) {
 				}
 				continue;
 			}
-			// If this isn't the first time this letter has occured in this row
-			if (occured.has(char)) {
+			// If this isn't the first time this letter has occurred in this row
+			if (occurred.has(char)) {
 				wd.incrementCount(char);
 			} else if (!wd.countConfirmed(char)) {
-				occured.add(char);
+				occurred.add(char);
 				wd.setCount(char, 1);
 			}
 			if (state === "🟩") {
@@ -122,8 +108,8 @@ export function getRowData(n: number, board: GameBoard) {
 		if (new RegExp(exp).test(word)) {
 			const chars = word.split("");
 			for (const e of wd.letterCounts) {
-				const occurences = countOccurences(chars, e[0]);
-				if (!occurences || (e[1][1] && occurences !== e[1][0])) return false;
+				const occurrences = countOccurrences(chars, e[0]);
+				if (!occurrences || (e[1][1] && occurrences !== e[1][0])) return false;
 			}
 			return true;
 		}
@@ -131,27 +117,8 @@ export function getRowData(n: number, board: GameBoard) {
 	};
 }
 
-function countOccurences<T>(arr: T[], val: T) {
+function countOccurrences<T>(arr: T[], val: T) {
 	return arr.reduce((count, v) => v === val ? count + 1 : count, 0);
-}
-
-export function getState(word: string, guess: string): LetterState[] {
-	const charArr = word.split("");
-	const result = Array<LetterState>(5).fill("⬛");
-	for (let i = 0; i < word.length; ++i) {
-		if (charArr[i] === guess.charAt(i)) {
-			result[i] = "🟩";
-			charArr[i] = "$";
-		}
-	}
-	for (let i = 0; i < word.length; ++i) {
-		const pos = charArr.indexOf(guess[i]);
-		if (result[i] !== "🟩" && pos >= 0) {
-			charArr[pos] = "$";
-			result[i] = "🟨";
-		}
-	}
-	return result;
 }
 
 export function contractNum(n: number) {
@@ -169,7 +136,7 @@ export function newSeed(mode: GameMode) {
 	const now = Date.now();
 	switch (mode) {
 		case GameMode.daily:
-			// Adds time zome offset to UTC time, calculates how many days that falls after 1/1/1970
+			// Adds time zone offset to UTC time, calculates how many days that falls after 1/1/1970
 			// and returns the unix time for the beginning of that day.
 			return Date.UTC(1970, 0, 1 + Math.floor((now - (new Date().getTimezoneOffset() * ms.MINUTE)) / ms.DAY));
 		case GameMode.hourly:
@@ -227,7 +194,7 @@ export function getWordNumber(mode: GameMode) {
 }
 
 export function seededRandomInt(min: number, max: number, seed: number) {
-	const rng = seedrandom(`${seed}`);
+	const rng = seedRandom(`${seed}`);
 	return Math.floor(min + (max - min) * rng());
 }
 
@@ -242,80 +209,235 @@ export const PRAISE = [
 	"Phew",
 ];
 
-export function createNewGame(mode: GameMode): GameState {
-	return {
-		active: true,
-		guesses: 0,
-		time: modeData.modes[mode].seed,
-		wordNumber: getWordNumber(mode),
-		validHard: true,
-		board: {
-			words: Array(ROWS).fill(""),
-			state: Array.from({ length: ROWS }, () => (Array(COLS).fill("🔳")))
-		},
-	};
+abstract class Storable {
+	toString() { return JSON.stringify(this); }
 }
 
-export function createDefaultSettings(): Settings {
-	return {
-		hard: new Array(modeData.modes.length).map(() => false),
-		dark: true,
-		colorblind: false,
-		tutorial: 3,
-	};
+export class GameState extends Storable {
+	public active: boolean;
+	public guesses: number;
+	public validHard: boolean;
+	public time: number;
+	public wordNumber: number;
+	public board: GameBoard;
+
+	#valid = false;
+	#mode: GameMode;
+
+	constructor(mode: GameMode, data?: string) {
+		super();
+		this.#mode = mode;
+		if (data) {
+			this.parse(data);
+		}
+		if (!this.#valid) {
+			this.active = true;
+			this.guesses = 0;
+			this.validHard = true;
+			this.time = modeData.modes[mode].seed;
+			this.wordNumber = getWordNumber(mode);
+			this.board = {
+				words: Array(ROWS).fill(""),
+				state: Array.from({ length: ROWS }, () => (Array(COLS).fill("🔳"))),
+			};
+
+			this.#valid = true;
+		}
+	}
+	get latestWord() {
+		return this.board.words[this.guesses];
+	}
+	get lastState() {
+		return this.board.state[this.guesses - 1];
+	}
+	get lastWord() {
+		return this.board.words[this.guesses - 1];
+	}
+	/**
+	* Returns an object containing the position of the character in the latest word that violates
+	* hard mode, and what type of violation it is, if there is a violation.
+	*/
+	checkHardMode(): HardModeData {
+		for (let i = 0; i < COLS; ++i) {
+			if (this.board.state[this.guesses - 1][i] === "🟩" && this.board.words[this.guesses - 1][i] !== this.board.words[this.guesses][i]) {
+				return { pos: i, char: this.board.words[this.guesses - 1][i], type: "🟩" };
+			}
+		}
+		for (let i = 0; i < COLS; ++i) {
+			if (this.board.state[this.guesses - 1][i] === "🟨" && !this.board.words[this.guesses].includes(this.board.words[this.guesses - 1][i])) {
+				return { pos: i, char: this.board.words[this.guesses - 1][i], type: "🟨" };
+			}
+		}
+		return { pos: -1, char: "", type: "⬛" };
+	}
+	guess(word: string) {
+		const characters = word.split("");
+		const result = Array<LetterState>(COLS).fill("⬛");
+		for (let i = 0; i < COLS; ++i) {
+			if (characters[i] === this.latestWord.charAt(i)) {
+				result[i] = "🟩";
+				characters[i] = "$";
+			}
+		}
+		for (let i = 0; i < COLS; ++i) {
+			const pos = characters.indexOf(this.latestWord[i]);
+			if (result[i] !== "🟩" && pos >= 0) {
+				characters[pos] = "$";
+				result[i] = "🟨";
+			}
+		}
+		return result;
+	}
+	private parse(str: string) {
+		const parsed = JSON.parse(str) as GameState;
+		if (parsed.wordNumber !== getWordNumber(this.#mode)) return;
+		this.active = parsed.active;
+		this.guesses = parsed.guesses;
+		this.validHard = parsed.validHard;
+		this.time = parsed.time;
+		this.wordNumber = parsed.wordNumber;
+		this.board = parsed.board;
+
+		this.#valid = true;
+	}
 }
 
-export function createDefaultStats(mode: GameMode): Stats {
-	const stats = {
-		played: 0,
-		lastGame: 0,
-		guesses: {
-			fail: 0,
-			1: 0,
-			2: 0,
-			3: 0,
-			4: 0,
-			5: 0,
-			6: 0,
+export class Settings extends Storable {
+	public hard = new Array(modeData.modes.length).map(() => false);
+	public dark = true;
+	public colorblind = false;
+	public tutorial: 0 | 1 | 2 | 3 = 3;
+
+	constructor(settings?: string) {
+		super();
+		if (settings) {
+			const parsed = JSON.parse(settings) as Settings;
+			this.hard = parsed.hard;
+			this.dark = parsed.dark;
+			this.colorblind = parsed.colorblind;
+			this.tutorial = parsed.tutorial;
+		}
+	}
+}
+
+export class Stats extends Storable {
+	public played = 0;
+	public lastGame = 0;
+	public guesses = {
+		fail: 0,
+		1: 0,
+		2: 0,
+		3: 0,
+		4: 0,
+		5: 0,
+		6: 0,
+	};
+	public streak: number;
+	public maxStreak: number;
+	#hasStreak = false;
+
+	constructor(param: string | GameMode) {
+		super();
+		if (typeof param === "string") {
+			this.parse(param);
+		} else if (modeData.modes[param].streak) {
+			this.streak = 0;
+			this.maxStreak = 0;
+			this.#hasStreak = true;
+		}
+	}
+	private parse(str: string) {
+		const parsed = JSON.parse(str) as Stats;
+		this.played = parsed.played;
+		this.lastGame = parsed.lastGame;
+		this.guesses = parsed.guesses;
+		if (parsed.streak != undefined) {
+			this.streak = parsed.streak;
+			this.maxStreak = parsed.maxStreak;
+			this.#hasStreak = true;
+		}
+	}
+	/**
+	 * IMPORTANT: When this method is called svelte will not register the update, so you need to set
+	 * the variable that this object is assigned to equal to itself to force an update.
+	 * Example: `states = states;`.
+	 */
+	addWin(guesses: number, mode: Mode) {
+		++this.guesses[guesses];
+		++this.played;
+		if (this.#hasStreak) {
+			this.streak = mode.seed - this.lastGame > mode.unit ? 1 : this.streak + 1;
+			this.maxStreak = Math.max(this.streak, this.maxStreak);
+		}
+		this.lastGame = mode.seed;
+	}
+	/**
+	 * IMPORTANT: When this method is called svelte will not register the update, so you need to set
+	 * the variable that this object is assigned to equal to itself to force an update.
+	 * Example: `states = states;`.
+	 */
+	addLoss(mode: Mode) {
+		++this.guesses.fail;
+		++this.played;
+		if (this.#hasStreak) this.streak = 0;
+		this.lastGame = mode.seed;
+	}
+	get hasStreak() { return this.#hasStreak; }
+}
+
+export class LetterStates {
+	public a: LetterState = "🔳";
+	public b: LetterState = "🔳";
+	public c: LetterState = "🔳";
+	public d: LetterState = "🔳";
+	public e: LetterState = "🔳";
+	public f: LetterState = "🔳";
+	public g: LetterState = "🔳";
+	public h: LetterState = "🔳";
+	public i: LetterState = "🔳";
+	public j: LetterState = "🔳";
+	public k: LetterState = "🔳";
+	public l: LetterState = "🔳";
+	public m: LetterState = "🔳";
+	public n: LetterState = "🔳";
+	public o: LetterState = "🔳";
+	public p: LetterState = "🔳";
+	public q: LetterState = "🔳";
+	public r: LetterState = "🔳";
+	public s: LetterState = "🔳";
+	public t: LetterState = "🔳";
+	public u: LetterState = "🔳";
+	public v: LetterState = "🔳";
+	public w: LetterState = "🔳";
+	public x: LetterState = "🔳";
+	public y: LetterState = "🔳";
+	public z: LetterState = "🔳";
+
+	constructor(board?: GameBoard) {
+		if (board) {
+			for (let row = 0; row < ROWS; ++row) {
+				for (let col = 0; col < board.words[row].length; ++col) {
+					if (this[board.words[row][col]] === "🔳" || board.state[row][col] === "🟩") {
+						this[board.words[row][col]] = board.state[row][col];
+					}
+				}
+			}
 		}
 	};
-	if (!modeData.modes[mode].streak) return stats;
-	return {
-		...stats,
-		streak: 0,
-		maxStreak: 0,
-	};
-};
+	/**
+	 * IMPORTANT: When this method is called svelte will not register the update, so you need to set
+	 * the variable that this object is assigned to equal to itself to force an update.
+	 * Example: `states = states;`.
+	 */
+	update(state: LetterState[], word: string) {
+		state.forEach((e, i) => {
+			const ls = this[word[i]];
+			if (ls === "🔳" || e === "🟩") {
+				this[word[i]] = e;
+			}
+		});
 
-export function createLetterStates(): { [key: string]: LetterState; } {
-	return {
-		a: "🔳",
-		b: "🔳",
-		c: "🔳",
-		d: "🔳",
-		e: "🔳",
-		f: "🔳",
-		g: "🔳",
-		h: "🔳",
-		i: "🔳",
-		j: "🔳",
-		k: "🔳",
-		l: "🔳",
-		m: "🔳",
-		n: "🔳",
-		o: "🔳",
-		p: "🔳",
-		q: "🔳",
-		r: "🔳",
-		s: "🔳",
-		t: "🔳",
-		u: "🔳",
-		v: "🔳",
-		w: "🔳",
-		x: "🔳",
-		y: "🔳",
-		z: "🔳",
-	};
+	}
 }
 
 export function timeRemaining(m: Mode) {
