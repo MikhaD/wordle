@@ -19,7 +19,7 @@ const answers = [
         "atonal","septet","vivace","tallis","spirit","basses","tuning","dorian","octave","melody",
         "phrase","sextet","palate","lassus","sempre","corpus","preces","tenuto","chapel","chorus",
         "wesley","beamed","nobile","divisi","quaver","batten","record","adagio","petrus","lydian",
-        "loudly","regina","nodule","church","kodaly","legato","cantor","plagal","brahms","maxima",
+        "loudly","regina","nodule","church","kodaly","legato","cantor","plagal","barber","maxima",
         "degree","lieder","stabat","upbeat","harris","subito","intone","firmus","mealor","triste",
         "fourth","hymnal","accent","rubbra","repeat","breath","minima","morley","libera","troppo",
         "dvorak","dotted","clucas","gospel","corona","system","gounod","phonic","gruber","ottava",
