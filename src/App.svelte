@@ -7,6 +7,7 @@
 		ROWS,
         COLS,
 		getWordNumber,
+        wordNumToArrayNum,
 		words,
 	} from "./utils";
 	import Game from "./components/Game.svelte";
@@ -84,7 +85,7 @@
         } else
             state = temp;
     }
-    word = words.words[state.wordNumber % words.words.length];
+    word = words.words[wordNumToArrayNum(state.wordNumber)];
     // reload page
     if (!(word.length === COLS)) location.reload();
     // Check arrays are of right length and fix if not

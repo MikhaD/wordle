@@ -110,11 +110,16 @@ export function storedWordNumber() {
     }
 }
 
-export function getWordNumber() {
+export function getWordNumber() { // This is 1 less than the game number. No % used.
     const numbleOneDate = new Date(2022,0,12,0,0,0,0).setHours(0,0,0,0)
     const now = new Date().setHours(0,0,0,0)
     const msInDay = 86400000
     return Math.round((now - numbleOneDate) / msInDay) 
+}
+
+export function wordNumToArrayNum(wordNum) {
+    return wordNum % words.words.length;
+    // TODO: Be more clever when wordNum is bigger than words.words.length
 }
 
 export const DELAY_INCREMENT = 150;
