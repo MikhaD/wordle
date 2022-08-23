@@ -86,6 +86,7 @@
             state = temp;
     }
     word = words.words[wordNumToArrayNum(state.wordNumber)];
+    //console.log(state.wordNumber, wordNumToArrayNum(state.wordNumber),word);
     // reload page
     if (!(word.length === COLS)) location.reload();
     // Check arrays are of right length and fix if not

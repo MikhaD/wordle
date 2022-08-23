@@ -3,7 +3,7 @@ import { GameMode } from "./enums";
 import { createWordLists, answerLength } from "./words_5_6";
 
 // TODO: Put COLS in the store and redraw gameboard without reloading
-export const COLS = answerLength(storedWordNumber());
+export const COLS = answerLength(wordNumToArrayNum(storedWordNumber()));
 export const ROWS = COLS + 1;
 
 export const words = {
