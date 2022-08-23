@@ -117,9 +117,46 @@ export function getWordNumber() { // This is 1 less than the game number. No % u
     return Math.round((now - numbleOneDate) / msInDay) 
 }
 
+// Computes x^y mod p
+export function power(x, y, p) {
+    // Initialize result
+    let res = 1; 
+   
+    // Update x if it is more
+    // than or equal to p
+    x = x % p; 
+   
+    while (y > 0) {
+           
+    // If y is odd, multiply x with result
+    if (y % 2 != 0)
+        res = (res * x) % p;
+   
+    // y must be even now
+    y = y >> 1; // y = y/2
+    x = (x * x) % p;
+    }
+    return res;
+}
+
 export function wordNumToArrayNum(wordNum) {
-    return wordNum % words.words.length;
-    // TODO: Be more clever when wordNum is bigger than words.words.length
+    // A selection of 70 of the primitive roots modulo words.words.length+1 (=263)
+    // This should keep us going for a good wee while!
+    const PRIME = 263;
+    const ROOTS = [30, 38, 40, 41, 42, 45, 47, 53, 55, 56, 
+                   57, 58, 59, 60, 63, 65, 67, 71, 73, 76, 
+                   77, 79, 80, 82, 84, 85, 87, 90, 91, 94, 
+                   97, 101, 106, 107, 110, 112, 113, 114, 115, 116, 
+                   118, 119, 120, 123, 125, 126, 127, 130, 131, 134, 
+                   135, 139, 141, 142, 146, 152, 154, 155, 158, 159, 
+                   160, 161, 163, 164, 165, 167, 168, 170, 171, 174]; 
+    if (wordNum < PRIME-1)
+        return wordNum;
+    else {
+        var rootnum = Math.floor(wordNum/(PRIME-1))-1;
+        console.log(PRIME + power( ROOTS[rootnum],wordNum%(PRIME-1),PRIME )-2);
+        return PRIME + power( ROOTS[rootnum],wordNum%(PRIME-1),PRIME )-2;
+    }
 }
 
 export const DELAY_INCREMENT = 150;

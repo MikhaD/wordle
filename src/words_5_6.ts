@@ -27,10 +27,37 @@ const answers = [
         "elijah","franck","gargle","regina","ledger","uvular","niente","simile","forced","tempus",
         "naylor","attack","arioso","tierce","poston","tuplet","greene","simple","masses","oriana",
         "throat","sonore","listen","byrdle","schutz","samson","theory","mahler","finale","encore",//250
-        "tunes","nasal","metre","belto","dufay","scoop","pipes","chest","longa","bravo",
-        "break","slide","twang"//263
+        "tunes","nasal","metre","belto","dufay","pipes","chest","longa","bravo","break",
+        "slide","twang",//262
+// LIST B, for perpetual use:
+        "choir","motet","chant","credo","zadok","organ","triad","darke","tenor","stave",
+        "clerk","minim","dyson","clefs","carol","finzi","sixth","breve","agnus","tempo",
+        "neume","slurs","solos","notes","glory","fifth","sicut","verdi","noble","altar",
+        "kyrie","elgar","major","vicar","altos","largo","drone","quire","haydn","minor",
+        "scale","forte","sharp","parry","dixit","psalm","flats","modus","tutti","lento",
+        "verse","holst","tonic","locus","hymns","trill","segue","music","octet","onset",
+        "creed","swell","mezzo","lobet","third","molto","canon","stops","pedal","nonet",
+        "faure","stall","pitch","vocal","mater","shake","widor","chord","kings","tones",
+        "songs","dolce","duets","fugue","arias","lyric","trios","missa","score","voice",
+        "aural","abbey","robes","lotti","vigil","swoop","round","fugal","fixer","sings",// 100
+        "hodie","piano","latin","mundy","ficta","staff","nobis","maria","aston","amens", // amens = may 1st
+        "singer","handel","anthem","matins","gloria","choral","treble","rhythm","vierne","second",
+        "timbre","rubato","walton","shanty","unison","mozart","custos","decani","softly","larynx",
+        "eighth","cantus","ballad","warble","coelos","brahms","brevis","office","presto","rutter",
+        "atonal","septet","vivace","tallis","spirit","basses","tuning","dorian","octave","melody",
+        "phrase","sextet","palate","lassus","sempre","corpus","preces","tenuto","chapel","chorus",
+        "wesley","beamed","nobile","divisi","quaver","batten","record","adagio","petrus","lydian",
+        "loudly","regina","nodule","church","kodaly","legato","cantor","plagal","barber","maxima",
+        "degree","lieder","stabat","upbeat","harris","subito","intone","firmus","mealor","triste",
+        "fourth","hymnal","accent","rubbra","repeat","breath","minima","morley","libera","troppo",//200
+        "dvorak","dotted","clucas","dental","gospel","artist","corona","system","gounod","phonic",
+        "gruber","ottava","wobble","broken","claque","common","minuet","patter","spinto","triple",
+        "elijah","franck","gargle","wagner","ledger","uvular","niente","simile","forced","tempus",
+        "naylor","attack","arioso","tierce","poston","tuplet","greene","simple","masses","oriana",
+        "throat","sonore","listen","byrdle","schutz","samson","theory","mahler","finale","encore",//250
+        "tunes","nasal","metre","belto","dufay","pipes","chest","longa","bravo","break",
+        "slide","twang"//262
     ];
-
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
 
