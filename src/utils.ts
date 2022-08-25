@@ -140,21 +140,20 @@ export function power(x, y, p) {
 }
 
 export function wordNumToArrayNum(wordNum) {
-    // A selection of 70 of the primitive roots modulo words.words.length+1 (=263)
+    // A selection of 70 of the primitive roots modulo words.words.length+1 (=317)
     // This should keep us going for a good wee while!
-    const PRIME = 263;
-    const ROOTS = [30, 38, 40, 41, 42, 45, 47, 53, 55, 56, 
-                   57, 58, 59, 60, 63, 65, 67, 71, 73, 76, 
-                   77, 79, 80, 82, 84, 85, 87, 90, 91, 94, 
-                   97, 101, 106, 107, 110, 112, 113, 114, 115, 116, 
-                   118, 119, 120, 123, 125, 126, 127, 130, 131, 134, 
-                   135, 139, 141, 142, 146, 152, 154, 155, 158, 159, 
-                   160, 161, 163, 164, 165, 167, 168, 170, 171, 174]; 
+    const PRIME = 317;
+    const ROOTS = [30, 32, 33, 35, 41, 45, 46, 47, 48, 50, 
+                   52, 55, 56, 62, 68, 69, 71, 72, 74, 75, 
+                   76, 78, 80, 84, 86, 88, 91, 93, 97, 98, 
+                   102, 106, 107, 108, 109, 111, 115, 116, 117, 118, 
+                   119, 120, 122, 125, 126, 127, 128, 129, 130, 132, 
+                   133, 134, 137, 139, 140, 143, 146, 147, 151, 153, 
+                   154, 155, 158, 159, 162, 163, 164, 166, 170, 171]; 
     if (wordNum < PRIME-1)
         return wordNum;
     else {
         var rootnum = Math.floor(wordNum/(PRIME-1))-1;
-        console.log(PRIME + power( ROOTS[rootnum],wordNum%(PRIME-1),PRIME )-2);
         return PRIME + power( ROOTS[rootnum],wordNum%(PRIME-1),PRIME )-2;
     }
 }
@@ -220,7 +219,12 @@ export const NOTICES = [
     {
         message: "<h3>(One-off) shameless plug</h3><p>Are you interested in a new daily word game?</p><p>Composer Ben Ponniah and I developed a game that combines logical and linguistic deduction, called <a href=\"https://susie.rbrignall.org.uk/\" target=\"_blank\">SUSIE</a>. I hope you like it!</p>", 
         showfrom: new Date(2022,4,28,0,0,0,0),
+    },
+    {
+        message: "<h3>After 6 letters...</h3><p>In mid-November, Byrdle will return to 5 letters for a few days, and then it will use words that have appeared before.</p><p>The words will appear in a different order: some days 5 letters, some days 6, and this is how Byrdle will continue for as long as you keep playing.</p><p>Thanks for continuing to play Byrdle!</p>", 
+        showfrom: new Date(2022,8,1,0,0,0,0),
     }
+
 ];
 
 export function currentNoticeNum() {

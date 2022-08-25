@@ -26,9 +26,14 @@ const answers = [
         "gruber","ottava","wobble","broken","claque","common","minuet","patter","spinto","triple",
         "elijah","franck","gargle","regina","ledger","uvular","niente","simile","forced","tempus",
         "naylor","attack","arioso","tierce","poston","tuplet","greene","simple","masses","oriana",
-        "throat","sonore","listen","byrdle","schutz","samson","theory","mahler","finale","encore",//250
-        "tunes","nasal","metre","belto","dufay","pipes","chest","longa","bravo","break",
-        "slide","twang",//262
+    "bishop","farmer","burgon","clarke","nowell","dering","venite","wilbye","allain","studio",//250
+    "samson","octavo","crotch","davies","semele","walker","folder","magnum","browne","bingen",
+    "pastor","bridge","lament","luther","wachet","ionian","curate","johann","bartok","paulus",
+    "tormis","crosby","delius","podium","tongue","bridal","memory","carter","prayer","ritard",
+    "martin","direct","arnold","ligeti","brewer","seated","risers","webber","stanza","gjeilo",
+    "enrobe","timing","bardos","throat","sonore","archer","listen","byrdle","schutz","samson",//300
+    "theory","mahler","finale","encore","tunes","nasal","metre","belto","dufay","pipes",
+    "chest","longa","bravo","break","slide","twang",//316
 // LIST B, for perpetual use:
         "choir","motet","chant","credo","zadok","organ","triad","darke","tenor","stave",
         "clerk","minim","dyson","clefs","carol","finzi","sixth","breve","agnus","tempo",
@@ -54,10 +59,17 @@ const answers = [
         "gruber","ottava","wobble","broken","claque","common","minuet","patter","spinto","triple",
         "elijah","franck","gargle","wagner","ledger","uvular","niente","simile","forced","tempus",
         "naylor","attack","arioso","tierce","poston","tuplet","greene","simple","masses","oriana",
-        "throat","sonore","listen","byrdle","schutz","samson","theory","mahler","finale","encore",//250
-        "tunes","nasal","metre","belto","dufay","pipes","chest","longa","bravo","break",
-        "slide","twang"//262
+    "bishop","farmer","burgon","clarke","nowell","dering","venite","wilbye","allain","studio",//250
+    "samson","octavo","crotch","davies","semele","walker","folder","magnum","browne","bingen",
+    "pastor","bridge","lament","luther","wachet","ionian","curate","johann","bartok","paulus",
+    "tormis","crosby","delius","podium","tongue","bridal","memory","carter","prayer","ritard",
+    "martin","direct","arnold","ligeti","brewer","seated","risers","webber","stanza","gjeilo",
+    "enrobe","timing","bardos","throat","sonore","archer","listen","byrdle","schutz","samson",//300
+    "theory","mahler","finale","encore","tunes","nasal","metre","belto","dufay","pipes",
+    "chest","longa","bravo","break","slide","twang",//316
     ];
+
+
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
 
