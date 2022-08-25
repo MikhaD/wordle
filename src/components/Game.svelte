@@ -26,11 +26,11 @@
 		checkHardMode,
 		ROWS,
 		COLS,
-        SIXLETTERDAY,
 		newSeed,
 		createNewGame,
 //		seededRandomInt,
         getWordNumber,
+        wordNumToArrayNum,
 		createLetterStates,
 		words,
         NOTICES,
@@ -156,53 +156,41 @@
 //		modeData.modes[$mode].historical = false;
 		modeData.modes[$mode].seed = newSeed();
 		game = createNewGame($mode);
-        word = words.words[getWordNumber() % words.words.length];
+        word = words.words[wordNumToArrayNum(getWordNumber())];
         $letterStates = createLetterStates();
 		showStats = false;
 		showRefresh = false;
 		timer.reset($mode);
-        if (SIXLETTERDAY<=getWordNumber() && COLS===5) location.reload();
+        if (COLS !== word.length) location.reload();
 	}
 
     function toggleHistMode() {
         $mode = ($mode + 1) % modeData.modes.length;
-        if (COLS === 6 && game.wordNumber < SIXLETTERDAY) location.reload();
+        if (COLS !== word.length) location.reload();
     }
     
     function prevHistGame() {
-        let tempNumber = game.wordNumber;
-        game=createNewGame($mode);
-        game.wordNumber = Math.max(tempNumber - 1, 0);
-        word = words.words[game.wordNumber % words.words.length];
-        $letterStates = createLetterStates();
-		showStats = false;
-		showRefresh = false;
-        if (COLS === 6 && game.wordNumber < SIXLETTERDAY) location.reload();
+        newHistGame(Math.max(game.wordNumber - 1, 0));
     }
 
     function nextHistGame() {
-        let tempNumber = game.wordNumber;
-        game=createNewGame($mode);
-        game.wordNumber = Math.min(tempNumber + 1, getWordNumber() - 1);
-        word = words.words[game.wordNumber % words.words.length];
-        $letterStates = createLetterStates();
-		showStats = false;
-		showRefresh = false;
-        if (COLS === 5 && game.wordNumber >= SIXLETTERDAY) location.reload();
+        newHistGame(Math.min(game.wordNumber + 1, getWordNumber() - 1));
     }
     
     function randomHistGame() {
-        let tempNumber = game.wordNumber;
+        newHistGame(Math.floor(Math.random() * getWordNumber()));
+    }
+    
+    function newHistGame(wordNum) {
         game=createNewGame($mode);
-        game.wordNumber = Math.floor(Math.random() * getWordNumber());
-        word = words.words[game.wordNumber % words.words.length];
+        game.wordNumber = wordNum;
+        word = words.words[wordNumToArrayNum(game.wordNumber)];
         $letterStates = createLetterStates();
 		showStats = false;
 		showRefresh = false;
-        if (COLS === 6 && game.wordNumber < SIXLETTERDAY) location.reload();
-        if (COLS === 5 && game.wordNumber >= SIXLETTERDAY) location.reload();
+        if (COLS !== word.length) location.reload();
     }
-
+    
 	onMount(() => {
 		if (!(game.gameStatus === "IN_PROGRESS") && $mode === 0) setTimeout(() => (showStats = true), delay);
         if (stats.gamesPlayed === 0) {
