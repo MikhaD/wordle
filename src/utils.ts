@@ -1,12 +1,10 @@
 import seedrandom from "seedrandom";
 import { GameMode } from "./enums";
-import { createWordLists } from "./words_5_6";
+import { createWordLists, answerLength } from "./words_5_6";
 
-export const SIXLETTERDAY = 110;
-
-export const ROWS = ((storedWordNumber() < SIXLETTERDAY) ? 6 : 7);
-
-export const COLS = ((storedWordNumber() < SIXLETTERDAY) ? 5 : 6);
+// TODO: Put COLS in the store and redraw gameboard without reloading
+export const COLS = answerLength(storedWordNumber());
+export const ROWS = COLS + 1;
 
 export const words = {
     ...createWordLists(COLS),

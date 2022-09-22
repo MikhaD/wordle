@@ -27,7 +27,10 @@ const answers = [
         "elijah","franck","gargle","regina","ledger","uvular","niente","simile","forced","tempus",
         "naylor","attack","arioso","tierce","poston","tuplet","greene","simple","masses","oriana",
         "throat","sonore","listen","byrdle","schutz","samson","theory","mahler","finale","encore",//250
+        "tunes","nasal","metre","belto","dufay","scoop","pipes","chest","longa","bravo",
+        "break","slide","twang"//263
     ];
+
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
 
@@ -39,6 +42,10 @@ function chunkSubstr(str, size, i) {
     chunks[j] = alphabet[i] + str.substr(o, size)
   }
   return chunks
+}
+
+export function answerLength(gameNum) {
+    return answers[gameNum].length;
 }
 
 export function createWordLists(numLetters: number): WordData {

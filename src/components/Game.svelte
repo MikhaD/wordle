@@ -26,7 +26,6 @@
 		checkHardMode,
 		ROWS,
 		COLS,
-        SIXLETTERDAY,
 		newSeed,
 		createNewGame,
 //		seededRandomInt,
@@ -157,16 +156,17 @@
 		modeData.modes[$mode].seed = newSeed();
 		game = createNewGame($mode);
         word = words.words[getWordNumber() % words.words.length];
+        console.log(word);
         $letterStates = createLetterStates();
 		showStats = false;
 		showRefresh = false;
 		timer.reset($mode);
-        if (SIXLETTERDAY<=getWordNumber() && COLS===5) location.reload();
+        if (COLS !== word.length) location.reload();
 	}
 
     function toggleHistMode() {
         $mode = ($mode + 1) % modeData.modes.length;
-        if (COLS === 6 && game.wordNumber < SIXLETTERDAY) location.reload();
+        if (COLS !== word.length) location.reload();
     }
     
     function prevHistGame() {
@@ -177,7 +177,7 @@
         $letterStates = createLetterStates();
 		showStats = false;
 		showRefresh = false;
-        if (COLS === 6 && game.wordNumber < SIXLETTERDAY) location.reload();
+        if (COLS !== word.length) location.reload();
     }
 
     function nextHistGame() {
@@ -188,7 +188,7 @@
         $letterStates = createLetterStates();
 		showStats = false;
 		showRefresh = false;
-        if (COLS === 5 && game.wordNumber >= SIXLETTERDAY) location.reload();
+         if (COLS !== word.length) location.reload();
     }
     
     function randomHistGame() {
@@ -199,8 +199,7 @@
         $letterStates = createLetterStates();
 		showStats = false;
 		showRefresh = false;
-        if (COLS === 6 && game.wordNumber < SIXLETTERDAY) location.reload();
-        if (COLS === 5 && game.wordNumber >= SIXLETTERDAY) location.reload();
+        if (COLS !== word.length) location.reload();
     }
 
 	onMount(() => {
