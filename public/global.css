@@ -1,4 +1,6 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
@@ -30,7 +32,7 @@
 	--border-secondary: #272729;
 	--bg-secondary: #1a1a1b;
 	--bg-primary: #121213;
-	
+
 	--red: #9C2323;
 	--color-present: #b59f3b;
 	--color-correct: #538d4e;
@@ -39,7 +41,9 @@
 	--key-bg: var(--fg-secondary);
 }
 
-body { height: 100% }
+body {
+	height: 100%
+}
 
 .light {
 	--fg-primary: #1a1a1b;
@@ -68,11 +72,13 @@ h3 {
 	text-transform: uppercase;
 	margin-bottom: 10px;
 }
+
 .⬛,
 .🟨,
 .🟩 {
 	color: var(--evaluated-key-color);
 }
+
 a:link,
 a:visited {
 	color: inherit;
@@ -99,6 +105,7 @@ a:visited {
 	background: var(--fg-primary);
 	z-index: 1;
 }
+
 .tutorial::before {
 	content: "";
 	position: absolute;
@@ -108,6 +115,7 @@ a:visited {
 	border: var(--arrow-size) solid transparent;
 	border-bottom: var(--arrow-size) solid var(--fg-primary);
 }
+
 .ok {
 	padding: 10px;
 	margin-left: var(--padding);
@@ -115,4 +123,30 @@ a:visited {
 	color: white;
 	background: var(--color-correct);
 	cursor: pointer;
+}
+
+.button {
+	margin-top: 15px;
+	text-transform: uppercase;
+	color: #fff;
+	cursor: pointer;
+	font-size: var(--fs-medium);
+	font-weight: bold;
+	padding: 15px;
+	border-radius: 4px;
+	text-align: center;
+}
+
+.button:hover {
+	opacity: 0.9;
+}
+
+select {
+	border: solid 1px var(--border-secondary);
+	padding: 8px;
+	min-width: 85px;
+	border-radius: 4px;
+	cursor: pointer;
+	background: var(--bg-secondary);
+	color: var(--fg-primary);
 }

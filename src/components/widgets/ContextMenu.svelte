@@ -6,7 +6,7 @@
 	export let word = "";
 	export let pAns: number;
 	export let pSols: number;
-	const width = parseInt(getComputedStyle(document.body).getPropertyValue("--game-width")) / 2;
+	const width = +getComputedStyle(document.body).getPropertyValue("--game-width") / 2;
 
 	$: x = window.innerWidth - x < width ? window.innerWidth - width : x;
 </script>
