@@ -17,6 +17,7 @@
 		Toaster,
 		ShareGame,
 		Tips,
+		Historical,
 	} from "./widgets";
 	import {
 		contractNum,
@@ -48,6 +49,7 @@
 	let showTutorial = $settings.tutorial === 3;
 	let showSettings = false;
 	let showStats = false;
+	let showHistorical = false;
 	let showRefresh = false;
 
 	let board: Board;
@@ -174,7 +176,7 @@
 			showStats = false;
 			showSettings = false;
 		}}
-		disabled={!game.active || $settings.tutorial === 3}
+		disabled={!game.active || $settings.tutorial === 3 || showHistorical}
 	/>
 </main>
 
@@ -207,14 +209,14 @@
 		<Definition {word} alternates={2} />
 	{:else}
 		<!-- Fade with delay is to prevent a bright red button from appearing as soon as refresh is pressed -->
-		<div in:fade={{ delay: 300 }} class="concede" on:click={concede}>give up</div>
+		<div in:fade={{ delay: 300 }} class="button concede" on:click={concede}>give up</div>
 	{/if}
 </Modal>
 
 <Modal fullscreen={true} bind:visible={showSettings}>
-	<Settings state={game} />
+	<Settings state={game} on:historical={() => (showHistorical = true)} />
 	{#if game.active}
-		<div class="concede" on:click={concede}>give up</div>
+		<div class="button concede" on:click={concede}>give up</div>
 	{/if}
 	<Tips change={showSettings} />
 
@@ -236,6 +238,10 @@
 	</svelte:fragment>
 </Modal>
 
+<Modal bind:visible={showHistorical}>
+	<Historical wordNumber={game.wordNumber} />
+</Modal>
+
 <style lang="scss">
 	main {
 		display: flex;
@@ -254,18 +260,6 @@
 		text-transform: uppercase;
 	}
 	.concede {
-		margin-top: 15px;
-		text-transform: uppercase;
-		color: #fff;
-		cursor: pointer;
-		font-size: var(--fs-medium);
-		font-weight: bold;
-		padding: 15px;
-		border-radius: 4px;
-		text-align: center;
 		background-color: var(--red);
-		&:hover {
-			opacity: 0.9;
-		}
 	}
 </style>

@@ -1,4 +1,4 @@
-<script lang="ts">
+<script context="module" lang="ts">
 	import {
 		modeData,
 		seededRandomInt,
@@ -15,9 +15,43 @@
 	import { Toaster } from "./components/widgets";
 	import { setContext } from "svelte";
 
+	document.title = "Wordle+ | An infinite word guessing game";
+</script>
+
+<script lang="ts">
 	export let version: string;
 	setContext("version", version);
 	localStorage.setItem("version", version);
+	/** Toggle to prevent an infinite loop when setting the window hash in a hashchange event listener*/
+	let changeHash = false;
+
+	// function onHashChange(hash: string | HashChangeEvent) {
+	// 	hash = typeof hash === "string" ? hash : window.location.hash;
+	// 	console.log(hash, changeHash);
+	// 	const [newMode, num] = hash.slice(1).split("/");
+	// 	let modeVal: GameMode;
+	// 	if (!isNaN(GameMode[newMode])) {
+	// 		modeVal = GameMode[newMode];
+	// 	} else if ($mode == null) {
+	// 		modeVal = +localStorage.getItem("mode") || modeData.default;
+	// 	} else {
+	// 		// if invalid and there is a previous, reset to previous
+	// 		window.location.hash = GameMode[$mode];
+	// 		return;
+	// 	}
+	// 	if (window.location.hash !== `#${GameMode[$mode]}`) {
+	// 		changeHash = !changeHash;
+	// 		if (!changeHash) return;
+	// 	}
+	// 	// If this is a link to a specific word make sure that that is the word
+	// 	if (!isNaN(+num) && +num < getWordNumber(modeVal)) {
+	// 		modeData.modes[modeVal].seed =
+	// 			(+num - 1) * modeData.modes[modeVal].unit + modeData.modes[modeVal].start;
+	// 		modeData.modes[modeVal].historical = true;
+	// 	}
+	// 	mode.set(modeVal);
+	// 	window.location.hash = GameMode[$mode];
+	// }
 
 	let stats: Stats;
 	let word: string;
@@ -27,15 +61,16 @@
 	settings.set(new Settings(localStorage.getItem("settings")));
 	settings.subscribe((s) => localStorage.setItem("settings", JSON.stringify(s)));
 
+	// onHashChange(window.location.hash);
 	const hash = window.location.hash.slice(1).split("/");
 	const modeVal: GameMode = !isNaN(GameMode[hash[0]])
 		? GameMode[hash[0]]
-		: parseInt(localStorage.getItem("mode")) || modeData.default;
+		: +localStorage.getItem("mode") || modeData.default;
 	mode.set(modeVal);
 	// If this is a link to a specific word make sure that that is the word
-	if (!isNaN(parseInt(hash[1])) && parseInt(hash[1]) < getWordNumber(modeVal)) {
+	if (!isNaN(+hash[1]) && +hash[1] < getWordNumber(modeVal)) {
 		modeData.modes[modeVal].seed =
-			(parseInt(hash[1]) - 1) * modeData.modes[modeVal].unit + modeData.modes[modeVal].start;
+			(+hash[1] - 1) * modeData.modes[modeVal].unit + modeData.modes[modeVal].start;
 		modeData.modes[modeVal].historical = true;
 	}
 	mode.subscribe((m) => {
@@ -61,7 +96,7 @@
 		}
 	}
 
-	document.title = "Wordle+ | An infinite word guessing game";
+	// window.addEventListener("hashchange", onHashChange);
 </script>
 
 <Toaster bind:this={toaster} />
