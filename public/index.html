@@ -29,16 +29,16 @@
 	<meta name="google-site-verification" content="nfr4xQiyHWYkamHQq6M7E9kXoXp8tmNihRU0c5yXjlw" />
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RHN319RJ6V"></script>
 	<script>
-		// Google Analytics
 		if (document.location.origin === "https://mikhad.github.io") {
+			// Google Analytics
 			window.dataLayer = window.dataLayer || [];
 			function gtag() { dataLayer.push(arguments); }
 			gtag('js', new Date());
 			gtag('config', 'G-RHN319RJ6V');
-		}
 
-		// PWA Service worker
-		// if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js");
+			// PWA Service worker
+			if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js");
+		}
 	</script>
 
 	<script defer src="build/bundle.js"></script>

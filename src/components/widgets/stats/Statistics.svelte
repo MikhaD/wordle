@@ -14,8 +14,8 @@
 				"Average Guesses",
 				(
 					Object.entries(data.guesses).reduce((a, b) => {
-						if (!isNaN(parseInt(b[0]))) {
-							return a + parseInt(b[0]) * b[1];
+						if (!isNaN(+b[0])) {
+							return a + +b[0] * b[1];
 						}
 						return a;
 					}, 0) / data.played || 0

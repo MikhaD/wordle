@@ -6,11 +6,11 @@
 	export let visible = false;
 	export let fullscreen = false;
 
-	const dispach = createEventDispatcher();
+	const dispatch = createEventDispatcher();
 
 	function close() {
 		visible = false;
-		dispach("close");
+		dispatch("close");
 	}
 </script>
 
@@ -23,7 +23,7 @@
 				/>
 			</GameIcon>
 		</div>
-		<div class="content">
+		<div class="content" on:close={close}>
 			<slot />
 		</div>
 		<div class="footer">
