@@ -2,12 +2,13 @@
   "name": "wordle+",
   "description": "A remake of the popular game Wordle with additional modes and features.",
   "version": "1.4.0",
+  "type": "module",
   "private": "true",
   "license": "GPL-3.0",
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "start": "sirv public --no-clear --host",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "repository": {
@@ -21,24 +22,14 @@
   },
   "homepage": "https://github.com/MikhaD/wordle#readme",
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^24.0.0",
-    "@rollup/plugin-node-resolve": "^15.0.1",
-    "@rollup/plugin-typescript": "^10.0.1",
+    "@sveltejs/vite-plugin-svelte": "^2.0.2",
     "@tsconfig/svelte": "^3.0.0",
-    "rollup": "^2.68.1",
-    "rollup-plugin-css-only": "^4.3.0",
-    "rollup-plugin-livereload": "^2.0.5",
-    "rollup-plugin-svelte": "^7.1.0",
-    "rollup-plugin-terser": "^7.0.2",
-    "sass": "^1.57.1",
     "svelte": "^3.55.0",
     "svelte-check": "^3.0.1",
-    "svelte-preprocess": "^5.0.0",
     "tslib": "^2.4.1",
-    "typescript": "^4.9.4"
-  },
-  "dependencies": {
-    "seedrandom": "^3.0.5",
-    "sirv-cli": "^2.0.2"
+    "typescript": "^4.9.4",
+    "vite": "^4.0.4",
+    "sass": "^1.57.1",
+    "seedrandom": "^3.0.5"
   }
 }
