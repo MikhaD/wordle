@@ -36,6 +36,7 @@
 			</GameIcon>
 		{/if}
 	</div>
+	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<h1
 		on:click|self={() => {
 			$mode = ($mode + 1) % modeData.modes.length;
@@ -64,7 +65,12 @@
 		</GameIcon>
 	</div>
 	{#if tutorial}
-		<div transition:scale class="tutorial" on:click={() => dispatch("closeTutPopUp")}>
+		<div
+			transition:scale
+			class="tutorial"
+			on:click={() => dispatch("closeTutPopUp")}
+			on:keydown={() => dispatch("closeTutPopUp")}
+		>
 			Tap WORDLE+ to change game mode
 			<span class="ok">OK</span>
 		</div>

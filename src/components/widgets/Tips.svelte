@@ -17,6 +17,13 @@
 	export let change: boolean;
 	let index = Math.floor(tips.length * Math.random());
 	$: if (change) index = Math.floor(tips.length * Math.random());
+
+	function nextTip() {
+		index = (index + 1) % tips.length;
+	}
+	function previousTip() {
+		index = (index - 1 + tips.length) % tips.length;
+	}
 </script>
 
 <div class="outer">
@@ -24,14 +31,16 @@
 	<div class="tip">{tips[index]}</div>
 	<svg
 		class="left"
-		on:click={() => (index = (index - 1 + tips.length) % tips.length)}
+		on:click={previousTip}
+		on:keydown={previousTip}
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 100 100"
 	>
 		<path d="M75,0L25,50L75,100z" />
 	</svg>
 	<svg
-		on:click={() => (index = (index + 1) % tips.length)}
+		on:click={nextTip}
+		on:keypress={nextTip}
 		class="right"
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 100 100"

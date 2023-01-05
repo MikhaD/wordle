@@ -3,6 +3,7 @@
 	export let disabled = false;
 </script>
 
+<!-- svelte-ignore a11y-click-events-have-key-events -->
 <div on:click={(e) => !disabled && (value = !value)} class:checked={value} {disabled} />
 
 <style lang="scss">

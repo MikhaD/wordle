@@ -65,7 +65,12 @@
 		</svg>
 	{/if}
 	{#if tutorial}
-		<div transition:scale class="tutorial" on:click={() => dispatch("closeTutPopUp")}>
+		<div
+			transition:scale
+			class="tutorial"
+			on:click={() => dispatch("closeTutPopUp")}
+			on:keydown={() => dispatch("closeTutPopUp")}
+		>
 			double tap (right click) a row to see a word's definition, or how many words could be
 			played there
 			<span class="ok">OK</span>

@@ -7,6 +7,7 @@
 	const dispatch = createEventDispatcher();
 </script>
 
+<!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class={state} class:big={letter.length !== 1} on:click={() => dispatch("keystroke", letter)}>
 	{letter}<slot />
 </div>

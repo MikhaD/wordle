@@ -31,6 +31,7 @@
 <div class="outer">
 	<div class="settings-top">
 		<h3>settings</h3>
+		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<div
 			on:click={() => {
 				if (!state.validHard) {
@@ -58,6 +59,7 @@
 				The game mode determines how often the word refreshes
 			</svelte:fragment>
 		</Setting>
+		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<Setting type="custom" bind:value={$mode}>
 			<svelte:fragment slot="title">Play Historical Game</svelte:fragment>
 			<svelte:fragment slot="desc">
@@ -77,8 +79,12 @@
 			</svelte:fragment>
 		</Setting>
 		<div class="links">
-			<a href="https://github.com/MikhaD/wordle" target="_blank">Leave a ⭐</a>
-			<a href="https://github.com/MikhaD/wordle/issues" target="_blank">Report a Bug</a>
+			<a href="https://github.com/MikhaD/wordle" target="_blank" rel="noreferrer">
+				Leave a ⭐
+			</a>
+			<a href="https://github.com/MikhaD/wordle/issues" target="_blank" rel="noreferrer">
+				Report a Bug
+			</a>
 		</div>
 	</div>
 </div>
