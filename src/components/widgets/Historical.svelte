@@ -2,9 +2,20 @@
 	import { custom_event } from "svelte/internal";
 	import { GameMode } from "../../enums";
 	import { mode } from "../../stores";
-	import { getWordNumber, modeData } from "../../utils";
+	import { GameState, getWordNumber, modeData } from "../../utils";
 
 	export let wordNumber: number;
+
+	function setGame(newMode: GameMode, num: number) {
+		// mode.set(newMode);
+		mode.update(() => {
+			console.log("Update meant to be triggered");
+			return newMode;
+		});
+		modeData.modes[newMode].seed =
+			(num - 1) * modeData.modes[newMode].unit + modeData.modes[newMode].start;
+		modeData.modes[newMode].historical = true;
+	}
 
 	type SubmitEvent = MouseEvent & { currentTarget: EventTarget & HTMLDivElement };
 
@@ -13,12 +24,15 @@
 	let validNumber = false;
 	let linkValue: string;
 	let numValue: string;
-	let linkMode: string;
+	let linkMode: GameMode;
 	let newWordNum: number;
 
 	function validateNumber(num: number, wordNum: number) {
-		newWordNum = num;
-		return !(isNaN(num) || num < 1 || num > wordNum);
+		if (!isNaN(num) && num > 0 && num <= wordNum) {
+			newWordNum = num;
+			return true;
+		}
+		return false;
 	}
 
 	function validateLink() {
@@ -27,15 +41,23 @@
 			.toLowerCase()
 			.split("/");
 		if (data.length !== 2) return false;
-		if (!modes.includes(data[0])) return false;
-		linkMode = data[0];
-		if (validateNumber(+data[1], getWordNumber(GameMode[data[0]]))) return true;
+		if (!(data[0] in GameMode)) return false;
+		if (!validateNumber(+data[1], getWordNumber(GameMode[data[0]]))) return false;
+		linkMode = GameMode[data[0]];
 		return true;
 	}
 
 	function submit(e: SubmitEvent) {
-		if (validNumber) window.location.hash += `/${newWordNum}`;
-		else if (validLink) window.location.hash = `${linkMode}/${newWordNum}`;
+		console.log("What the hell is happening?", validNumber, validLink);
+		if (validNumber) {
+			setGame($mode, newWordNum);
+			// game = new GameState($mode, localStorage.getItem(`state-${$mode}-h`));
+		} else if (validLink) {
+			setGame(linkMode, newWordNum);
+			// game = new GameState(linkMode, localStorage.getItem(`state-${linkMode}-h`));
+		}
+		// if (validNumber) window.location.hash += `/${newWordNum}`;
+		// else if (validLink) window.location.hash = `${linkMode}/${newWordNum}`;
 		e.currentTarget.dispatchEvent(custom_event("close", null, true));
 		setTimeout(() => {
 			linkValue = "";
