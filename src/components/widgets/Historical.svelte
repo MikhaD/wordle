@@ -1,23 +1,15 @@
 <script lang="ts">
+	import { getContext } from "svelte";
 	import { custom_event } from "svelte/internal";
+	import type { Toaster } from ".";
 	import { GameMode } from "../../enums";
 	import { mode } from "../../stores";
-	import { GameState, getWordNumber, modeData } from "../../utils";
+	import { getWordNumber, modeData } from "../../utils";
 
 	export let wordNumber: number;
+	export let showSettings: boolean;
 
-	function setGame(newMode: GameMode, num: number) {
-		// mode.set(newMode);
-		mode.update(() => {
-			console.log("Update meant to be triggered");
-			return newMode;
-		});
-		modeData.modes[newMode].seed =
-			(num - 1) * modeData.modes[newMode].unit + modeData.modes[newMode].start;
-		modeData.modes[newMode].historical = true;
-	}
-
-	type SubmitEvent = MouseEvent & { currentTarget: EventTarget & HTMLDivElement };
+	const toaster = getContext<Toaster>("toaster");
 
 	const modes = modeData.modes.map((e) => e.name.toLowerCase());
 	let validLink = false;
@@ -47,18 +39,17 @@
 		return true;
 	}
 
-	function submit(e: SubmitEvent) {
-		console.log("What the hell is happening?", validNumber, validLink);
-		if (validNumber) {
-			setGame($mode, newWordNum);
-			// game = new GameState($mode, localStorage.getItem(`state-${$mode}-h`));
-		} else if (validLink) {
-			setGame(linkMode, newWordNum);
-			// game = new GameState(linkMode, localStorage.getItem(`state-${linkMode}-h`));
-		}
-		// if (validNumber) window.location.hash += `/${newWordNum}`;
-		// else if (validLink) window.location.hash = `${linkMode}/${newWordNum}`;
-		e.currentTarget.dispatchEvent(custom_event("close", null, true));
+	function submit(e: A11yClick) {
+		const newMode = validNumber ? $mode : linkMode;
+		const currentModeData = modeData.modes[newMode];
+
+		currentModeData.historical = true;
+		currentModeData.seed = (newWordNum - 1) * currentModeData.unit + currentModeData.start;
+		mode.set(newMode, true);
+
+		e.currentTarget.dispatchEvent(custom_event("close", null, { bubbles: true }));
+		showSettings = false;
+		toaster.pop(`${GameMode[$mode]} wordle #${newWordNum}`, 2);
 		setTimeout(() => {
 			linkValue = "";
 			numValue = "";
@@ -97,7 +88,14 @@
 	</select>
 </div>
 <div>Enter a game number between 1 and {wordNumber - 1}</div>
-<div class:disabled={!validLink && !validNumber} class="button" on:click={submit}>play</div>
+<div
+	class:disabled={!validLink && !validNumber}
+	class="button"
+	on:click={submit}
+	on:keydown={submit}
+>
+	play
+</div>
 
 <style lang="scss">
 	div {

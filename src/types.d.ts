@@ -80,3 +80,9 @@ type HardModeData = {
 	char: string,
 	type: "🟩" | "🟨" | "⬛",
 };
+
+type Subscriber<T> = [(val: T) => void, (val?: T) => void];
+
+type A11yClick = (MouseEvent | KeyboardEvent) & {
+	currentTarget: EventTarget & HTMLElement;
+};
