@@ -132,8 +132,13 @@ export function contractNum(n: number) {
 
 export const keys = ["qwertyuiop", "asdfghjkl", "zxcvbnm"];
 
-export function newSeed(mode: GameMode) {
-	const now = Date.now();
+/**
+ * Return a deterministic number based on the given mode and current or given time.
+ * @param mode - The mode
+ * @param time - The time. If omitted current time is used
+ */
+export function newSeed(mode: GameMode, time?: number) {
+	const now = time ?? Date.now();
 	switch (mode) {
 		case GameMode.daily:
 			// Adds time zone offset to UTC time, calculates how many days that falls after 1/1/1970
@@ -188,9 +193,15 @@ export const modeData: ModeData = {
 		// },
 	]
 };
-
-export function getWordNumber(mode: GameMode) {
-	return Math.round((modeData.modes[mode].seed - modeData.modes[mode].start) / modeData.modes[mode].unit) + 1;
+/**
+ * Return the word number for the given mode at the time that that mode's seed was set.
+ * @param mode - The game mode
+ * @param current - If true the word number will be for the current time rather than for the current
+ * seed for the given mode. Useful if you want the current game number during a historical game.
+ */
+export function getWordNumber(mode: GameMode, current?: boolean) {
+	const seed = current ? newSeed(mode) : modeData.modes[mode].seed;
+	return Math.round((seed - modeData.modes[mode].start) / modeData.modes[mode].unit) + 1;
 }
 
 export function seededRandomInt(min: number, max: number, seed: number) {

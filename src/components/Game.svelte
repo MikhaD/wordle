@@ -248,7 +248,7 @@
 </Modal>
 
 <Modal bind:visible={showHistorical}>
-	<Historical wordNumber={game.wordNumber} bind:showSettings />
+	<Historical bind:showSettings />
 </Modal>
 
 <style lang="scss">

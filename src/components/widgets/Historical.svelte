@@ -4,9 +4,8 @@
 	import type { Toaster } from ".";
 	import { GameMode } from "../../enums";
 	import { mode } from "../../stores";
-	import { getWordNumber, modeData } from "../../utils";
+	import { getWordNumber, modeData, newSeed } from "../../utils";
 
-	export let wordNumber: number;
 	export let showSettings: boolean;
 
 	const toaster = getContext<Toaster>("toaster");
@@ -20,7 +19,7 @@
 	let newWordNum: number;
 
 	function validateNumber(num: number, wordNum: number) {
-		if (!isNaN(num) && num > 0 && num <= wordNum) {
+		if (!isNaN(num) && num > 0 && num < wordNum) {
 			newWordNum = num;
 			return true;
 		}
@@ -34,17 +33,23 @@
 			.split("/");
 		if (data.length !== 2) return false;
 		if (!(data[0] in GameMode)) return false;
-		if (!validateNumber(+data[1], getWordNumber(GameMode[data[0]]))) return false;
+		if (!validateNumber(+data[1], getWordNumber(GameMode[data[0]], true))) {
+			return false;
+		}
 		linkMode = GameMode[data[0]];
 		return true;
 	}
 
 	function submit(e: A11yClick) {
+		console.log("Historical activated");
 		const newMode = validNumber ? $mode : linkMode;
 		const currentModeData = modeData.modes[newMode];
 
 		currentModeData.historical = true;
-		currentModeData.seed = (newWordNum - 1) * currentModeData.unit + currentModeData.start;
+		currentModeData.seed = newSeed(
+			$mode,
+			(newWordNum - 1) * currentModeData.unit + currentModeData.start
+		);
 		mode.set(newMode, true);
 
 		e.currentTarget.dispatchEvent(custom_event("close", null, { bubbles: true }));
@@ -78,7 +83,7 @@
 		placeholder="Example: 1"
 		class:valid={validNumber}
 		on:input={(e) => {
-			validNumber = validateNumber(+numValue, wordNumber);
+			validNumber = validateNumber(+numValue, getWordNumber($mode, true));
 		}}
 	/>
 	<select bind:value={$mode}>
@@ -87,7 +92,7 @@
 		{/each}
 	</select>
 </div>
-<div>Enter a game number between 1 and {wordNumber - 1}</div>
+<div>Enter a game number between 1 and {getWordNumber($mode, true) - 1}</div>
 <div
 	class:disabled={!validLink && !validNumber}
 	class="button"
