@@ -124,7 +124,7 @@
 	function reload() {
 		modeData.modes[$mode].historical = false;
 		modeData.modes[$mode].seed = newSeed($mode);
-		game = new GameState($mode);
+		game = new GameState($mode, localStorage.getItem(`state-${$mode}`));
 		word = words.words[seededRandomInt(0, words.words.length, modeData.modes[$mode].seed)];
 		$letterStates = new LetterStates();
 		showStats = false;

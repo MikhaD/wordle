@@ -18,7 +18,7 @@
 	class:visible
 	class="overlay {fullscreen ? 'fullscreen' : 'popup'}"
 	on:click|self={close}
-	on:keydown={close}
+	on:keydown|self={close}
 >
 	<div class="modal">
 		<div class="exit" on:click={close} on:keydown={close}>

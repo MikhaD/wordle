@@ -22,37 +22,6 @@
 	export let version: string;
 	setContext("version", version);
 	localStorage.setItem("version", version);
-	/** Toggle to prevent an infinite loop when setting the window hash in a hashchange event listener*/
-	let changeHash = false;
-
-	// function onHashChange(hash: string | HashChangeEvent) {
-	// 	hash = typeof hash === "string" ? hash : window.location.hash;
-	// 	console.log(hash, changeHash);
-	// 	const [newMode, num] = hash.slice(1).split("/");
-	// 	let modeVal: GameMode;
-	// 	if (!isNaN(GameMode[newMode])) {
-	// 		modeVal = GameMode[newMode];
-	// 	} else if ($mode == null) {
-	// 		modeVal = +localStorage.getItem("mode") || modeData.default;
-	// 	} else {
-	// 		// if invalid and there is a previous, reset to previous
-	// 		window.location.hash = GameMode[$mode];
-	// 		return;
-	// 	}
-	// 	if (window.location.hash !== `#${GameMode[$mode]}`) {
-	// 		changeHash = !changeHash;
-	// 		if (!changeHash) return;
-	// 	}
-	// 	// If this is a link to a specific word make sure that that is the word
-	// 	if (!isNaN(+num) && +num < getWordNumber(modeVal)) {
-	// 		modeData.modes[modeVal].seed =
-	// 			(+num - 1) * modeData.modes[modeVal].unit + modeData.modes[modeVal].start;
-	// 		modeData.modes[modeVal].historical = true;
-	// 	}
-	// 	mode.set(modeVal);
-	// 	window.location.hash = GameMode[$mode];
-	// }
-
 	let stats: Stats;
 	let word: string;
 	let state: GameState;
@@ -61,7 +30,6 @@
 	settings.set(new Settings(localStorage.getItem("settings")));
 	settings.subscribe((s) => localStorage.setItem("settings", JSON.stringify(s)));
 
-	// onHashChange(window.location.hash);
 	const hash = window.location.hash.slice(1).split("/");
 	const modeVal: GameMode = !isNaN(GameMode[hash[0]])
 		? GameMode[hash[0]]
@@ -95,8 +63,6 @@
 			localStorage.setItem(`state-${$mode}`, state.toString());
 		}
 	}
-
-	// window.addEventListener("hashchange", onHashChange);
 </script>
 
 <Toaster bind:this={toaster} />
