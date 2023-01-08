@@ -18,6 +18,13 @@
 	let linkMode: GameMode;
 	let newWordNum: number;
 
+	function reset() {
+		linkValue = "";
+		numValue = "";
+		validLink = false;
+		validNumber = false;
+	}
+
 	function validateNumber(num: number, wordNum: number) {
 		if (!isNaN(num) && num > 0 && num < wordNum) {
 			newWordNum = num;
@@ -55,11 +62,13 @@
 		e.currentTarget.dispatchEvent(custom_event("close", null, { bubbles: true }));
 		showSettings = false;
 		toaster.pop(`${GameMode[$mode]} wordle #${newWordNum}`, 2);
-		setTimeout(() => {
-			linkValue = "";
-			numValue = "";
-		}, 500);
+		reset();
 	}
+	mode.subscribe(() => {
+		if (!showSettings) {
+			reset();
+		}
+	});
 </script>
 
 <h3>Play a historical game</h3>
