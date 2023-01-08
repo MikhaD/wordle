@@ -1,0 +1,53 @@
+{
+	"short_name": "Wordle+",
+	"name": "Wordle+",
+	"start_url": "https://mikhad.github.io/wordle/",
+	"background_color": "#6aaa64",
+	"theme_color": "#6aaa64",
+	"description": "A daily, hourly, INFINITE word game",
+	"display": "standalone",
+	"icons": [
+		{
+			"src": "img/logo_48x48.png",
+			"type": "image/png",
+			"sizes": "48x48",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "img/logo_72x72.png",
+			"type": "image/png",
+			"sizes": "72x72",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "img/logo_96x96.png",
+			"type": "image/png",
+			"sizes": "96x96",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "img/logo_144x144.png",
+			"type": "image/png",
+			"sizes": "144x144",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "img/logo_168x168.png",
+			"type": "image/png",
+			"sizes": "168x168",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "img/logo_192x192.png",
+			"type": "image/png",
+			"sizes": "192x192",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "img/logo_512x512.png",
+			"type": "image/png",
+			"sizes": "512x512",
+			"purpose": "maskable any"
+		}
+	]
+}
