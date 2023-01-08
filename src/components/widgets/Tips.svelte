@@ -10,6 +10,7 @@
 		"Everyone has the same wordle at the same time. Your word #73 is the same as everyone elses #73.",
 		"There are more valid guesses than possible words, ie. not all 5 letter words can be selected as an answer by the game.",
 		"Historical games don't count towards your stats. Historical games are when you follow a link to a specific game number.",
+		"Only the data for latest historical game is saved for each game mode.",
 	];
 </script>
 
