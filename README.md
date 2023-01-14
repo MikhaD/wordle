@@ -8,7 +8,7 @@
 A recreation of the popular game [Wordle](https://www.nytimes.com/games/wordle/) by Josh Wardle (now purchased by the New York Times), with additional modes and features.
 Hosted on GitHub pages [here](https://mikhad.github.io/wordle/).
 
-## Additional Features
+# Additional Features
 - Words are chosen from the list of words at random instead of in sequence, and the solution is not stored in localStorage, making it harder to cheat. The seed for the random number is created from the date, ensuring that everyone gets the same random number, so people can still compare answers.
 - When you complete a game the definition of the word is shown on the end of game modal.
 - In addition to the other statistics, your average guesses and your losses are also displayed on the win modal.
@@ -26,12 +26,15 @@ Hosted on GitHub pages [here](https://mikhad.github.io/wordle/).
 
 ## Additional modes
 The game mode can be changed by clicking WORDLE+ at the top of the screen or swiping the board in either direction.
+
 **Hourly mode**: A new word every hour.
 
 **Infinite mode**: A new word every time you refresh, for the true addicts.
 
 # Technical details
-This is written with Svelte in Typescript. This is my first Svelte project, and is intended as an exercise to help me learn and become proficient in Svelte.
+This is written with Svelte in Typescript. This is my first Svelte project, and is intended as an exercise to help me learn and become proficient in Svelte. It also uses some basic scss for styling.
+
+The project was initialized using `npm init vite@latest` and selecting the Svelte template.
 
 # Forking this project
 Anybody is welcome to fork this repository and do what they like with it, provided they follow the accompanying license (GPL-3.0).
