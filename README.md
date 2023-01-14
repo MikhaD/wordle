@@ -39,6 +39,15 @@ I would also appreciate if you could link back to this repository and credit me 
 
 Have fun :)
 
+# Analytics
+This project contains basic google analytics which log the following information:
+- Number of visitors
+- Visitor's Country
+- Whether they arrived via a direct link or a search engine
+- Total number of people on site
+
+This information cannot be linked back to individual users. It is for my own personal use and is not shared with anyone else. This is my first "major" public facing project and being able to see how many people are playing from all over the world is a big factor in my motivation to continue working on it.
+
 <details>
 <summary>How to create a new mode</summary>
 
