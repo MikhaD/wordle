@@ -1,7 +1,7 @@
 {
   "name": "wordle+",
   "description": "A remake of the popular game Wordle with additional modes and features.",
-  "version": "1.5.0",
+  "version": "1.5.2",
   "type": "module",
   "private": "true",
   "license": "GPL-3.0",

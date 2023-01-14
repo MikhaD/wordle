@@ -83,10 +83,6 @@ type HardModeData = {
 
 type Subscriber<T> = [(val: T) => void, (val?: T) => void];
 
-type A11yClick = (MouseEvent | KeyboardEvent) & {
-	currentTarget: EventTarget & HTMLElement;
-};
-
 type Direction = "top" | "right" | "bottom" | "left";
 
 type Swipe = CustomEvent<{ direction: Direction; }>;

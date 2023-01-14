@@ -13,8 +13,8 @@
 	const modes = modeData.modes.map((e) => e.name.toLowerCase());
 	let validLink = false;
 	let validNumber = false;
-	let linkValue: string;
-	let numValue: string;
+	let linkValue = "";
+	let numValue = "";
 	let linkMode: GameMode;
 	let newWordNum: number;
 
@@ -47,8 +47,8 @@
 		return true;
 	}
 
-	function submit(e: A11yClick) {
-		console.log("Historical activated");
+	function submit(e: MouseEvent | KeyboardEvent) {
+		if (!validLink && !validNumber) return;
 		const newMode = validNumber ? $mode : linkMode;
 		const currentModeData = modeData.modes[newMode];
 
@@ -69,6 +69,14 @@
 			reset();
 		}
 	});
+
+	function onInput(e: KeyboardEvent & { currentTarget: EventTarget & HTMLInputElement }) {
+		if (e.key === "Enter") {
+			e.preventDefault();
+			e.currentTarget.blur();
+			submit(e);
+		}
+	}
 </script>
 
 <h3>Play a historical game</h3>
@@ -78,22 +86,20 @@
 		bind:value={linkValue}
 		placeholder="Example: {window.location}/1"
 		class:valid={validLink}
-		on:input={() => {
-			validLink = validateLink();
-		}}
+		on:input={() => (validLink = validateLink())}
+		on:keydown={onInput}
 	/>
 {/key}
 <div>Paste in a link</div>
 <h3>or</h3>
 <div class="number">
 	<input
-		type="text"
+		type="number"
 		bind:value={numValue}
 		placeholder="Example: 1"
 		class:valid={validNumber}
-		on:input={(e) => {
-			validNumber = validateNumber(+numValue, getWordNumber($mode, true));
-		}}
+		on:input={() => (validNumber = validateNumber(+numValue, getWordNumber($mode, true)))}
+		on:keydown={onInput}
 	/>
 	<select bind:value={$mode}>
 		{#each modes as mode, i}
@@ -129,6 +135,15 @@
 	}
 	input:placeholder-shown {
 		outline: none;
+	}
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+	input[type="number"] {
+		-moz-appearance: textfield;
+		appearance: textfield;
 	}
 	.valid {
 		outline-color: var(--color-correct);
