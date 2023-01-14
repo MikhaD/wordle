@@ -31,6 +31,7 @@
 	--border-primary: #3a3a3c;
 	--border-secondary: #272729;
 	--bg-secondary: #1a1a1b;
+	--mode-symbol-color: var(--bg-secondary);
 	--bg-primary: #121213;
 
 	--red: #9C2323;
@@ -52,6 +53,7 @@ body {
 	--border-primary: #d3d6da;
 	--border-secondary: var(--border-primary);
 	--bg-secondary: #e0e0e0;
+	--mode-symbol-color: #f1f1f1;
 	--bg-primary: #ffffff;
 
 	--red: #C42C2C;

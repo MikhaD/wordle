@@ -125,7 +125,7 @@
 		max-height: 100%;
 	}
 	path {
-		stroke: var(--bg-secondary);
+		stroke: var(--mode-symbol-color);
 	}
 	.tutorial {
 		top: calc(100 / var(--rows) * 1%);
