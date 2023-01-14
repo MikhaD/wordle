@@ -52,14 +52,12 @@
 	let startTime: number;
 
 	function swipeStart(e: TouchEvent) {
-		e.preventDefault();
 		startX = e.changedTouches[0].pageX;
 		startY = e.changedTouches[0].pageY;
 		startTime = Date.now();
 	}
 
 	function swipeEnd(e: TouchEvent) {
-		e.preventDefault();
 		let deltaX = e.changedTouches[0].clientX - startX;
 		let deltaY = e.changedTouches[0].clientY - startY;
 		let elapsed = Date.now() - startTime;
@@ -97,8 +95,7 @@
 			on:click={() => dispatch("closeTutPopUp")}
 			on:keydown={() => dispatch("closeTutPopUp")}
 		>
-			double tap (right click) a row to see a word's definition, or how many words could be
-			played there
+			double tap a row to see a word's definition, or how many words can be played there
 			<span class="ok">OK</span>
 		</div>
 	{/if}

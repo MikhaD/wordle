@@ -71,7 +71,7 @@
 			on:click={() => dispatch("closeTutPopUp")}
 			on:keydown={() => dispatch("closeTutPopUp")}
 		>
-			Tap WORDLE+ to change game mode
+			Swipe board or tap WORDLE+ to change game mode
 			<span class="ok">OK</span>
 		</div>
 	{/if}
