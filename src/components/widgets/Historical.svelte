@@ -81,26 +81,30 @@
 
 <h3>Play a historical game</h3>
 {#key $mode}
-	<input
-		type="text"
-		bind:value={linkValue}
-		placeholder="Example: {window.location}/1"
-		class:valid={validLink}
-		on:input={() => (validLink = validateLink())}
-		on:keydown={onInput}
-	/>
+	<form>
+		<input
+			type="text"
+			bind:value={linkValue}
+			placeholder="Example: {window.location}/1"
+			class:valid={validLink}
+			on:input={() => (validLink = validateLink())}
+			on:keydown={onInput}
+		/>
+	</form>
 {/key}
 <div>Paste in a link</div>
 <h3>or</h3>
 <div class="number">
-	<input
-		type="number"
-		bind:value={numValue}
-		placeholder="Example: 1"
-		class:valid={validNumber}
-		on:input={() => (validNumber = validateNumber(+numValue, getWordNumber($mode, true)))}
-		on:keydown={onInput}
-	/>
+	<form>
+		<input
+			type="number"
+			bind:value={numValue}
+			placeholder="Example: 1"
+			class:valid={validNumber}
+			on:input={() => (validNumber = validateNumber(+numValue, getWordNumber($mode, true)))}
+			on:keydown={onInput}
+		/>
+	</form>
 	<select bind:value={$mode}>
 		{#each modes as mode, i}
 			<option value={i}>{mode}</option>
@@ -127,6 +131,7 @@
 		color: inherit;
 		font-size: inherit;
 		width: 100%;
+		height: 100%;
 		border-radius: 4px;
 		background-color: var(--border-secondary);
 		border: none;
@@ -155,6 +160,9 @@
 	.number {
 		display: flex;
 		gap: 1rem;
+		form {
+			flex: 1;
+		}
 	}
 	.button {
 		background-color: var(--color-correct);
