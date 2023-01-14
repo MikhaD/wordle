@@ -42,13 +42,39 @@
 			pSols = pAns + words.valid.filter((w) => match(w)).length;
 		}
 	}
+
+	const swipeThreshold = 120;
+	const swipeTolerance = 100;
+	const maxSwipePeriod = 300;
+
+	let startX: number;
+	let startY: number;
+	let startTime: number;
+
+	function swipeStart(e: TouchEvent) {
+		e.preventDefault();
+		startX = e.changedTouches[0].pageX;
+		startY = e.changedTouches[0].pageY;
+		startTime = Date.now();
+	}
+
+	function swipeEnd(e: TouchEvent) {
+		e.preventDefault();
+		let deltaX = e.changedTouches[0].clientX - startX;
+		let deltaY = e.changedTouches[0].clientY - startY;
+		let elapsed = Date.now() - startTime;
+		if (elapsed > maxSwipePeriod) return;
+		if (Math.abs(deltaX) >= swipeThreshold && Math.abs(deltaY) < swipeTolerance) {
+			dispatch("swipe", { direction: deltaX < 0 ? "left" : "right" });
+		}
+	}
 </script>
 
 {#if showCtx}
 	<ContextMenu {pAns} {pSols} {x} {y} {word} />
 {/if}
 
-<div class="board">
+<div class="board" on:touchstart={swipeStart} on:touchend={swipeEnd} on:touchmove|preventDefault>
 	{#each value as _, i}
 		<Row
 			num={i}

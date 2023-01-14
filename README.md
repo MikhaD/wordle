@@ -20,21 +20,22 @@ Hosted on GitHub pages [here](https://mikhad.github.io/wordle/).
 - Right clicking the row below the last submitted word will tell you how many possibilities there are taking all previous information into account.
 - The game mode is reflected in the url, allowing you to share a game mode directly.
 - You can share a link to a specific game number, allowing you to play historical games, and share specific rounds of the faster changing modes with your friends.
+- You can access previous games from the settings menu by inputting a game number or link.
 - Service worker which allows the game to be easily downloaded as a progressive web app and run offline.
 - Give Up button.
 
 ## Additional modes
+The game mode can be changed by clicking WORDLE+ at the top of the screen or swiping the board in either direction.
 **Hourly mode**: A new word every hour.
 
 **Infinite mode**: A new word every time you refresh, for the true addicts.
 
 # Technical details
 This is written with Svelte in Typescript. This is my first Svelte project, and is intended as an exercise to help me learn and become proficient in Svelte.
-This is still in development. My goal is to make it as close to the original wordle as possible while also adding additional features. I will continue to make it more similar to the original.
 
 # Forking this project
-Anybody is welcome to fork this repository and do what they like with it, provided they follow the accompanying licence (GPL-3.0).
-I would also appreciate if you could remove my google analytics script from the head of the page and include a link back to this repository somewhere.
+Anybody is welcome to fork this repository and do what they like with it, provided they follow the accompanying license (GPL-3.0).
+I would also appreciate if you could link back to this repository and credit me in your project.
 
 Have fun :)
 
@@ -43,5 +44,5 @@ Have fun :)
 
 - Add the mode name to the **end** of the GameMode enum in `enums.ts`
 - Add a case for that mode in the newSeed function in `utils.ts`
-- Add a ModeData object to the modeData modes array in `utils.ts` 
+- Add a ModeData object to the modeData modes array in `utils.ts`
 </details>

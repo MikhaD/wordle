@@ -136,6 +136,19 @@
 		if (!game.active) showStats = true;
 	}
 
+	function onSwipe(e: Swipe) {
+		switch (e.detail.direction) {
+			case "left":
+				$mode = ($mode - 1 + modeData.modes.length) % modeData.modes.length;
+				toaster.pop(modeData.modes[$mode].name);
+				break;
+			case "right":
+				$mode = ($mode + 1) % modeData.modes.length;
+				toaster.pop(modeData.modes[$mode].name);
+				break;
+		}
+	}
+
 	onMount(() => {
 		if (!game.active) setTimeout(setShowStatsTrue, delay);
 	});
@@ -163,6 +176,7 @@
 		board={game.board}
 		guesses={game.guesses}
 		icon={modeData.modes[$mode].icon}
+		on:swipe={onSwipe}
 	/>
 	<Keyboard
 		on:keystroke={() => {
