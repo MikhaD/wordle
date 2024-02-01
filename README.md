@@ -5,6 +5,36 @@
 </div>
 
 ---
+
+# Craig Veiner's Notes
+
+### Thank You Mikha Davids
+- This is a fork of Mikha Davids' Wordle+ repository at https://github.com/MikhaD/wordle
+
+### To run a svelte app...
+- Open a terminal in the app's root folder.
+- npm install // one time install of svelte dependencies
+- npm run dev // gives link to run and debug app in html browser
+- In Brave, select menu "More tools > Development tools Ctrl+Shift+I" to open the Development tools panel, which can be floating or docked to the right side. Use the "Console" tab to see "console.log(variable)".
+
+### To run the hidden "Reset your stats" function...
+- Click on the Wordle+ Settings icon (the gear icon).
+- Hover your mouse over the words "Infinite word #xyz" in the bottom right corner of the window and the following message will pop up: "double click to reset your stats".
+- Keeping your mouse in the same place, double click your mouse.
+- The following message will briefly pop up: "localStorage cleared".
+- All your stats will be erased, and you will be able to play any game number that you have already played from the beginning, with new guesses.
+
+### Craig's Research and Modifications
+- Board.svelte\context calls utils.ts\getRowData to filter utils.ts\words.words to pAnsWords list of remaining solutions.
+- utils.ts\getRowData has a "duplicate letters bug" that returns false remaining solution(s) for the case where the tiles have revealed duplicate letters. This is the same bug as Mikha Davids' Wordle repository Issue #69 titled "Potential answer / guess count displayed 0 for 'Dolly' ".
+- To replicate the "duplicate letters bug", revert the following code in the utils.ts\getRowData function from "if (occurrences < e[1][0]) {" to "if (!occurrences || (e[1][1] && occurrences !== e[1][0])) {". Then, play any of the games below with and without the reverted change, double click the row after the suggested guess and Board.svelt\context will log out pAnsWords (the list of remaining solutions) to the Console tab of the browser's Development tools panel.
+- http://localhost:5173/wordle/#infinite/43873602 dolly, try guess "lolly" or "lowly" after guesses "slate" and "broil". Reference Mikha Davids' Wordle repository Issue #69 titled "Potential answer / guess count displayed 0 for 'Dolly' ".
+- http://localhost:5173/wordle/#infinite/63769522 beefy, try guess "greed" after guess "slate".
+- http://localhost:5173/wordle/#infinite/63781582 gloom, try guess "boozy" after guess "trace".
+
+### Mikha Davids' original ReadMe.md continues below.
+
+# Wordle Overview
 A recreation of the popular game [Wordle](https://www.nytimes.com/games/wordle/) by Josh Wardle (now purchased by the New York Times), with additional modes and features.
 Hosted on GitHub pages [here](https://mikhad.github.io/wordle/).
 
