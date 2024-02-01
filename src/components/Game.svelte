@@ -35,7 +35,7 @@
 	} from "../utils";
 	import { letterStates, settings, mode } from "../stores";
 
-	export let word: string;
+	export let solution: string;
 	export let stats: Stats;
 	export let game: GameState;
 	export let toaster: Toaster;
@@ -78,11 +78,11 @@
 					game.validHard = false;
 				}
 			}
-			game.board.state[game.guesses] = game.guess(word);
+			game.board.state[game.guesses] = game.guess(solution);
 			++game.guesses;
 			$letterStates.update(game.lastState, game.lastWord);
 			$letterStates = $letterStates;
-			if (game.lastWord === word) win();
+			if (game.lastWord === solution) win();
 			else if (game.guesses === ROWS) lose();
 		} else {
 			toaster.pop("Not in word list");
@@ -125,7 +125,8 @@
 		modeData.modes[$mode].historical = false;
 		modeData.modes[$mode].seed = newSeed($mode);
 		game = new GameState($mode, localStorage.getItem(`state-${$mode}`));
-		word = words.words[seededRandomInt(0, words.words.length, modeData.modes[$mode].seed)];
+		solution = words.words[seededRandomInt(0, words.words.length, modeData.modes[$mode].seed)];
+		console.log("Cheat. The solution is: " + solution);
 		$letterStates = new LetterStates();
 		showStats = false;
 		showRefresh = false;
@@ -220,7 +221,7 @@
 	</Separator>
 	<ShareGame wordNumber={game.wordNumber} />
 	{#if !game.active}
-		<Definition {word} alternates={2} />
+		<Definition word={solution} alternates={2} />
 	{:else}
 		<!-- Fade with delay is to prevent a bright red button from appearing as soon as refresh is pressed -->
 		<div

@@ -29,6 +29,7 @@
 	let x = 0;
 	let y = 0;
 	let word = "";
+	let pAnsWords: string[] = [];
 
 	function context(cx: number, cy: number, num: number, val: string) {
 		if (guesses >= num) {
@@ -38,7 +39,8 @@
 			word = guesses > num ? val : "";
 
 			const match = getRowData(num, board);
-			pAns = words.words.filter((w) => match(w)).length;
+			pAnsWords = words.words.filter((w) => match(w));
+			pAns = pAnsWords.length;
 			pSols = pAns + words.valid.filter((w) => match(w)).length;
 		}
 	}
@@ -69,7 +71,7 @@
 </script>
 
 {#if showCtx}
-	<ContextMenu {pAns} {pSols} {x} {y} {word} />
+	<ContextMenu {pAns} {pSols} {x} {y} {word} {pAnsWords} />
 {/if}
 
 <div class="board" on:touchstart={swipeStart} on:touchend={swipeEnd} on:touchmove|preventDefault>

@@ -67,5 +67,5 @@
 
 <Toaster bind:this={toaster} />
 {#if toaster}
-	<Game {stats} bind:word {toaster} bind:game={state} />
+	<Game {stats} bind:solution={word} {toaster} bind:game={state} />
 {/if}
