@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+
+	<meta name="theme-color" content="#6aaa64" />
+	<link rel="manifest" href="manifest.json">
+	<link rel="shortcut icon" href="img/logo_32x32.png" type="image/x-icon">
+	<link rel="apple-touch-icon" href="img/logo_192x192.png" />
+	<link rel="stylesheet" href="global.css">
+
+	<meta name="author" content="MikhaD">
+	<meta name="description"
+		content="Wordle with infinite, hourly and daily modes. Double tap on a word to learn it's definition.">
+	<meta name="keywords"
+		content="wordle, infinite wordle, wordle infinite, infinate wordle, infinte wordle, unlimited, daily wordle, wordle+, word game, puzzle, game">
+
+	<!-- FB Meta Tags -->
+	<meta property="og:url" content="https://mikhad.github.io/wordle/">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Wordle+ | An infinite word guessing game">
+	<meta property="og:description" content="Guess the word in 6 tries. Play daily, hourly and infinite modes.">
+	<meta property="og:image" content="https://mikhad.github.io/wordle/img/og_1200x630.png">
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<meta name="google-site-verification" content="nfr4xQiyHWYkamHQq6M7E9kXoXp8tmNihRU0c5yXjlw" />
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RHN319RJ6V"></script>
+	<script>
+		if (document.location.origin === "https://mikhad.github.io") {
+			// Google Analytics
+			window.dataLayer = window.dataLayer || [];
+			function gtag() { dataLayer.push(arguments); }
+			gtag('js', new Date());
+			gtag('config', 'G-RHN319RJ6V');
+
+			// PWA Service worker
+			if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js");
+		}
+	</script>
+
+	
+	<!-- changed to something more suited to being the title of a tab in App.svelte. This title is for SEO -->
+	<title>Infinite wordle - Play unlimited wordles | Wordle+</title>
+  <script type="module" crossorigin src="/wordle/index-v1.5.2.js"></script>
+  <link rel="stylesheet" href="/wordle/index-v1.5.2.css">
+</head>
+
+<body>
+</body>
+
+</html>

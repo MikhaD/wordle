@@ -1,0 +1,154 @@
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	transition: background-color 0.2s ease;
+}
+
+:root {
+	font-family: Arial, sans-serif;
+	background: var(--bg-primary);
+	color: var(--fg-primary);
+	font-size: var(--fs-regular);
+	user-select: none;
+	-webkit-user-select: none;
+	overflow: hidden;
+	height: 100%;
+
+	--fs-tiny: 12px;
+	--fs-small: 14px;
+	--fs-regular: 16px;
+	--fs-medium: 20px;
+	--fs-large: 36px;
+
+	--game-width: 500px;
+
+	--fg-primary: #d7dadc;
+	--fg-secondary: #818384;
+	--icon-color: #565758;
+	--border-primary: #3a3a3c;
+	--border-secondary: #272729;
+	--bg-secondary: #1a1a1b;
+	--mode-symbol-color: var(--bg-secondary);
+	--bg-primary: #121213;
+
+	--red: #9C2323;
+	--color-present: #b59f3b;
+	--color-correct: #538d4e;
+	--color-absent: var(--border-primary);
+	--evaluated-key-color: var(--fg-primary);
+	--key-bg: var(--fg-secondary);
+}
+
+body {
+	height: 100%
+}
+
+.light {
+	--fg-primary: #1a1a1b;
+	--fg-secondary: #787c7e;
+	--icon-color: var(--fg-secondary);
+	--border-primary: #d3d6da;
+	--border-secondary: var(--border-primary);
+	--bg-secondary: #e0e0e0;
+	--mode-symbol-color: #f1f1f1;
+	--bg-primary: #ffffff;
+
+	--red: #C42C2C;
+	--color-present: #c9b458;
+	--color-correct: #6aaa64;
+	--color-absent: var(--fg-secondary);
+	--evaluated-key-color: var(--bg-primary);
+	--key-bg: var(--border-primary);
+}
+
+.colorblind {
+	--color-correct: #f5793a;
+	--color-present: #85c0f9;
+}
+
+h3 {
+	text-align: center;
+	text-transform: uppercase;
+	margin-bottom: 10px;
+}
+
+.⬛,
+.🟨,
+.🟩 {
+	color: var(--evaluated-key-color);
+}
+
+a:link,
+a:visited {
+	color: inherit;
+}
+
+.tutorial {
+	--arrow-size: 10px;
+	--padding: 10px;
+	font-size: var(--fs-small);
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: initial;
+	position: absolute;
+	top: calc(var(--arrow-size) + var(--height));
+	left: 50%;
+	transform: translateX(-50%);
+	width: max-content;
+	max-width: min(var(--game-width), 95vw);
+	display: flex;
+	align-items: center;
+	padding: var(--padding);
+	border-radius: 4px;
+	color: var(--bg-primary);
+	background: var(--fg-primary);
+	z-index: 1;
+}
+
+.tutorial::before {
+	content: "";
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%);
+	top: calc(-2 * var(--arrow-size));
+	border: var(--arrow-size) solid transparent;
+	border-bottom: var(--arrow-size) solid var(--fg-primary);
+}
+
+.ok {
+	padding: 10px;
+	margin-left: var(--padding);
+	border-radius: 4px;
+	color: white;
+	background: var(--color-correct);
+	cursor: pointer;
+}
+
+.button {
+	margin-top: 15px;
+	text-transform: uppercase;
+	color: #fff;
+	cursor: pointer;
+	font-size: var(--fs-medium);
+	font-weight: bold;
+	padding: 15px;
+	border-radius: 4px;
+	text-align: center;
+}
+
+.button:hover {
+	opacity: 0.9;
+}
+
+select {
+	border: solid 1px var(--border-secondary);
+	padding: 8px;
+	min-width: 85px;
+	border-radius: 4px;
+	cursor: pointer;
+	background: var(--bg-secondary);
+	color: var(--fg-primary);
+}
