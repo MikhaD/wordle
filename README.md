@@ -58,3 +58,8 @@ This information cannot be linked back to individual users. It is for my own per
 - Add a case for that mode in the newSeed function in `utils.ts`
 - Add a ModeData object to the modeData modes array in `utils.ts`
 </details>
+                        
+## Stargazers over time
+[![Stargazers over time](https://starchart.cc/MikhaD/wordle.svg?variant=adaptive)](https://starchart.cc/MikhaD/wordle)
+
+                    
