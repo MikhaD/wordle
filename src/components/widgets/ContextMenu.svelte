@@ -6,29 +6,24 @@
 	export let word = "";
 	export let pAns: number;
 	export let pSols: number;
+	export let pAnsWords: string[];
 	const width = +getComputedStyle(document.body).getPropertyValue("--game-width") / 2;
 
 	$: x = window.innerWidth - x < width ? window.innerWidth - width : x;
 </script>
 
 <div class="ctx-menu" style="top: {y}px; left: {x}px;">
+	<div>
+		Before guessing "{word}" there were
+		<br /><br />
+		{pAns} possible answer{pAns > 1 ? "s" : ""}
+		<br />
+		{#if void console.log(`${pAns} possible answers before guessing "${word}": ${pAnsWords}`)} "" {/if}
+		{pSols} valid guess{pSols > 1 ? "es" : ""}
+		<br />
+	</div>
 	{#if word !== ""}
-		<div>
-			Considering all hints, this row had:
-			<br /><br />
-			{pAns} possible answer{pAns > 1 ? "s" : ""}
-			<br />
-			{pSols} valid guess{pSols > 1 ? "es" : ""}
-		</div>
 		<Definition {word} alternates={1} />
-	{:else}
-		<div>
-			Considering all hints, there {pAns > 1 ? "are" : "is"}:
-			<br /><br />
-			{pAns} possible answer{pAns > 1 ? "s" : ""}
-			<br />
-			{pSols} valid guess{pSols > 1 ? "es" : ""}
-		</div>
 	{/if}
 </div>
 

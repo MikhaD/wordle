@@ -76,7 +76,7 @@ export function getRowData(n: number, board: GameBoard) {
 		for (let col = 0; col < COLS; ++col) {
 			const state = board.state[row][col];
 			const char = board.words[row][col];
-			if (state === "⬛") {
+			if (state === "⬛") { // char not in solution
 				wd.confirmCount(char);
 				// if char isn't in the global not list add it to the not list for that position
 				if (!wd.inGlobalNotList(char)) {
@@ -84,35 +84,45 @@ export function getRowData(n: number, board: GameBoard) {
 				}
 				continue;
 			}
-			// If this isn't the first time this letter has occurred in this row
-			if (occurred.has(char)) {
+			if (occurred.has(char)) { 
+				// this letter has already been seen in this row
 				wd.incrementCount(char);
-			} else if (!wd.countConfirmed(char)) {
+			} else if (!wd.countConfirmed(char)) { 
+				// this is the first time seeing this letter in this row
 				occurred.add(char);
 				wd.setCount(char, 1);
 			}
-			if (state === "🟩") {
-				wd.word[col].value = char;
+			if (state === "🟩") { // if letter found in correct spot
+				wd.word[col].value = char; // set the filter for this column to the found letter
 			}
-			else {	// if (state === "🟨")
-				wd.word[col].not(char);
+			else {	// if (state === "🟨") if letter found in wrong spot
+				wd.word[col].not(char); // add letter to the global not list
 			}
 		}
 	}
 
 	let exp = "";
 	for (let pos = 0; pos < wd.word.length; ++pos) {
-		exp += wd.word[pos].value ? wd.word[pos].value : `[^${[...wd.lettersNotAt(pos)].join(" ")}]`;
+		exp += wd.word[pos].value ? wd.word[pos].value : `[^${[...wd.lettersNotAt(pos)].join("")}]`;
 	}
+
+	// console.log("before guessing:", board.words[n], "RegExp:", exp, "GameBoard:", board, "WordData:", wd);
+
 	return (word: string) => {
 		if (new RegExp(exp).test(word)) {
 			const chars = word.split("");
 			for (const e of wd.letterCounts) {
 				const occurrences = countOccurrences(chars, e[0]);
-				if (!occurrences || (e[1][1] && occurrences !== e[1][0])) return false;
+				if (occurrences < e[1][0]) {
+				// if (!occurrences || (e[1][1] && occurrences !== e[1][0])) {
+					// console.log(`${occurrences} "${e[0]}" in "${word}", ${e[1][0]} or more required. RegExp: "${exp}"`);
+					return false;
+				}
 			}
+			// console.log(`"${word}" is a possible solution, matches RegExp "${exp}" and occurrences`);
 			return true;
 		}
+		// console.log(`"${word}" does not match RegExp "${exp}"`);
 		return false;
 	};
 }
@@ -281,22 +291,23 @@ export class GameState extends Storable {
 		}
 		return { pos: -1, char: "", type: "⬛" };
 	}
-	guess(word: string) {
-		const characters = word.split("");
+	guess(solution: string) {
+		const solChars = solution.split("");
 		const result = Array<LetterState>(COLS).fill("⬛");
 		for (let i = 0; i < COLS; ++i) {
-			if (characters[i] === this.latestWord.charAt(i)) {
-				result[i] = "🟩";
-				characters[i] = "$";
+			if (solChars[i] === this.latestWord.charAt(i)) {
+				result[i] = "🟩"; // letter found in correct spot
+				solChars[i] = "$"; // mark letter as found
 			}
 		}
 		for (let i = 0; i < COLS; ++i) {
-			const pos = characters.indexOf(this.latestWord[i]);
+			const pos = solChars.indexOf(this.latestWord[i]);
 			if (result[i] !== "🟩" && pos >= 0) {
-				characters[pos] = "$";
-				result[i] = "🟨";
+				solChars[pos] = "-"; // mark letter as almost found
+				result[i] = "🟨"; // letter found in wrong spot
 			}
 		}
+		console.log(solution, solChars);
 		return result;
 	}
 	private parse(str: string) {

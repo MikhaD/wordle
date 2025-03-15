@@ -11,6 +11,12 @@
 </script>
 
 <h3>guess distribution</h3>
+<div class="guess">
+	{#if game.guesses && !game.active && !failed(game)}
+		<h4>{game.guesses} Guesses in last game.</h4>
+		<br />
+	{/if}
+</div>
 <div class="container">
 	{#each Object.entries(distribution) as guess, i (guess[0])}
 		{@const g = Number(guess[0])}
