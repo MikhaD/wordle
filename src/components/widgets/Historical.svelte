@@ -39,11 +39,13 @@
 			.toLowerCase()
 			.split("/");
 		if (data.length !== 2) return false;
-		if (!(data[0] in GameMode)) return false;
-		if (!validateNumber(+data[1], getWordNumber(GameMode[data[0]], true))) {
+		// Check if mode name is valid
+		const modeIndex = modes.indexOf(data[0]);
+		if (modeIndex === -1) return false;
+		if (!validateNumber(+data[1], getWordNumber(modeIndex, true))) {
 			return false;
 		}
-		linkMode = GameMode[data[0]];
+		linkMode = modeIndex;
 		return true;
 	}
 
